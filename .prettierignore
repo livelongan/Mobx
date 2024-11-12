@@ -1,0 +1,6 @@
+/build/
+/src/setupProxy.js
+/public
+
+/node_modules
+/.eslintrc.js
