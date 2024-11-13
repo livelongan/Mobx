@@ -1,8 +1,8 @@
 export type NotificationProps = {
     title?: string
-    type: 'none' | 'success' | 'error' | 'warning' | 'info' | 'backend-info'
-    message?: JSX.Element | string
     closable?: boolean
+    message?: JSX.Element | string
+    type: 'success' | 'error' | 'warning' | 'info'
     error?: {
         url?: string
         title?: string

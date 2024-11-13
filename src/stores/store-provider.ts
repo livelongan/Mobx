@@ -1,7 +1,6 @@
 import { createContext } from 'react'
+import { RootStore } from './root-store'
 
-export type RootStore = { useProfile: null }
-
-export const StoreContext = createContext<RootStore>({ useProfile: null })
+export const StoreContext = createContext<RootStore>({ userProfileStore: null })
 
 export const RootStoreProvider = StoreContext.Provider

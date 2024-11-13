@@ -1,42 +1,49 @@
-import React from 'react'
-import { PropsWithChildren } from 'react'
+import React, { ErrorInfo, PropsWithChildren } from 'react'
+import { styled } from 'styled-components'
+const Root = styled('div')``
 type State = {
-    hasError: boolean
-    // fallback: () => void
+    errorThrown: { error: Error; info: ErrorInfo; stack: { [key: string]: string } } | undefined
 }
-export class ErrorBoundary extends React.Component<
-    PropsWithChildren<{}>,
-    State
-> {
-    constructor(props: {}) {
+export class ErrorBoundary extends React.Component<PropsWithChildren<object>, State> {
+    public constructor(props: object) {
         super(props)
-        this.state = { hasError: false }
+        this.state = { errorThrown: undefined }
     }
 
-    static getDerivedStateFromError(error: any) {
+    public static getDerivedStateFromError(error: any) {
         console.log(error)
         // 更新状态，以便下一次渲染将显示后备 UI。
         return { hasError: true }
     }
 
-    componentDidCatch(error: any, info: any) {
-        console.log(error), info
-        // 示例“组件堆栈”：
-        //   在 ComponentThatThrows 中（由 App 创建）
-        //   在 ErrorBoundary 中（由 APP 创建）
-        //   在 div 中（由 APP 创建）
-        //   在 App 中
+    public async componentDidCatch(error: Error, info: React.ErrorInfo): Promise<void> {
+        console.warn(error, info)
+        const stack: { [key: string]: string } = {}
+        try {
+            const regexParan = /[^() ]*(\([^()]*\))/g // regular expression to find strings inside param
+            const source = info.componentStack ? info.componentStack.toString() : ''
 
-        //logErrorToMyService(error, info.componentStack);
+            let match = regexParan.exec(source)
+            while (match) {
+                const [wholeMatch, key] = match
+                stack[key] = wholeMatch
+                match = regexParan.exec(source)
+            }
+        } catch (err) {
+            console.error('Error regex', (err as Error).toString())
+        }
+        this.setState({ errorThrown: { error, info, stack } })
     }
 
-    render() {
-        if (this.state.hasError) {
-            // 你可以渲染任何自定义后备 UI
-            // return this.props.fallback;
-        }
+    public render(): React.ReactNode {
+        const { errorThrown } = this.state
+        const { children } = this.props
 
-        return this.props.children
-        // return <div></div>
+        if (errorThrown != null) {
+            console.warn(errorThrown)
+
+            return <Root>error</Root>
+        }
+        return children
     }
 }

@@ -1,52 +1,39 @@
-import { observer } from "mobx-react-lite";
-import { forwardRef, useImperativeHandle, useRef } from "react";
-import { NotificationGroupHandle } from "./types";
-import { useStores } from "../../stores";
-type IProps = {}
-const NotificationGroup = observer(
-    forwardRef<NotificationGroupHandle, IProps>((props, ref) => {
+import { observer } from 'mobx-react-lite'
+import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react'
+import { NotificationGroupHandle, NotificationProps } from './types'
+import { styled } from 'styled-components'
+
+const Root = styled('div')``
+
+let groupRef: React.MutableRefObject<NotificationGroupHandle> | null = null
+
+export const NotificationGroup = observer(
+    forwardRef<NotificationGroupHandle, object>((props, ref) => {
         const notifyRef = useRef(null)
         const errorRef = useRef(null)
-        const { baseStore } = useStores()
-        const handleClose = (id: string) => {
-            baseStore.delNotify(id)
 
-            useEffect(() => {
-                if (ref && notifyRef) {
-                    groupRef = ref as React.MutableRefObject<NotifyGroupHandle>
+        useEffect(() => {
+            if (ref && notifyRef) {
+                groupRef = ref as React.MutableRefObject<NotificationGroupHandle>
+            }
+            return () => {
+                groupRef = null
+            }
+        }, [ref, notifyRef])
 
-                    return () => {
-                        groupRef = null
-
-                    }, [ref, notifyRef])
-        })
-        useImperativeHandle(
-            ref,
-            => {
-    return {
-        notification(notify: NotifyDto) {
-            const id = _.uniqueId('notify')
-            if (notify.type !== 'error') {
-                const time =
-                    notify.type !== 'backend-info'
-                        ? NOTYFIY_TIMEOUT
-                        : BACKEND_INFO_TIMEOUT
-                setTimeout(() => {
-                    baseStore.delNotify(id)
-                }, time)
-            } else {
-                baseStore.delErrorNotify()
-
-                baseStore.pushNotify({
-            .notify,
-                    id,
-                    closable:
-                        notify.closable !== undefined
-                            ? notify.closable
-                            : true,
-
-                }
-
-                [baseStore],
-                )
+        useImperativeHandle(ref, () => {
+            return {
+                notification: (dto: NotificationProps) => {
+                    console.log(dto)
+                },
+            }
+        }, [])
+        return <Root ref={errorRef}>error</Root>
+    }),
 )
+
+export const notification = (dto: NotificationProps) => {
+    if (groupRef?.current) {
+        groupRef.current.notification({ ...dto })
+    }
+}

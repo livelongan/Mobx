@@ -1,27 +1,32 @@
+const { override } = require("mobx");
+
 module.exports = {
     parser: '@typescript-eslint/parser',
     root: true,
-    env: { browser: true, es2020: true },
+    env: { 'jest/globals': true },
     extends: [
-        'plugin:react/recommended',
         'eslint:recommended',
-        'plugin:import/typescript',
-        'plugin:import/recommended',
-        'plugin:react/jsx-runtime',
+        'plugin:react/recommended',
+        'plugin:@typescript-eslint/recommended',
         // 'airbnb-typescript',
 
-        'plugin:@typescript-eslint/recommended',
         'prettier',
         'plugin:prettier/recommended',
+
+        'plugin:import/errors',
+        'plugin:import/warnings',
+        'plugin:import/typescript',
     ],
     plugins: [
         '@typescript-eslint',
         'react',
         'react-hooks',
-        'prettier'
+        'prettier',
+        'jest',
     ],
     ignorePatterns: ['dist', '.eslintrc.js'],
     parserOptions: {
+        ecmaVersions: 2020,
         sourceType: 'module',
         ecmaFeatures: {
             jsx: true,
@@ -81,19 +86,16 @@ module.exports = {
             'error',
             {
                 tabWidth: 4,
-                useTabs: false,
-                printWidth: 80,
+                printWidth: 120,
                 semi: false,
                 singleQuote: true,
                 trailingComma: 'all',
-                arrowParens: 'always',
+                // arrowParens: 'always',
                 endOfLine: 'lf',
             }
 
         ],
         'react/react-in-jsx-scope': 'off',
-        '@typescript-eslint/explicit-module-boundary-types': 'off',
-        '@typescript-eslint/no-explicit-any': 'off',
 
         'no-console': 'off',
         'no-nested-ternary': 'warn',
@@ -103,6 +105,8 @@ module.exports = {
         'no-empty': ['error', { allowEmptyCatch: true }],
         'no-await-in-loop': 'warn',
         'global-require': 'off',
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
+        '@typescript-eslint/no-explicit-any': 'off',
 
         '@typescript-eslint/semi': ['error', 'never'],
         '@typescript-eslint/no-empty-function': [
@@ -113,7 +117,8 @@ module.exports = {
                     'functions',
                     'methods',
                     'private-constructors',
-                    'protected-constructors',]
+                    'protected-constructors',
+                ]
             }
 
         ],
@@ -161,13 +166,14 @@ module.exports = {
         '@typescript-eslint/no-var-requires': 'warn',
         // '@typescript-eslint/prefer-optional-chain': ['error'],
         '@typescript-eslint/prefer-nullish-coalescing': ['error'],
+        '@typescript-eslint/no-unused-vars': 'warn',
 
         'import/prefer-default-export': 'off',
         'import/no-default-export': 'error',
         'import/no-anonymous-default-export': 'warn',
         'import/no-internal-modules': [
             'warn',
-            { allow: ['styled-components/native', 'react-dom/client', '@progress/kendo-react-dateinputs'] },
+            { allow: ['styled-components/native', 'react-dom/client'] },
         ],
         'import/no-self-import': 'error',
         'import/namespace': 'off',
@@ -185,9 +191,14 @@ module.exports = {
         'react-hooks/rules-of-hooks': 'error',
         'react-hooks/exhaustive-deps': 'error',
 
-
-
         // "react-hooks/exhaustive-deps": "error" // tried each
     },
-
+    overrides: [
+        {
+            files: ['scr/index.tsx', 'src/index.ts'],
+            rules: {
+                'import/no-default-export': 'off'
+            }
+        }
+    ]
 }

@@ -1,7 +1,7 @@
 import { types } from 'mobx-state-tree'
 
-export const EntityStoreModel = types
-    .model('EntityStoreModel')
+export const BaseStoreModel = types
+    .model('BaseStoreModel')
     .props({
         notifications: types.null,
     })
