@@ -1,31 +1,38 @@
-import { AppBar, AppBarSection, AppBarSpacer } from '@progress/kendo-react-layout'
-import { Button } from '@progress/kendo-react-buttons'
-import * as svgIcons from '@progress/kendo-svg-icons'
-import { DrawerMenu } from './drawer-menu'
 import { observer } from 'mobx-react-lite'
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, useState } from 'react'
+import { CollapseMenu } from './collapse-menu'
+import { Header } from './header'
+import styled from '@emotion/styled'
+
+const Root = styled('div')`
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+`
+
+const BodyRoot = styled('div')`
+    flex: 1;
+    display: flex;
+`
+
+const PageContainer = styled('div')`
+    height: 100%;
+    width: 100%;
+`
 
 type IProps = PropsWithChildren<object>
-
 export const Container = observer<IProps>(({ children }) => {
-    const handleClick = () => {
-        console.log(1)
-    }
+    const [open, setOpen] = useState(false)
     return (
-        <>
-            <AppBar>
-                <AppBarSection>
-                    <Button svgIcon={svgIcons.layoutIcon} fillMode="flat" onClick={handleClick} />
-                </AppBarSection>
-
-                <AppBarSection>
-                    <h1 className="title">AppBar expanding Drawer component</h1>
-                </AppBarSection>
-
-                <AppBarSpacer />
-            </AppBar>
-
-            <DrawerMenu>{children}</DrawerMenu>
-        </>
+        <Root>
+            <Header open={open} setOpen={setOpen} />
+            <BodyRoot>
+                <CollapseMenu open={open} setOpen={setOpen}>
+                    {children}
+                </CollapseMenu>
+                <PageContainer className="page">{children}</PageContainer>
+            </BodyRoot>
+        </Root>
     )
 })

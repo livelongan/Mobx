@@ -1,9 +1,9 @@
 import React, { ErrorInfo, PropsWithChildren } from 'react'
-import { styled } from 'styled-components'
-const Root = styled('div')``
+
 type State = {
     errorThrown: { error: Error; info: ErrorInfo; stack: { [key: string]: string } } | undefined
 }
+
 export class ErrorBoundary extends React.Component<PropsWithChildren<object>, State> {
     public constructor(props: object) {
         super(props)
@@ -42,7 +42,7 @@ export class ErrorBoundary extends React.Component<PropsWithChildren<object>, St
         if (errorThrown != null) {
             console.warn(errorThrown)
 
-            return <Root>error</Root>
+            return <div>error</div>
         }
         return children
     }

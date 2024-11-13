@@ -1,6 +1,4 @@
-import { DrawerItemProps } from '@progress/kendo-react-layout'
-
-export type MenuProps = DrawerItemProps & {
+export type MenuProps = {
     path: string
     children?: MenuProps[]
     className?: string

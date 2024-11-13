@@ -1,9 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react'
 import { NotificationGroupHandle, NotificationProps } from './types'
-import { styled } from 'styled-components'
-
-const Root = styled('div')``
 
 let groupRef: React.MutableRefObject<NotificationGroupHandle> | null = null
 
@@ -28,7 +25,7 @@ export const NotificationGroup = observer(
                 },
             }
         }, [])
-        return <Root ref={errorRef}>error</Root>
+        return <div ref={errorRef}>error msg</div>
     }),
 )
 
