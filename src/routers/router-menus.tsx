@@ -1,41 +1,41 @@
 import { RouteItemProps } from '../components'
 import { ReactPage, UserProfile, Settings } from '../pages'
 
-export const RoutesConfig: RouteItemProps[] = [
+export const RouterMenu: RouteItemProps[] = [
     {
         path: '/react',
         text: 'Menu 1',
-        component: ReactPage,
+        component: <ReactPage />,
     },
     {
         path: '/javascript',
         text: 'Javascript',
-        component: ReactPage,
+        component: <ReactPage />,
     },
     {
         path: '/typescript',
         text: 'Typescript',
-        component: ReactPage,
+        component: <ReactPage />,
     },
     {
         path: '/web',
         text: 'Web',
-        component: ReactPage,
+        component: <ReactPage />,
         children: [
             {
                 path: '/react',
                 text: 'Menu 1',
-                component: ReactPage,
+                component: <ReactPage />,
             },
             {
                 path: '/javascript',
                 text: 'Javascript',
-                component: ReactPage,
+                component: <ReactPage />,
             },
             {
                 path: '/typescript',
                 text: 'Typescript',
-                component: ReactPage,
+                component: <ReactPage />,
             },
         ],
     },
@@ -43,27 +43,27 @@ export const RoutesConfig: RouteItemProps[] = [
     {
         path: '/html',
         text: 'HTML',
-        component: ReactPage,
+        component: <ReactPage />,
     },
     {
         path: '/css',
         text: 'Css',
-        component: ReactPage,
+        component: <ReactPage />,
     },
     {
         path: '/vue',
         text: 'Vue',
-        component: ReactPage,
+        component: <ReactPage />,
     },
     { separator: true },
     {
         path: '/',
         text: 'User Profile',
-        component: UserProfile,
+        component: <UserProfile />,
     },
     {
         path: '/settings',
         text: 'Settings',
-        component: Settings,
+        component: <Settings />,
     },
 ]

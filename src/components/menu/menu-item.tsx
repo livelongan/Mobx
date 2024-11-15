@@ -1,18 +1,23 @@
 import { observer } from 'mobx-react-lite'
 import { MenuItemProps } from './types'
-import { Box, Typography } from '@mui/material'
+import { Box, styled, Typography } from '@mui/material'
 import { MenuItemIcon } from './menu-item-icon'
 import { KeyboardArrowDownOutlined, TextSnippetOutlined } from '@mui/icons-material'
 import { useStores } from '../../stores'
 import { useMemo } from 'react'
 import { GAP } from '../../constants'
-import styled from '@emotion/styled'
+import { ModePalette } from '../../theme'
 
-const Root = styled(Box)`
+const Root = styled(Box)(
+    ({ theme }) => `
     display: flex;
     align-items: center;
     width: auto;
-`
+    &.selected {
+        box-shadow: 4px 0px 0px 0px ${ModePalette(theme, 'secondary')} inset;
+    }
+`,
+)
 
 const LabelWrapper = styled(Box)`
     flex: 1;
@@ -34,15 +39,15 @@ const LabelWrapper = styled(Box)`
 `
 
 export const MenuItem = observer<MenuItemProps>((props) => {
+    const { text, id } = props
     const { children = [] } = props
     const { baseStore } = useStores()
 
     const collapsed = useMemo(() => baseStore.collapse, [baseStore.collapse])
-
-    const { text } = props
+    const route = useMemo(() => baseStore.route, [baseStore.route])
 
     return (
-        <Root className="menu-item">
+        <Root className={`menu-wrapper ${route?.id === id ? 'selected' : ''}`.trim()}>
             <MenuItemIcon color="inherit">
                 <TextSnippetOutlined />
             </MenuItemIcon>

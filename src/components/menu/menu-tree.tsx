@@ -1,15 +1,15 @@
 import { useNavigate } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
-import styled from '@emotion/styled'
 import { SimpleTreeView, TreeItem } from '@mui/x-tree-view'
 import { MenuItem } from './menu-item'
 import { useStores } from '../../stores'
 import { useCallback, useMemo } from 'react'
 import { useRoutes } from '../../routers'
-import { Divider } from '@mui/material'
+import { Divider, styled } from '@mui/material'
 import { MenuItemProps } from './types'
 
-const TreeRoot = styled(SimpleTreeView)`
+const TreeRoot = styled(SimpleTreeView)(
+    () => `
     & .MuiTreeItem-content {
         gap: 0;
         padding: 0;
@@ -23,10 +23,8 @@ const TreeRoot = styled(SimpleTreeView)`
     & .MuiTreeItem-groupTransition {
         padding-left: 0;
     }
-    & .submenu .MuiTreeItem-content {
-        padding-left: 32px;
-    }
-`
+`,
+)
 
 export const MenuTree = observer(() => {
     const { baseStore } = useStores()
@@ -37,7 +35,9 @@ export const MenuTree = observer(() => {
     const expanded = useMemo(() => baseStore.expandedIds, [baseStore.expandedIds])
 
     const handleMenuClick = useCallback(
-        (menu: MenuItemProps) => {
+        (menu: MenuItemProps, event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+            event.stopPropagation()
+            event.preventDefault()
             if (!menu.separator) {
                 if (!menu.children || menu.children.length < 0) {
                     navigate(menu.path)
@@ -55,11 +55,6 @@ export const MenuTree = observer(() => {
         },
         [baseStore, expanded, navigate],
     )
-
-    // const selected = useMemo(() => {
-    //     return
-    //     findRoute,
-    // })
 
     return (
         <TreeRoot slots={{ expandIcon: undefined, collapseIcon: undefined }} expandedItems={expanded}>
@@ -91,7 +86,7 @@ export const MenuTree = observer(() => {
                                             itemId={child.id}
                                             label={<MenuItem {...child} />}
                                             className="submenu"
-                                            onClick={handleMenuClick.bind(null, it)}
+                                            onClick={handleMenuClick.bind(null, child)}
                                         />
                                     ))}
                             </TreeItem>

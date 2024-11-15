@@ -1,4 +1,4 @@
-import { ComponentType } from 'react'
+import { ReactNode } from 'react'
 
 export type RouteItemProps = {
     path?: string
@@ -8,10 +8,9 @@ export type RouteItemProps = {
     separator?: boolean
 
     disabled?: boolean
-    selected?: boolean
     role?: boolean
     hidden?: boolean
-    component?: ComponentType
+    component?: ReactNode
 
     children?: RouteItemProps[]
 }

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite'
 
 export const UserProfile = observer(() => {
-    return <div>UserProfile</div>
+    return <div>User Profile</div>
 })

@@ -6,7 +6,13 @@ import { MainRouter } from './main-router'
 
 export const RootRouter = observer(() => {
     return (
-        <BrowserRouter basename={env.basePath}>
+        <BrowserRouter
+            future={{
+                ['v7_startTransition']: true,
+                ['v7_relativeSplatPath']: true,
+            }}
+            basename={env.basePath}
+        >
             <Container>
                 <MainRouter />
             </Container>

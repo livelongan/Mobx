@@ -1,19 +1,29 @@
-import { AppBar, Badge, Box, IconButton, Toolbar, Typography } from '@mui/material'
+import { AppBar, Badge, Box, IconButton, styled, Toolbar, Typography } from '@mui/material'
 import { observer } from 'mobx-react-lite'
 import { PropsWithChildren } from 'react'
-import { Mail, MenuOpenOutlined, Notifications, AccountCircle, More, MenuOutlined } from '@mui/icons-material'
-import styled from '@emotion/styled'
+import {
+    Mail,
+    MenuOpenOutlined,
+    Notifications,
+    AccountCircle,
+    MenuOutlined,
+    MoreHorizOutlined,
+} from '@mui/icons-material'
 import { useStores } from '../../stores'
 import { MenuItemIcon } from '../menu'
+import { ThemeSwitch } from './theme-switch'
 
-const Root = styled(AppBar)`
+const Root = styled(AppBar)(
+    () => `
     box-shadow: unset;
     padding-left: 0;
     & .MuiToolbar-root {
         padding-left: 0;
     }
-`
-const ToolbarRoot = styled(Toolbar)`
+`,
+)
+const ToolbarRoot = styled(Toolbar)(
+    () => `
     @media (min-width: 600px) {
         min-height: 48px;
     }
@@ -23,7 +33,8 @@ const ToolbarRoot = styled(Toolbar)`
             min-height: 48px;
         }
     }
-`
+`,
+)
 type IProps = PropsWithChildren<object>
 
 export const Header = observer<IProps>(() => {
@@ -71,8 +82,11 @@ export const Header = observer<IProps>(() => {
                         aria-haspopup="true"
                         color="inherit"
                     >
-                        <More />
+                        <MoreHorizOutlined />
                     </IconButton>
+                </Box>
+                <Box sx={{ display: { xs: 'flex' } }}>
+                    <ThemeSwitch />
                 </Box>
             </ToolbarRoot>
         </Root>

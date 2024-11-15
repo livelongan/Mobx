@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { MenuItemProps, RouteItemProps } from '../components'
-import { RoutesConfig } from './routes-config'
+import { RouterMenu } from './router-menus'
 
 type UseRoutesProps = {
     menus: MenuItemProps[]
@@ -24,7 +24,7 @@ export const useRoutes = (): UseRoutesProps => {
                 const config: MenuItemProps = {
                     ...it,
                     id,
-                    path: it.path ?? '',
+                    path: `${parent ? parent.path : ''}${it.path ?? ''}`,
                     text: it.text ?? '',
                     children: undefined,
                 }
@@ -55,7 +55,7 @@ export const useRoutes = (): UseRoutesProps => {
     )
 
     useEffect(() => {
-        const { menus, routers } = generateMenuTree(RoutesConfig)
+        const { menus, routers } = generateMenuTree(RouterMenu)
         setMenusSources(menus)
         setRoutersSources(routers)
     }, [generateMenuTree])

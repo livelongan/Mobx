@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react-lite'
-import { Box } from '@mui/material'
+import { Box, styled } from '@mui/material'
 import { MENU_ICON_WIDTH, MENU_WIDTH } from '../../constants'
-import styled from '@emotion/styled'
 import { MenuTree } from './menu-tree'
 import { useMemo } from 'react'
 import { useStores } from '../../stores'

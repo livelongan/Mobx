@@ -1,12 +1,14 @@
 import { cast, SnapshotOut, types } from 'mobx-state-tree'
 import { MenuItemProps } from '../../components'
+import { ThemeMode } from '../../theme'
 
 export const BaseStoreModel = types
     .model('BaseStoreModel')
     .props({
-        collapse: types.boolean,
-        expandIds: types.array(types.string),
+        theme: types.frozen<ThemeMode>(),
         route: types.maybe(types.frozen<MenuItemProps>()),
+        expandIds: types.array(types.string),
+        collapse: types.boolean,
         notifications: types.null,
     })
     .views((self) => ({
@@ -15,6 +17,9 @@ export const BaseStoreModel = types
         },
     }))
     .actions((self) => ({
+        setTheme(theme: ThemeMode) {
+            self.theme = theme
+        },
         setCollapse(collapse: boolean) {
             self.collapse = collapse
         },
