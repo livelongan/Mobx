@@ -1,9 +1,10 @@
 import { AppBar, Badge, Box, IconButton, Toolbar, Typography } from '@mui/material'
 import { observer } from 'mobx-react-lite'
 import { PropsWithChildren } from 'react'
-import { Mail, Menu, Notifications, AccountCircle, More } from '@mui/icons-material'
-import { MenuIconWrap } from './menu-icon-wrap'
+import { Mail, MenuOpenOutlined, Notifications, AccountCircle, More, MenuOutlined } from '@mui/icons-material'
 import styled from '@emotion/styled'
+import { useStores } from '../../stores'
+import { MenuItemIcon } from '../menu'
 
 const Root = styled(AppBar)`
     box-shadow: unset;
@@ -12,22 +13,30 @@ const Root = styled(AppBar)`
         padding-left: 0;
     }
 `
+const ToolbarRoot = styled(Toolbar)`
+    @media (min-width: 600px) {
+        min-height: 48px;
+    }
 
-type IProps = PropsWithChildren<{
-    open: boolean
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>
-}>
+    @media (min-width: 0px) {
+        @media (orientation: landscape) {
+            min-height: 48px;
+        }
+    }
+`
+type IProps = PropsWithChildren<object>
 
-export const Header = observer<IProps>(({ open, setOpen }) => {
-    const handleDrawer = () => {
-        setOpen(!open)
+export const Header = observer<IProps>(() => {
+    const { baseStore } = useStores()
+    const handleCollapseMenu = () => {
+        baseStore.setCollapse(!baseStore.collapse)
     }
     return (
         <Root className="header" position="static" color={'secondary'} enableColorOnDark>
-            <Toolbar>
-                <MenuIconWrap color="inherit" aria-label="open drawer" onClick={handleDrawer}>
-                    <Menu />
-                </MenuIconWrap>
+            <ToolbarRoot>
+                <MenuItemIcon color="inherit" aria-label="open drawer" onClick={handleCollapseMenu}>
+                    {baseStore.collapse ? <MenuOpenOutlined /> : <MenuOutlined />}
+                </MenuItemIcon>
                 <Typography variant="h6" noWrap component="div" sx={{ display: { xs: 'none', sm: 'block' } }}>
                     Mobx
                 </Typography>
@@ -65,7 +74,7 @@ export const Header = observer<IProps>(({ open, setOpen }) => {
                         <More />
                     </IconButton>
                 </Box>
-            </Toolbar>
+            </ToolbarRoot>
         </Root>
     )
 })

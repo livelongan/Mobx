@@ -1,9 +1,9 @@
 import { types } from 'mobx-state-tree'
 
-export const BaseStoreModel = types
-    .model('BaseStoreModel')
+export const BaseModel = types
+    .model('BaseModel')
     .props({
         notifications: types.null,
     })
-    .views((self) => ({}))
-    .actions((self) => ({}))
+    .views(() => ({}))
+    .actions(() => ({}))

@@ -1,5 +1,5 @@
 export * from './base'
-export * from './common'
+export * from './entity'
 export * from './user-profile'
 
 export * from './store-provider'

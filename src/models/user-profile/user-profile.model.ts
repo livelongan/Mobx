@@ -1,6 +1,5 @@
 import { types } from 'mobx-state-tree'
-import { EntityStoreModel } from '../common'
 
-export const UserProfileModel = EntityStoreModel.named('UserProfileModel').props({
+export const UserProfileModel = types.model('UserProfileModel').props({
     userName: types.string,
 })

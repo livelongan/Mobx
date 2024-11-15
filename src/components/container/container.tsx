@@ -1,8 +1,9 @@
 import { observer } from 'mobx-react-lite'
-import { PropsWithChildren, useState } from 'react'
-import { CollapseMenu } from './collapse-menu'
+import { PropsWithChildren } from 'react'
 import { Header } from './header'
 import styled from '@emotion/styled'
+import { MenuRouter } from '../menu'
+import { GAP } from '../../constants'
 
 const Root = styled('div')`
     height: 100%;
@@ -18,19 +19,19 @@ const BodyRoot = styled('div')`
 
 const PageContainer = styled('div')`
     height: 100%;
-    width: 100%;
+    flex: 1;
+    overflow: hidden;
+    padding: ${GAP.normal}px;
+    box-sizing: border-box;
 `
 
 type IProps = PropsWithChildren<object>
 export const Container = observer<IProps>(({ children }) => {
-    const [open, setOpen] = useState(false)
     return (
         <Root>
-            <Header open={open} setOpen={setOpen} />
+            <Header />
             <BodyRoot>
-                <CollapseMenu open={open} setOpen={setOpen}>
-                    {children}
-                </CollapseMenu>
+                <MenuRouter />
                 <PageContainer className="page">{children}</PageContainer>
             </BodyRoot>
         </Root>

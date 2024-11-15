@@ -1,14 +1,14 @@
 import { types } from 'mobx-state-tree'
 
 export const LoadingModel = types.model('LoadingModel').props({
-    query: types.boolean,
-    view: types.boolean,
-    save: types.boolean,
-    delete: types.boolean,
+    query: types.maybe(types.boolean),
+    view: types.maybe(types.boolean),
+    save: types.maybe(types.boolean),
+    delete: types.maybe(types.boolean),
 })
 
-export const EntityStoreModel = types
-    .model('EntityStoreModel')
+export const EntityModel = types
+    .model('EntityModel')
     .props({
         load: LoadingModel,
     })

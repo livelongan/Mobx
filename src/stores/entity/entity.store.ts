@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree'
+import { SnapshotOut, types } from 'mobx-state-tree'
 
 export const EntityStoreModel = types
     .model('EntityStoreModel')
@@ -7,3 +7,5 @@ export const EntityStoreModel = types
     })
     .views(() => ({}))
     .actions(() => ({}))
+
+export type EntityStoreType = SnapshotOut<typeof EntityStoreModel>

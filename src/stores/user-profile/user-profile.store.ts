@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree'
+import { SnapshotOut, types } from 'mobx-state-tree'
 
 export const UserProfileStoreModel = types
     .model('UserProfileStoreModel')
@@ -7,3 +7,5 @@ export const UserProfileStoreModel = types
     })
     .views(() => ({}))
     .actions(() => ({}))
+
+export type UserProfileStoreType = SnapshotOut<typeof UserProfileStoreModel>
