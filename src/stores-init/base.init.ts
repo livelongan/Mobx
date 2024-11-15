@@ -4,4 +4,5 @@ export const InitBaseStore: BaseStoreType = {
     notifications: null,
     collapse: false,
     expandIds: [],
+    route: undefined,
 }

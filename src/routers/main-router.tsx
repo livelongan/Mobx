@@ -20,10 +20,7 @@ export const MainRouter = observer(() => {
             }
             const route = findRoute(pathname)
             if (route) {
-                baseStore.setPageRoute(route)
-            }
-            if (route && !route.role) {
-                navigate('/401')
+                baseStore.setRoute(route)
             }
         }
     }, [baseStore, findRoute, location, navigate, routers.length])
