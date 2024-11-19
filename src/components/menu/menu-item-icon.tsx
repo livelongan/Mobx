@@ -18,7 +18,7 @@ type IProps = PropsWithChildren<IconButtonProps>
 export const MenuItemIcon = observer<IProps>(({ children, ...others }) => {
     return (
         <Root>
-            <IconButton {...others} size="small" edge="start">
+            <IconButton size="small" color="secondary" {...others}>
                 {children}
             </IconButton>
         </Root>

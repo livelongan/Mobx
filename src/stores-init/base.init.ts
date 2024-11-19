@@ -2,7 +2,7 @@ import { BaseStoreType } from '../stores'
 import { InitTheme } from '../theme'
 
 export const InitBaseStore: BaseStoreType = {
-    notifications: null,
+    notifications: [],
     collapse: false,
     expandIds: [],
     route: undefined,

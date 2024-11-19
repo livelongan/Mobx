@@ -1,15 +1,15 @@
 import { cast, SnapshotOut, types } from 'mobx-state-tree'
-import { MenuItemProps } from '../../components'
-import { ThemeMode } from '../../theme'
+import { MenuItemProps, NotificationProps } from '../../components'
+import { PaletteMode } from '@mui/material'
 
 export const BaseStoreModel = types
     .model('BaseStoreModel')
     .props({
-        theme: types.frozen<ThemeMode>(),
+        theme: types.frozen<PaletteMode>(),
         route: types.maybe(types.frozen<MenuItemProps>()),
         expandIds: types.array(types.string),
         collapse: types.boolean,
-        notifications: types.null,
+        notifications: types.array(types.frozen<NotificationProps>()),
     })
     .views((self) => ({
         get expandedIds() {
@@ -17,7 +17,7 @@ export const BaseStoreModel = types
         },
     }))
     .actions((self) => ({
-        setTheme(theme: ThemeMode) {
+        setTheme(theme: PaletteMode) {
             self.theme = theme
         },
         setCollapse(collapse: boolean) {
@@ -28,6 +28,15 @@ export const BaseStoreModel = types
         },
         setExpandedId(ids: string[]) {
             self.expandIds = cast(ids)
+        },
+        addNotifications(dto: NotificationProps) {
+            self.notifications.push(dto)
+        },
+        removeNotifications(dto: NotificationProps) {
+            const index = self.notifications.findIndex((it) => it === dto)
+            if (index >= 0) {
+                self.notifications.splice(0, index)
+            }
         },
     }))
 

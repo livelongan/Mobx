@@ -2,6 +2,7 @@ import { styled, Switch } from '@mui/material'
 import { observer } from 'mobx-react-lite'
 import { moon, sun } from './path'
 import { useStores } from '../../stores'
+import { notification } from '../notification'
 
 const svgGenerate = (path: string) => {
     return `url('data:image/svg+xml;utf8,
@@ -13,8 +14,8 @@ const svgGenerate = (path: string) => {
 }
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
-    width: 62,
-    height: 34,
+    width: 56,
+    height: 32,
     padding: 7,
     [`& .MuiSwitch-switchBase`]: {
         margin: 1,
@@ -28,16 +29,13 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
             [`& + .MuiSwitch-track`]: {
                 opacity: 1,
                 backgroundColor: theme.palette.background.default,
-                ...theme.applyStyles('dark', {
-                    backgroundColor: theme.palette.background.default,
-                }),
             },
         },
     },
     [`& .MuiSwitch-thumb`]: {
-        backgroundColor: '#001e3c',
-        width: 32,
-        height: 32,
+        backgroundColor: theme.palette.background.default,
+        width: 30,
+        height: 30,
         [`&::before`]: {
             content: "''",
             position: 'absolute',
@@ -49,17 +47,11 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
             backgroundPosition: 'center',
             backgroundImage: `${svgGenerate(moon)}`,
         },
-        ...theme.applyStyles('dark', {
-            backgroundColor: '#003892',
-        }),
     },
     [`& .MuiSwitch-track`]: {
         opacity: 1,
         backgroundColor: theme.palette.background.default,
         borderRadius: 20 / 2,
-        ...theme.applyStyles('dark', {
-            backgroundColor: theme.palette.background.default,
-        }),
     },
 }))
 
@@ -67,6 +59,10 @@ export const ThemeSwitch = observer(() => {
     const { baseStore } = useStores()
     const handleTheme = (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
         baseStore.setTheme(checked ? 'light' : 'dark')
+        notification({
+            type: 'info',
+            message: `Theme now change to ${checked ? 'light' : 'dark'}`,
+        })
     }
 
     return <MaterialUISwitch sx={{ m: 1 }} checked={baseStore.theme === 'light'} onChange={handleTheme} />

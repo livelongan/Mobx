@@ -3,7 +3,7 @@ import { PropsWithChildren } from 'react'
 import { Header } from './header'
 import { MenuRouter } from '../menu'
 import { GAP } from '../../constants'
-import { styled } from '@mui/material'
+import { Paper, styled } from '@mui/material'
 
 const Root = styled('div')(
     () => `
@@ -14,10 +14,11 @@ const Root = styled('div')(
 `,
 )
 
-const BodyRoot = styled('div')(
-    () => `
+const BodyRoot = styled(Paper)(
+    ({ theme }) => `
     flex: 1;
     display: flex;
+    // background-color: ${theme.palette.background.paper};
 `,
 )
 

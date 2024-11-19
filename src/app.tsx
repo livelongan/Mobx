@@ -5,28 +5,48 @@ import './app.css'
 import { ErrorBoundary, NotificationGroup, NotificationGroupHandle } from './components'
 import { RootStoreProvider, useStores } from './stores'
 import { RootRouter } from './routers'
-import { createTheme, GlobalStyles, ThemeProvider } from '@mui/material'
-import { InitBorderColor, InitTheme, ThemeSettings } from './theme'
+import { createTheme, GlobalStyles, Palette, ThemeProvider } from '@mui/material'
+import { ThemeSettings, DarkPalette, LightPalette } from './theme'
 
 export const App = observer(() => {
     const notificationRef = useRef<NotificationGroupHandle>(null)
     const rootStore = useStores()
     const { baseStore } = useStores()
 
-    const theme = createTheme({
+    const darkTheme = createTheme({
         ...ThemeSettings,
-        palette: { ...ThemeSettings.palette, mode: baseStore.theme },
-        colorSchemes: {
-            dark: InitTheme === 'dark',
+        palette: { ...DarkPalette } as Palette,
+        components: {
+            MuiDivider: {
+                styleOverrides: {
+                    root: {
+                        // borderColor: InitBorderColor(baseStore.theme),
+                    },
+                },
+            },
+        },
+    })
+
+    const lightTheme = createTheme({
+        ...ThemeSettings,
+        palette: { ...LightPalette } as Palette,
+        components: {
+            MuiDivider: {
+                styleOverrides: {
+                    root: {
+                        // borderColor: InitBorderColor(baseStore.theme),
+                    },
+                },
+            },
         },
     })
 
     return (
-        <ThemeProvider theme={theme} defaultMode={InitTheme}>
+        <ThemeProvider theme={baseStore.theme === 'dark' ? darkTheme : lightTheme}>
             <GlobalStyles
                 styles={{
                     [`*`]: {
-                        borderColor: InitBorderColor(theme),
+                        // borderColor: InitBorderColor(baseStore.theme),
                     },
                 }}
             />

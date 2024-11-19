@@ -1,22 +1,14 @@
 import { PaletteMode, Theme, ThemeOptions } from '@mui/material'
-import { Palette } from './palette'
 
-export type ThemeMode = PaletteMode
-
-export const InitTheme: ThemeMode = 'light'
+export const InitTheme: PaletteMode = 'dark'
 
 export const InitBorderRadius = 0
-
-export const InitLightBorderColor = `rgba(0,0,0,0.12)`
-
-export const InitDarkBorderColor = `rgba(255,255,255,255.12)`
 
 export const ThemeSettings: ThemeOptions = {
     shape: {
         borderRadius: InitBorderRadius,
     },
     spacing: 8,
-    palette: Palette,
     transitions: {
         easing: {
             // This is the most common easing curve.
@@ -58,5 +50,13 @@ export const ThemeSettings: ThemeOptions = {
 export const ModePalette = (theme: Theme, key: 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success') =>
     theme.palette[key][theme.palette.mode]
 
-export const InitBorderColor = (theme: Theme) =>
-    theme.palette.mode === 'dark' ? InitDarkBorderColor : InitLightBorderColor
+export const colors = {
+    header: {
+        light: '#eeeeee',
+        dark: '#9e9e9e',
+    },
+    menuSelected: {
+        light: '#002884',
+        dark: '#90caf9',
+    },
+}

@@ -1,4 +1,4 @@
-import { AppBar, Badge, Box, IconButton, styled, Toolbar, Typography } from '@mui/material'
+import { AppBar, Badge, Box, styled, Toolbar, Typography } from '@mui/material'
 import { observer } from 'mobx-react-lite'
 import { PropsWithChildren } from 'react'
 import {
@@ -10,18 +10,21 @@ import {
     MoreHorizOutlined,
 } from '@mui/icons-material'
 import { useStores } from '../../stores'
-import { MenuItemIcon } from '../menu'
+import { HeaderIcon } from './header-icon'
 import { ThemeSwitch } from './theme-switch'
+import { MENU_ICON_HEIGHT, MENU_ICON_WIDTH } from '../../constants'
+import { colors } from '../../theme'
 
 const Root = styled(AppBar)(
     () => `
     box-shadow: unset;
     padding-left: 0;
     & .MuiToolbar-root {
-        padding-left: 0;
+        padding: 0;
     }
 `,
 )
+
 const ToolbarRoot = styled(Toolbar)(
     () => `
     @media (min-width: 600px) {
@@ -35,6 +38,7 @@ const ToolbarRoot = styled(Toolbar)(
     }
 `,
 )
+
 type IProps = PropsWithChildren<object>
 
 export const Header = observer<IProps>(() => {
@@ -43,47 +47,41 @@ export const Header = observer<IProps>(() => {
         baseStore.setCollapse(!baseStore.collapse)
     }
     return (
-        <Root className="header" position="static" color={'secondary'} enableColorOnDark>
+        <Root className="header" position="static" color="primary">
             <ToolbarRoot>
-                <MenuItemIcon color="inherit" aria-label="open drawer" onClick={handleCollapseMenu}>
+                <HeaderIcon width={MENU_ICON_WIDTH} height={MENU_ICON_HEIGHT} onClick={handleCollapseMenu}>
                     {baseStore.collapse ? <MenuOpenOutlined /> : <MenuOutlined />}
-                </MenuItemIcon>
-                <Typography variant="h6" noWrap component="div" sx={{ display: { xs: 'none', sm: 'block' } }}>
+                </HeaderIcon>
+                <Typography
+                    variant="h6"
+                    component="div"
+                    sx={{
+                        display: { xs: 'none', sm: 'block' },
+                        color: (theme) => colors.header[theme.palette.mode],
+                    }}
+                >
                     Mobx
                 </Typography>
                 <Box sx={{ flexGrow: 1 }} />
                 <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                    <IconButton size="small" aria-label="show 4 new mails" color="inherit">
+                    <HeaderIcon>
                         <Badge badgeContent={4} color="error">
                             <Mail />
                         </Badge>
-                    </IconButton>
-                    <IconButton size="small" aria-label="show 17 new notifications" color="inherit">
+                    </HeaderIcon>
+                    <HeaderIcon>
                         <Badge badgeContent={17} color="error">
                             <Notifications />
                         </Badge>
-                    </IconButton>
-                    <IconButton
-                        size="small"
-                        edge="end"
-                        aria-label="account of current user"
-                        // aria-controls={menuId}
-                        aria-haspopup="true"
-                        color="inherit"
-                    >
+                    </HeaderIcon>
+                    <HeaderIcon edge="end">
                         <AccountCircle />
-                    </IconButton>
+                    </HeaderIcon>
                 </Box>
                 <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-                    <IconButton
-                        size="small"
-                        aria-label="show more"
-                        // aria-controls={mobileMenuId}
-                        aria-haspopup="true"
-                        color="inherit"
-                    >
+                    <HeaderIcon>
                         <MoreHorizOutlined />
-                    </IconButton>
+                    </HeaderIcon>
                 </Box>
                 <Box sx={{ display: { xs: 'flex' } }}>
                     <ThemeSwitch />
