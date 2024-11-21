@@ -20,12 +20,12 @@ export type FormSelectProps = React.FormHTMLAttributes<FieldValues> & {
     field: string
     label?: string
     options?: RegisterOptions<object, never>
-    controlProps?: FormControlProps
+    control?: FormControlProps
     sources: FormSelectSourceProps[] | string[]
     form: UseFormReturn<any, any, undefined>
 } & SelectProps
 
-export const FormSelect = observer<FormSelectProps>(({ form, field, label, sources, options = {}, controlProps = {}, ...others }) => {
+export const FormSelect = observer<FormSelectProps>(({ form, field, label, sources, options = {}, control = {}, ...others }) => {
     const uniqueId = useId()
     const [selected, setSelected] = useState<string | number>('')
     const { formState, setValue } = form
@@ -82,7 +82,7 @@ export const FormSelect = observer<FormSelectProps>(({ form, field, label, sourc
     )
 
     return (
-        <FormControl {...controlProps} error={!!validate} required={!!options?.required} sx={{ minWidth: FIELD_MIN_WIDTH }}>
+        <FormControl {...control} error={!!validate} required={!!options?.required} sx={{ minWidth: FIELD_MIN_WIDTH }}>
             <InputLabel id={uniqueId}>{label ?? ''}</InputLabel>
             <Select
                 labelId={uniqueId}

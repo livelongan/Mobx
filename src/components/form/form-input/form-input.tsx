@@ -15,12 +15,12 @@ export type FormInputProps = React.FormHTMLAttributes<FieldValues> & {
     field: string
     label?: string
     options?: RegisterOptions<object, never>
-    controlProps?: FormControlProps
+    control?: FormControlProps
 
     form: UseFormReturn<any, any, undefined>
 } & OutlinedInputProps
 
-export const FormInput = observer<FormInputProps>(({ form, field, label, options = {}, controlProps = {}, ...others }) => {
+export const FormInput = observer<FormInputProps>(({ form, field, label, options = {}, control = {}, ...others }) => {
     const uniqueId = useId()
     const { formState, setValue } = form
     const register = form.register(field as never, { ...options })
@@ -76,7 +76,7 @@ export const FormInput = observer<FormInputProps>(({ form, field, label, options
     )
 
     return (
-        <FormControl {...controlProps} error={!!validate} required={!!options?.required} sx={{ minWidth: FIELD_MIN_WIDTH }}>
+        <FormControl {...control} error={!!validate} required={!!options?.required} sx={{ minWidth: FIELD_MIN_WIDTH }}>
             <InputLabel htmlFor={uniqueId} required={!!options?.required}>
                 {label ?? ''}
             </InputLabel>

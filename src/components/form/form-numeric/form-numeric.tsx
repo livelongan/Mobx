@@ -49,12 +49,14 @@ export type FormNumericProps = React.FormHTMLAttributes<FieldValues> & {
     field: string
     label?: string
     options?: RegisterOptions<object, never>
-    controlProps?: FormControlProps
+    control?: FormControlProps
+    decimal?: number
 
     form: UseFormReturn<any, any, undefined>
 } & Omit<OutlinedInputProps, 'endAdornment' | 'type'>
 
-export const FormNumeric = observer<FormNumericProps>(({ form, field, label, options = {}, controlProps = {}, ...others }) => {
+export const FormNumeric = observer<FormNumericProps>(({ form, field, label, decimal, options = {}, control = {}, ...others }) => {
+    console.log(decimal)
     const uniqueId = useId()
     const { formState, setValue } = form
     const register = form.register(field as never, { ...options })
@@ -110,7 +112,7 @@ export const FormNumeric = observer<FormNumericProps>(({ form, field, label, opt
     )
 
     return (
-        <FormControl {...controlProps} error={!!validate} required={!!options?.required} sx={{ minWidth: FIELD_MIN_WIDTH }}>
+        <FormControl {...control} error={!!validate} required={!!options?.required} sx={{ minWidth: FIELD_MIN_WIDTH }}>
             <InputLabel htmlFor={uniqueId} required={!!options?.required}>
                 {label ?? ''}
             </InputLabel>
