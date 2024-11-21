@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import { Form, FormInput, FormNumeric, FormSelect, FormSelectSourceProps, LoadingButton } from '../../components'
-import { useForm, SubmitHandler, FieldValues } from 'react-hook-form'
+import { useForm, FieldValues } from 'react-hook-form'
 import { useEffect, useCallback, useState } from 'react'
 import { SaveOutlined } from '@mui/icons-material'
 
@@ -8,7 +8,7 @@ type IFormProps = {
     firstName: string
     lastName: string
     food: string
-    tall: number
+    tall: number | null
     age: FormSelectSourceProps
 }
 
@@ -37,19 +37,21 @@ export const ReactPage = observer(() => {
         firstName: 'sd',
         lastName: 'sd',
         food: 'apple',
-        tall: 170,
+        tall: null,
         age: { id: 10, value: 10 },
     })
-    const form = useForm<IFormProps>({ defaultValues: details })
+    const form = useForm<IFormProps>({ defaultValues: { ...details } })
 
-    const onSubmit: SubmitHandler<IFormProps> = (data) => {
+    const onSubmit: React.FormEventHandler<object> = (event) => {
+        event.preventDefault()
         setLoading(true)
-        console.log(data)
+        console.log(getValues())
+        console.log(form)
     }
 
     const getValues = useCallback(() => {
         const data: FieldValues = { ...details }
-        Object.keys(details).forEach((key) => {
+        Object.keys(data).forEach((key) => {
             const it = key as keyof IFormProps
             data[it] = form.watch(it)
         })
@@ -61,16 +63,10 @@ export const ReactPage = observer(() => {
     }, [form.formState, getValues])
 
     return (
-        <Form
-            onSubmit={form.handleSubmit(onSubmit)}
-            actions={<LoadingButton type="submit" label="Submit" loading={loading} icon={<SaveOutlined />} />}
-            onChange={() => {
-                console.log('Form')
-            }}
-        >
+        <Form onSubmit={onSubmit} actions={<LoadingButton type="submit" label="Submit" loading={loading} icon={<SaveOutlined />} />}>
             <FormInput form={form} field={'firstName'} label={'First Name'} options={{ required: true, maxLength: 20 }} />
             <FormInput form={form} field={'lastName'} label={'Last Name'} options={{ required: true, maxLength: 20 }} />
-            <FormNumeric form={form} field={'tall'} label={'Tall'} />
+            <FormNumeric form={form} field={'tall'} label={'Tall'} decimal={2} />
             <FormSelect form={form} field={'food'} label={'Love Food'} sources={['Apple', 'Banana', 'Peach', 'Pear', 'Grape']} />
             <FormSelect form={form} field={'age'} label={'Age'} sources={sources} />
         </Form>

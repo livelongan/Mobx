@@ -1,9 +1,11 @@
 import { Box, Button, FormControl, FormControlProps, FormHelperText, InputLabel, OutlinedInput, OutlinedInputProps, styled } from '@mui/material'
 import { observer } from 'mobx-react-lite'
-import { useCallback, useId, useMemo } from 'react'
-import { FieldValues, RegisterOptions, UseFormReturn } from 'react-hook-form'
-import { FIELD_MIN_WIDTH, GAP } from '../../../constants'
+import { useCallback, useId, useMemo, useState } from 'react'
+import { FieldValues, UseFormReturn } from 'react-hook-form'
+import { FIELD_MIN_WIDTH, GAP, PATTERN, VALIDATION } from '../../../constants'
 import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material'
+import { FieldOptions, FormOptions } from '../type'
+import { getErrorMessage, getHintText } from '../tools'
 
 const ARROW_WIDTH = 34
 const Error = styled(FormHelperText)(
@@ -48,92 +50,148 @@ const ArrowButton = styled(Button)(
 export type FormNumericProps = React.FormHTMLAttributes<FieldValues> & {
     field: string
     label?: string
-    options?: RegisterOptions<object, never>
+    options?: FieldOptions
     control?: FormControlProps
     decimal?: number
+    step?: number
 
     form: UseFormReturn<any, any, undefined>
-} & Omit<OutlinedInputProps, 'endAdornment' | 'type'>
+} & Omit<OutlinedInputProps, 'type'>
 
-export const FormNumeric = observer<FormNumericProps>(({ form, field, label, decimal, options = {}, control = {}, ...others }) => {
-    console.log(decimal)
+export const FormNumeric = observer<FormNumericProps>((props) => {
     const uniqueId = useId()
-    const { formState, setValue } = form
-    const register = form.register(field as never, { ...options })
-    const { errors = {} } = formState ?? {}
+    const reg = !props.decimal ? PATTERN.integer : PATTERN.numeric
+    const { form, field, label, decimal = 0, options = {}, control = {}, endAdornment, ...others } = props
+    const step = others.step ?? Number(Math.pow(0.1, decimal).toFixed(decimal))
 
+    const { formState } = form
+    const [inputValue, setInputValue] = useState<number | string>(formState.defaultValues ? (formState.defaultValues[field] ?? '') : '')
+    const register = form.register(
+        field as never,
+        {
+            ...options,
+            pattern: {
+                value: reg,
+                message: 'Not a Number',
+            },
+        } as FormOptions,
+    )
+    const { errors = {} } = formState ?? {}
     const validate = errors[field]
 
+    const invalid = useCallback(() => {
+        return inputValue !== null && `${inputValue}` !== '' && !reg.test(`${inputValue}`)
+    }, [inputValue, reg])
+
+    const hasError = () => {
+        return invalid() || !!getErrorMessage(validate, options, true)
+    }
     const error = useMemo((): string => {
-        if (!validate) {
-            return ''
-        }
-        if (validate.message) {
-            return `${validate.message}`
-        } else {
-            let message = ''
-            switch (validate.type) {
-                case 'required':
-                    message = 'This field is required'
-                    break
-                case 'maxLength':
-                    message = `The maximum length cannot exceed ${options.maxLength}`
-                    break
-                case 'minLength':
-                    message = `The minimum length cannot exceed ${options.minLength}`
-                    break
-                case 'min':
-                    message = `The maximum value cannot exceed ${options.max}`
-                    break
-                case 'max':
-                    message = `The minimum value cannot exceed ${options.min}`
-                    break
-                case 'pattern':
-                    message = 'Rule validation failed'
-                    break
-            }
-            return message
-        }
+        return getErrorMessage(validate, options, true)
     }, [options, validate])
 
-    const hintText = useMemo((): string => {
-        if (others.disabled) {
-            return 'Disabled'
+    const errorText = useMemo((): string => {
+        if (invalid()) {
+            return VALIDATION.nan
+        } else {
+            return error
         }
-        return others.readOnly ? 'Read Only' : ''
+    }, [error, invalid])
+
+    const hintText = useMemo((): string => {
+        return getHintText({ disabled: others.disabled, readOnly: others.readOnly })
     }, [others.disabled, others.readOnly])
 
     const handleChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
-            register.onChange(event)
-            setValue(field, event.target.value)
+            const data = event.target.value
+            let value: string | number = event.target.value
+
+            if (!isNaN(Number(data))) {
+                value = Number(data)
+            }
+
+            setInputValue(value)
+            form.setValue(field, `${value}` === '' ? null : value, {
+                shouldValidate: true,
+            })
         },
-        [register, setValue, field],
+        [form, field],
     )
 
+    const wheelValue = useCallback(
+        (increment = true) => {
+            if (!isNaN(Number(inputValue))) {
+                const pow = Math.pow(10, decimal)
+                const numeric = Number(inputValue) * pow
+                const value = ((numeric + (increment ? 1 : -1) * (step * pow)) / pow).toFixed(decimal)
+                const result = Number(value)
+                setInputValue(result)
+                form.setValue(field, result)
+                form.setFocus(field)
+            }
+        },
+        [decimal, field, form, inputValue, step],
+    )
+
+    const handleWheel: React.WheelEventHandler<HTMLDivElement> = useCallback(
+        (event) => {
+            event.stopPropagation()
+            wheelValue(event.deltaY > 0)
+        },
+        [wheelValue],
+    )
+
+    const handleBlur: React.FocusEventHandler<HTMLInputElement | HTMLTextAreaElement> = useCallback(() => {
+        const data = Number(inputValue)
+        if (`${inputValue}`.trim() !== '' && !isNaN(data)) {
+            if (data === 0) {
+                setInputValue(0)
+                form.setValue(field, 0, {
+                    shouldValidate: true,
+                })
+            }
+        }
+    }, [field, form, inputValue])
+
     return (
-        <FormControl {...control} error={!!validate} required={!!options?.required} sx={{ minWidth: FIELD_MIN_WIDTH }}>
-            <InputLabel htmlFor={uniqueId} required={!!options?.required}>
-                {label ?? ''}
-            </InputLabel>
+        <FormControl {...control} error={hasError()} required={!!options?.required} sx={{ minWidth: FIELD_MIN_WIDTH }}>
+            <InputLabel htmlFor={uniqueId}>{label ?? ''}</InputLabel>
             <OutlinedInput
                 {...others}
                 id={uniqueId}
-                inputProps={{ ...register, sx: { width: 'calc(100% - 22px)' } }}
+                value={inputValue}
+                inputProps={{
+                    ...register,
+                    sx: { width: 'calc(100% - 22px)' },
+                }}
                 sx={{ paddingRight: 0 }}
-                endAdornment={
-                    <Arrow>
-                        <ArrowButton>
-                            <ArrowDropUp className="plus" />
-                        </ArrowButton>
-                        <ArrowButton>
-                            <ArrowDropDown className="minus" />
-                        </ArrowButton>
-                    </Arrow>
-                }
                 onChange={handleChange}
+                onWheel={handleWheel}
+                onBlur={handleBlur}
+                endAdornment={
+                    <>
+                        {endAdornment}
+                        <Arrow>
+                            <ArrowButton
+                                onClick={() => {
+                                    wheelValue(true)
+                                }}
+                            >
+                                <ArrowDropUp className="plus" />
+                            </ArrowButton>
+                            <ArrowButton
+                                onClick={() => {
+                                    wheelValue(false)
+                                }}
+                            >
+                                <ArrowDropDown className="minus" />
+                            </ArrowButton>
+                        </Arrow>
+                    </>
+                }
             />
-            <Error>{error ? error : hintText}</Error>
+            <Error>{errorText ? errorText : hintText}</Error>
         </FormControl>
     )
 })

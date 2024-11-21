@@ -1,8 +1,10 @@
 import { FormControl, FormControlProps, FormHelperText, InputLabel, MenuItem, Select, SelectProps, styled, SelectChangeEvent } from '@mui/material'
 import { observer } from 'mobx-react-lite'
 import { useCallback, useId, useMemo, useState } from 'react'
-import { FieldValues, RegisterOptions, UseFormReturn } from 'react-hook-form'
+import { FieldValues, UseFormReturn } from 'react-hook-form'
 import { FIELD_MIN_WIDTH, GAP } from '../../../constants'
+import { FieldOptions, FormOptions } from '../type'
+import { getErrorMessage, getHintText } from '../tools'
 
 const Error = styled(FormHelperText)(
     () => `
@@ -19,7 +21,7 @@ export type FormSelectSourceProps = {
 export type FormSelectProps = React.FormHTMLAttributes<FieldValues> & {
     field: string
     label?: string
-    options?: RegisterOptions<object, never>
+    options?: FieldOptions
     control?: FormControlProps
     sources: FormSelectSourceProps[] | string[]
     form: UseFormReturn<any, any, undefined>
@@ -28,57 +30,28 @@ export type FormSelectProps = React.FormHTMLAttributes<FieldValues> & {
 export const FormSelect = observer<FormSelectProps>(({ form, field, label, sources, options = {}, control = {}, ...others }) => {
     const uniqueId = useId()
     const [selected, setSelected] = useState<string | number>('')
-    const { formState, setValue } = form
-    const register = form.register(field as never, { ...options })
+    const { formState } = form
+    const register = form.register(field as never, { ...options } as FormOptions)
     const { errors = {} } = formState ?? {}
     const validate = errors[field]
 
     const error = useMemo((): string => {
-        if (!validate) {
-            return ''
-        }
-        if (validate.message) {
-            return `${validate.message}`
-        } else {
-            let message = 'Invalid field'
-            switch (validate.type) {
-                case 'required':
-                    message = 'This field is required'
-                    break
-                case 'maxLength':
-                    message = `The maximum length cannot exceed ${options.maxLength}`
-                    break
-                case 'minLength':
-                    message = `The minimum length cannot exceed ${options.minLength}`
-                    break
-                case 'min':
-                    message = `The maximum value cannot exceed ${options.max}`
-                    break
-                case 'max':
-                    message = `The minimum value cannot exceed ${options.min}`
-                    break
-                case 'pattern':
-                    message = 'Rule validation failed'
-                    break
-            }
-            return message
-        }
+        return getErrorMessage(validate, options)
     }, [options, validate])
 
     const hintText = useMemo((): string => {
-        if (others.disabled) {
-            return 'Disabled'
-        }
-        return others.readOnly ? 'Read Only' : ''
+        return getHintText({ disabled: others.disabled, readOnly: others.readOnly })
     }, [others.disabled, others.readOnly])
 
     const handleChange = useCallback(
         (event: SelectChangeEvent<string | number | readonly string[]>) => {
             setSelected(event.target.value as string)
             register.onChange(event)
-            setValue(field, event.target.value)
+            form.setValue(field, event.target.value, {
+                shouldValidate: true,
+            })
         },
-        [field, register, setValue],
+        [field, register, form],
     )
 
     return (

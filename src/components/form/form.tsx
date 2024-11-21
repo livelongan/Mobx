@@ -10,6 +10,7 @@ type IProps<T> = PropsWithChildren<
         actions?: ReactNode
     }
 >
+
 const FormWrapper = styled(Box)(
     () => `
     display: flex;
@@ -17,6 +18,7 @@ const FormWrapper = styled(Box)(
     margin-bottom: ${GAP.normal}px;
 `,
 )
+
 export const Form = observer<IProps<object>>(({ children, actions, ...others }) => {
     return (
         <form noValidate autoComplete="off" {...others}>
