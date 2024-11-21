@@ -1,19 +1,11 @@
 import { AppBar, Badge, Box, styled, Toolbar, Typography } from '@mui/material'
 import { observer } from 'mobx-react-lite'
 import { PropsWithChildren } from 'react'
-import {
-    Mail,
-    MenuOpenOutlined,
-    Notifications,
-    AccountCircle,
-    MenuOutlined,
-    MoreHorizOutlined,
-} from '@mui/icons-material'
+import { Mail, MenuOpenOutlined, Notifications, AccountCircle, MenuOutlined, MoreHorizOutlined } from '@mui/icons-material'
 import { useStores } from '../../stores'
 import { HeaderIcon } from './header-icon'
 import { ThemeSwitch } from './theme-switch'
 import { MENU_ICON_HEIGHT, MENU_ICON_WIDTH } from '../../constants'
-import { colors } from '../../theme'
 
 const Root = styled(AppBar)(
     () => `
@@ -47,7 +39,7 @@ export const Header = observer<IProps>(() => {
         baseStore.setCollapse(!baseStore.collapse)
     }
     return (
-        <Root className="header" position="static" color="primary">
+        <Root className="header" position="static">
             <ToolbarRoot>
                 <HeaderIcon width={MENU_ICON_WIDTH} height={MENU_ICON_HEIGHT} onClick={handleCollapseMenu}>
                     {baseStore.collapse ? <MenuOpenOutlined /> : <MenuOutlined />}
@@ -57,7 +49,6 @@ export const Header = observer<IProps>(() => {
                     component="div"
                     sx={{
                         display: { xs: 'none', sm: 'block' },
-                        color: (theme) => colors.header[theme.palette.mode],
                     }}
                 >
                     Mobx

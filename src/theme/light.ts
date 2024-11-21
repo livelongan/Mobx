@@ -1,67 +1,34 @@
-export const LightPalette = {
+import { PaletteOptions } from '@mui/material'
+
+export const LightPalette: PaletteOptions = {
     mode: 'light',
     primary: {
-        light: '#33539c',
         main: '#002884',
-        dark: '#001c5c',
+        contrastText: '#fafafa',
     },
     secondary: {
-        light: '#3b3b3b',
-        main: '#0a0a0a',
-        dark: '#0a0a0a',
-    },
-    error: {
-        main: '#f44336',
-    },
-    warning: {
-        main: '#d6c81c',
-    },
-    info: {
-        main: '#1faeb9',
-    },
-    success: {
-        main: '#42c22d',
-    },
-    grey: {
-        [50]: '#fafafa',
-        [100]: '#f5f5f5',
-        [200]: '#eeeeee',
-        [300]: '#e0e0e0',
-        [400]: '#bdbdbd',
-        [500]: '#9e9e9e',
-        [600]: '#757575',
-        [700]: '#616161',
-        [800]: '#424242',
-        [900]: '#212121',
-        A100: '#f5f5f5',
-        A200: '#eeeeee',
-        A400: '#bdbdbd',
-        A700: '#616161',
-    },
-    divider: 'rgba(0,0,0,0.12)',
-    // common: undefined,
-    // contrastThreshold: 0,
-    // tonalOffset: 0,
-    text: {
-        primary: '#0a0a0a',
-        // secondary: '#f5f5f5',
-        // disabled: '#757575',
-    },
-    action: {
-        // active: 'string',
-        // hover: 'string',
-        // hoverOpacity: 0,
-        // selected: '#002884',
-        // selectedOpacity: 1,
-        // disabled: 'string',
-        // disabledOpacity: 0,
-        // disabledBackground: 'string',
-        // focus: '#002884',
-        // focusOpacity: 1,
-        // activatedOpacity: 0,
+        main: '#f50057',
     },
     background: {
-        default: '#fafafa',
+        default: '#ffffff',
         paper: '#fafafa',
     },
+    text: {
+        primary: '#1a1a1a',
+        disabled: 'rgba(173,173,173,1)',
+        secondary: 'rgba(43,43,43,0.6)',
+    },
+    error: {
+        main: '#c30f0f',
+    },
+    warning: {
+        main: '#de6b09',
+    },
+    info: {
+        main: '#2da4e2',
+    },
+    success: {
+        main: '#229e27',
+    },
+    divider: 'rgba(0,0,0,0.12)',
 }

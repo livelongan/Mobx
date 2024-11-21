@@ -6,7 +6,6 @@ import { KeyboardArrowDownOutlined, TextSnippetOutlined } from '@mui/icons-mater
 import { useStores } from '../../stores'
 import { useMemo } from 'react'
 import { GAP } from '../../constants'
-import { colors } from '../../theme'
 
 const Root = styled(Box)(
     ({ theme }) => `
@@ -14,7 +13,7 @@ const Root = styled(Box)(
     align-items: center;
     width: auto;
     &.selected {
-        box-shadow: 4px 0px 0px 0px ${colors.menuSelected[theme.palette.mode]} inset;
+        box-shadow: 4px 0px 0px 0px ${theme.palette.primary.main} inset;
     }
 `,
 )
@@ -41,7 +40,7 @@ const LabelWrapper = styled(Box)(
 )
 
 export const MenuItem = observer<MenuItemProps>((props) => {
-    const { text, id } = props
+    const { text, id, disabled } = props
     const { children = [] } = props
     const { baseStore } = useStores()
 
@@ -50,14 +49,14 @@ export const MenuItem = observer<MenuItemProps>((props) => {
 
     return (
         <Root className={`menu-wrapper ${route?.id === id ? 'selected' : ''}`.trim()}>
-            <MenuItemIcon>
+            <MenuItemIcon disabled={disabled}>
                 <TextSnippetOutlined />
             </MenuItemIcon>
             <LabelWrapper className={!collapsed ? 'hidden' : ''}>
                 <Typography component="span" color="textPrimary">
                     {text}
                 </Typography>
-                {children.length > 0 ? <KeyboardArrowDownOutlined /> : null}
+                {children.length > 0 ? <KeyboardArrowDownOutlined color="primary" /> : null}
             </LabelWrapper>
         </Root>
     )

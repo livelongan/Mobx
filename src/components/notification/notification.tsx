@@ -1,14 +1,15 @@
 import { observer } from 'mobx-react-lite'
 import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react'
-import { NotificationGroupHandle, NotificationProps } from './types'
-import { IconButton, Snackbar, styled } from '@mui/material'
+import { NotificationDto, NotificationGroupHandle, NotificationProps } from './types'
+import { IconButton, Snackbar, styled, Slide, Alert } from '@mui/material'
 import { Close } from '@mui/icons-material'
 import { useStores } from '../../stores'
+import { uniqueId } from 'lodash'
 
-const Notify = styled(Snackbar)(
+const Notify = styled(Alert)(
     ({ theme }) => `
-        & .MuiPaper-root.MuiSnackbarContent-root {
-            background-color: ${theme.palette.primary.light};
+        & .MuiAlert-icon, & .MuiAlert-message, & .MuiAlert-action {
+            // color: ${theme.palette.background.default};
         }`,
 )
 
@@ -20,7 +21,7 @@ export const NotificationGroup = observer(
         const errorRef = useRef(null)
         const { baseStore } = useStores()
 
-        const handleClose = (dto: NotificationProps) => {
+        const handleClose = (dto: NotificationDto) => {
             baseStore.removeNotifications(dto)
         }
 
@@ -35,31 +36,38 @@ export const NotificationGroup = observer(
 
         useImperativeHandle(ref, () => {
             return {
-                notification: (dto: NotificationProps) => {
+                notification: (item: NotificationProps) => {
+                    const dto = { ...item, id: uniqueId('notify') } as NotificationDto
                     baseStore.addNotifications(dto)
                 },
             }
         }, [baseStore])
 
-        const messages = baseStore.notifications.slice(0, 1)
-
         return (
             <div ref={errorRef}>
-                {messages.map((it, index) => (
-                    <Notify
+                {baseStore.notifications.map((it, index) => (
+                    <Snackbar
                         open={true}
                         key={`Snackbar-${index}`}
                         autoHideDuration={6000}
+                        TransitionComponent={(props) => <Slide {...props} direction="up" />}
                         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                         onClose={() => handleClose(it)}
-                        message={it.message}
-                        sx={{ bgcolor: (theme) => theme.palette.primary.main }}
-                        action={
-                            <IconButton size="small" color="inherit" onClick={() => handleClose(it)}>
-                                <Close fontSize="small" />
-                            </IconButton>
-                        }
-                    />
+                    >
+                        <Notify
+                            onClick={() => handleClose(it)}
+                            severity={it.type}
+                            variant="filled"
+                            sx={{ width: '100%' }}
+                            action={
+                                <IconButton size="small" color="inherit" onClick={() => handleClose(it)}>
+                                    <Close fontSize="small" />
+                                </IconButton>
+                            }
+                        >
+                            {it.message}
+                        </Notify>
+                    </Snackbar>
                 ))}
             </div>
         )

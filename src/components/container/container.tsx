@@ -3,7 +3,7 @@ import { PropsWithChildren } from 'react'
 import { Header } from './header'
 import { MenuRouter } from '../menu'
 import { GAP } from '../../constants'
-import { Paper, styled } from '@mui/material'
+import { Box, styled } from '@mui/material'
 
 const Root = styled('div')(
     () => `
@@ -14,21 +14,26 @@ const Root = styled('div')(
 `,
 )
 
-const BodyRoot = styled(Paper)(
-    ({ theme }) => `
+const BodyRoot = styled(Box)(
+    () => `
     flex: 1;
     display: flex;
-    // background-color: ${theme.palette.background.paper};
+    min-height: 0;
+    min-width: 0;
+    overflow: hidden;
 `,
 )
 
-const PageContainer = styled('div')(
-    () => `
+const PageContainer = styled(Box)(
+    ({ theme }) => `
     height: 100%;
     flex: 1;
-    overflow: hidden;
-    padding: ${GAP.normal}px;
+    padding: ${GAP.middle}px ${GAP.large}px;
     box-sizing: border-box;
+    min-height: 0;
+    min-width: 0;
+    overflow: hidden;
+    background-color: ${theme.palette.background.paper}
 `,
 )
 
@@ -39,7 +44,7 @@ export const Container = observer<IProps>(({ children }) => {
             <Header />
             <BodyRoot>
                 <MenuRouter />
-                <PageContainer className="page">{children}</PageContainer>
+                <PageContainer className="page-container">{children}</PageContainer>
             </BodyRoot>
         </Root>
     )

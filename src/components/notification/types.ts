@@ -9,6 +9,9 @@ export type NotificationProps = {
         message?: string
     }
 }
+export type NotificationDto = NotificationProps & {
+    id: string
+}
 
 export type NotificationGroupHandle = {
     notification(message: NotificationProps): void

@@ -1,7 +1,6 @@
 import { IconButton, IconButtonProps, styled } from '@mui/material'
 import { observer } from 'mobx-react-lite'
 import { PropsWithChildren } from 'react'
-import { colors } from '../../theme'
 
 const Root = styled('div')(
     ({ theme }) => ` 
@@ -9,7 +8,7 @@ const Root = styled('div')(
     justify-content: center;
     align-items: center;
     & .MuiButtonBase-root {
-        color: ${colors.header[theme.palette.mode]};
+        color: ${theme.palette.primary.contrastText};
     }
 `,
 )

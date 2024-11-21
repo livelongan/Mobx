@@ -37,6 +37,95 @@ export const RouterMenu: RouteItemProps[] = [
                 text: 'Typescript',
                 component: <ReactPage />,
             },
+            {
+                path: '/react1',
+                text: 'Menu 1',
+                component: <ReactPage />,
+            },
+            {
+                path: '/javascript2',
+                text: 'Javascript',
+                component: <ReactPage />,
+            },
+            {
+                path: '/typescript3',
+                text: 'Typescript',
+                component: <ReactPage />,
+            },
+        ],
+    },
+    {
+        path: '/web2',
+        text: 'Web 2',
+        component: <ReactPage />,
+        children: [
+            {
+                path: '/react',
+                text: 'Menu 1',
+                component: <ReactPage />,
+            },
+            {
+                path: '/javascript',
+                text: 'Javascript',
+                component: <ReactPage />,
+            },
+            {
+                path: '/typescript',
+                text: 'Typescript',
+                component: <ReactPage />,
+            },
+            {
+                path: '/react1',
+                text: 'Menu 1',
+                component: <ReactPage />,
+            },
+            {
+                path: '/javascript2',
+                text: 'Javascript',
+                component: <ReactPage />,
+            },
+            {
+                path: '/typescript3',
+                text: 'Typescript',
+                component: <ReactPage />,
+            },
+        ],
+    },
+    {
+        path: '/web3',
+        text: 'Web 3',
+        component: <ReactPage />,
+        children: [
+            {
+                path: '/react',
+                text: 'Menu 1',
+                component: <ReactPage />,
+            },
+            {
+                path: '/javascript',
+                text: 'Javascript',
+                component: <ReactPage />,
+            },
+            {
+                path: '/typescript',
+                text: 'Typescript',
+                component: <ReactPage />,
+            },
+            {
+                path: '/react1',
+                text: 'Menu 1',
+                component: <ReactPage />,
+            },
+            {
+                path: '/javascript2',
+                text: 'Javascript',
+                component: <ReactPage />,
+            },
+            {
+                path: '/typescript3',
+                text: 'Typescript',
+                component: <ReactPage />,
+            },
         ],
     },
     { separator: true },

@@ -1,5 +1,5 @@
 import { cast, SnapshotOut, types } from 'mobx-state-tree'
-import { MenuItemProps, NotificationProps } from '../../components'
+import { MenuItemProps, NotificationDto } from '../../components'
 import { PaletteMode } from '@mui/material'
 
 export const BaseStoreModel = types
@@ -9,7 +9,7 @@ export const BaseStoreModel = types
         route: types.maybe(types.frozen<MenuItemProps>()),
         expandIds: types.array(types.string),
         collapse: types.boolean,
-        notifications: types.array(types.frozen<NotificationProps>()),
+        notifications: types.array(types.frozen<NotificationDto>()),
     })
     .views((self) => ({
         get expandedIds() {
@@ -29,13 +29,13 @@ export const BaseStoreModel = types
         setExpandedId(ids: string[]) {
             self.expandIds = cast(ids)
         },
-        addNotifications(dto: NotificationProps) {
+        addNotifications(dto: NotificationDto) {
             self.notifications.push(dto)
         },
-        removeNotifications(dto: NotificationProps) {
-            const index = self.notifications.findIndex((it) => it === dto)
+        removeNotifications(dto: NotificationDto) {
+            const index = self.notifications.findIndex((it) => it.id === dto.id)
             if (index >= 0) {
-                self.notifications.splice(0, index)
+                self.notifications.splice(index, 1)
             }
         },
     }))

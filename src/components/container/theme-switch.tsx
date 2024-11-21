@@ -61,7 +61,7 @@ export const ThemeSwitch = observer(() => {
         baseStore.setTheme(checked ? 'light' : 'dark')
         notification({
             type: 'info',
-            message: `Theme now change to ${checked ? 'light' : 'dark'}`,
+            message: `Theme now change to ${checked ? 'light' : 'dark'}.`,
         })
     }
 

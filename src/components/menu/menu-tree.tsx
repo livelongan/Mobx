@@ -25,6 +25,13 @@ const TreeRoot = styled(SimpleTreeView)(
     }
 `,
 )
+const TreeItemRoot = styled(TreeItem)(
+    ({ theme }) => `
+    // &.Mui-focused .menu-wrapper:{
+    //     background-color: ${theme.palette.action.disabledBackground}
+    // }
+`,
+)
 
 export const MenuTree = observer(() => {
     const { baseStore } = useStores()
@@ -36,6 +43,9 @@ export const MenuTree = observer(() => {
 
     const handleMenuClick = useCallback(
         (menu: MenuItemProps, event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+            if (menu.disabled) {
+                return
+            }
             event.stopPropagation()
             event.preventDefault()
             if (!menu.separator) {
@@ -63,33 +73,36 @@ export const MenuTree = observer(() => {
                 if (!it.separator) {
                     if (children.length === 0) {
                         return (
-                            <TreeItem
+                            <TreeItemRoot
                                 key={it.id}
                                 itemId={it.id}
                                 label={<MenuItem {...it} />}
+                                disabled={it.disabled}
                                 onClick={handleMenuClick.bind(null, it)}
                             />
                         )
                     } else {
                         return (
-                            <TreeItem
+                            <TreeItemRoot
                                 key={it.id}
                                 itemId={it.id}
                                 label={<MenuItem {...it} />}
+                                disabled={it.disabled}
                                 className="menu-group"
                                 onClick={handleMenuClick.bind(null, it)}
                             >
                                 {collapsed &&
                                     children.map((child) => (
-                                        <TreeItem
+                                        <TreeItemRoot
                                             key={child.id}
                                             itemId={child.id}
+                                            disabled={it.disabled}
                                             label={<MenuItem {...child} />}
                                             className="submenu"
                                             onClick={handleMenuClick.bind(null, child)}
                                         />
                                     ))}
-                            </TreeItem>
+                            </TreeItemRoot>
                         )
                     }
                 } else {
