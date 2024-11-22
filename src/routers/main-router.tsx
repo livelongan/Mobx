@@ -33,7 +33,14 @@ export const MainRouter = observer(() => {
             <Routes>
                 {routers.map((it) => {
                     if (it.component && it.path) {
-                        return <Route key={it.id} path={it.path} element={it.component} ErrorBoundary={RouterError} />
+                        return (
+                            <Route
+                                key={it.id}
+                                path={it.path}
+                                element={it.component}
+                                ErrorBoundary={RouterError}
+                            />
+                        )
                     } else {
                         return null
                     }

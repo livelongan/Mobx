@@ -1,12 +1,37 @@
-import { PaletteMode, Theme, ThemeOptions } from '@mui/material'
+import { Elevation } from './others'
+import { PaletteMode, ThemeOptions } from './types'
 
 export const InitTheme: PaletteMode = 'light'
 
 export const InitBorderRadius = 0
 
 export const ThemeSettings: ThemeOptions = {
-    shape: {
-        borderRadius: InitBorderRadius,
+    palette: {
+        mode: 'light',
+        primary: {
+            main: '#002884',
+            contrastText: '#fafafa',
+        },
+        secondary: {
+            main: '#f50057',
+        },
+        background: {
+            default: '#ffffff',
+            paper: '#fafafa',
+        },
+        error: {
+            main: '#c30f0f',
+        },
+        warning: {
+            main: '#de6b09',
+        },
+        info: {
+            main: '#2da4e2',
+        },
+        success: {
+            main: '#229e27',
+        },
+        divider: 'rgba(0,0,0,0.12)',
     },
     spacing: 8,
     transitions: {
@@ -47,5 +72,6 @@ export const ThemeSettings: ThemeOptions = {
     },
 }
 
-export const ModePalette = (theme: Theme, key: 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success') =>
-    theme.palette[key][theme.palette.mode]
+export const ThemeCss = `    
+    ${Elevation}
+`

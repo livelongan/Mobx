@@ -1,21 +1,17 @@
 import { observer } from 'mobx-react-lite'
 import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react'
 import { NotificationDto, NotificationGroupHandle, NotificationProps } from './types'
-import { IconButton, Snackbar, styled, Slide, Alert } from '@mui/material'
-import { Close } from '@mui/icons-material'
 import { useStores } from '../../stores'
 import { uniqueId } from 'lodash'
+import { NotificationGroup, Notification } from '@progress/kendo-react-notification'
+import { Slide } from '@progress/kendo-react-animation'
+import { styled } from 'styled-components'
 
-const Notify = styled(Alert)(
-    ({ theme }) => `
-        & .MuiAlert-icon, & .MuiAlert-message, & .MuiAlert-action {
-            // color: ${theme.palette.background.default};
-        }`,
-)
-
+const Notify = styled(Notification)(() => ``)
+const Root = styled(NotificationGroup)(() => ``)
 let groupRef: React.MutableRefObject<NotificationGroupHandle> | null = null
 
-export const NotificationGroup = observer(
+export const Snackbar = observer(
     forwardRef<NotificationGroupHandle, object>((props, ref) => {
         const notifyRef = useRef(null)
         const errorRef = useRef(null)
@@ -44,32 +40,27 @@ export const NotificationGroup = observer(
         }, [baseStore])
 
         return (
-            <div ref={errorRef}>
+            <Root
+                ref={errorRef}
+                style={{
+                    right: 30,
+                    bottom: 30,
+                    alignItems: 'flex-start',
+                    flexWrap: 'wrap-reverse',
+                }}
+            >
                 {baseStore.notifications.map((it, index) => (
-                    <Snackbar
-                        open={true}
-                        key={`Snackbar-${index}`}
-                        autoHideDuration={6000}
-                        TransitionComponent={(props) => <Slide {...props} direction="up" />}
-                        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                        onClose={() => handleClose(it)}
-                    >
+                    <Slide key={`Snackbar-${index}`} direction={'up'}>
                         <Notify
-                            onClick={() => handleClose(it)}
-                            severity={it.type}
-                            variant="filled"
-                            sx={{ width: '100%' }}
-                            action={
-                                <IconButton size="small" color="inherit" onClick={() => handleClose(it)}>
-                                    <Close fontSize="small" />
-                                </IconButton>
-                            }
+                            closable
+                            onClose={() => handleClose(it)}
+                            type={{ style: it.type, icon: true }}
                         >
                             {it.message}
                         </Notify>
-                    </Snackbar>
+                    </Slide>
                 ))}
-            </div>
+            </Root>
         )
     }),
 )

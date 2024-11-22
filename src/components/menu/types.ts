@@ -1,18 +1,13 @@
+import { DrawerItemProps } from '@progress/kendo-react-layout'
 import { ReactNode } from 'react'
 
-export type RouteItemProps = {
+export type RouteItemProps = DrawerItemProps & {
     path?: string
-    text?: string
-
-    icon?: string
-    separator?: boolean
-
-    disabled?: boolean
     role?: boolean
     hidden?: boolean
+    separator?: boolean
     component?: ReactNode
-
-    children?: RouteItemProps[]
+    expanded?: boolean
 }
 
 export type MenuItemProps = Omit<RouteItemProps, 'children'> & {

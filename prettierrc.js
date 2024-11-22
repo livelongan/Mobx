@@ -1,6 +1,8 @@
+'use strict'
+
 module.exports = {
     tabWidth: 4,
-    printWidth: 150,
+    printWidth: 100,
     semi: false,
     singleQuote: true,
     trailingComma: 'all',

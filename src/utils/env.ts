@@ -30,7 +30,9 @@ export const env: EnvironmentVariables = Object.keys(processEnv).reduce(
             if (key.endsWith('_COMMIT')) {
                 return {
                     ...acc,
-                    [field]: (processEnv[key] ? JSON.parse(`${processEnv[key]}`) : undefined) as VersionProps,
+                    [field]: (processEnv[key]
+                        ? JSON.parse(`${processEnv[key]}`)
+                        : undefined) as VersionProps,
                 }
             }
             return {

@@ -4,6 +4,8 @@ export const MENU_ICON_HEIGHT = 46
 
 export const LOADING_SIZE = 50
 
+export const NOTIFICATION_TIME = 6000
+
 export const FIELD_MIN_WIDTH = 200
 export const FIELD_HEIGHT = 48
 

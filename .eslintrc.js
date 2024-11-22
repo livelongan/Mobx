@@ -86,13 +86,12 @@ module.exports = {
             'error',
             {
                 tabWidth: 4,
-                printWidth: 150,
+                printWidth: 100,
                 semi: false,
                 singleQuote: true,
                 trailingComma: 'all',
                 endOfLine: 'lf',
             }
-
         ],
         'react/react-in-jsx-scope': 'off',
 

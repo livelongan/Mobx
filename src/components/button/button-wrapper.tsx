@@ -1,9 +1,9 @@
-import { Box, styled } from '@mui/material'
 import { observer } from 'mobx-react-lite'
 import { PropsWithChildren } from 'react'
+import { styled } from 'styled-components'
 import { GAP } from '../../constants'
 
-const Root = styled(Box)(
+const Root = styled('div')(
     () => `
     display: flex;
     gap: ${GAP.large}px;

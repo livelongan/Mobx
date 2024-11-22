@@ -1,34 +1,33 @@
-import { IconButton, IconButtonProps, styled } from '@mui/material'
+import { Button, ButtonProps } from '@progress/kendo-react-buttons'
 import { observer } from 'mobx-react-lite'
-import { PropsWithChildren } from 'react'
+import { styled } from 'styled-components'
 
 const Root = styled('div')(
-    ({ theme }) => ` 
+    () => ` 
     display: flex;
     justify-content: center;
     align-items: center;
-    & .MuiButtonBase-root {
-        color: ${theme.palette.primary.contrastText};
+    & .k-button {
+        padding: 8px;
+        border-radius: 50%;
     }
 `,
 )
 
-type IProps = PropsWithChildren<IconButtonProps> & {
+type IProps = ButtonProps & {
     width?: number
     height?: number
 }
 
-export const HeaderIcon = observer<IProps>(({ children, width = 36, height = 36, ...others }) => {
+export const HeaderIcon = observer<IProps>(({ width = 40, height = 40, ...others }) => {
     return (
         <Root
-            sx={{
+            style={{
                 width,
                 height,
             }}
         >
-            <IconButton size="small" {...others}>
-                {children}
-            </IconButton>
+            <Button {...others} fillMode="flat" />
         </Root>
     )
 })

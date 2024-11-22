@@ -1,6 +1,6 @@
 import { cast, SnapshotOut, types } from 'mobx-state-tree'
 import { MenuItemProps, NotificationDto } from '../../components'
-import { PaletteMode } from '@mui/material'
+import { PaletteMode } from '../../theme'
 
 export const BaseStoreModel = types
     .model('BaseStoreModel')
