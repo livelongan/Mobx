@@ -5,6 +5,10 @@ export const getGlobalStyles = (theme: Theme): GlobalStylesProps['styles'] => ({
     body: {
         scrollbarColor: `${theme.palette.divider} ${theme.palette.background.paper}`,
     },
+    legend: {
+        maxWidth: '0 !important',
+        width: 'fit-content !important',
+    },
     [`.${ENABLE_SCROLL}`]: {
         paddingTop: `${SCROLL_OFFSET}px !important`,
         paddingBottom: `${SCROLL_OFFSET}px !important`,

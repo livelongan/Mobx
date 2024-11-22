@@ -1,15 +1,15 @@
 import { observer } from 'mobx-react-lite'
-import { Form, FormInput, FormNumeric, FormSelect, FormSelectSourceProps, LoadingButton } from '../../components'
-import { useForm, FieldValues } from 'react-hook-form'
-import { useEffect, useCallback, useState } from 'react'
-import { SaveOutlined } from '@mui/icons-material'
+import { ButtonWrapper, Form, FormInput, FormNumeric, FormSelect, FormSelectValue, LoadingButton } from '../../components'
+import { useForm, SubmitHandler } from 'react-hook-form'
+import { useState } from 'react'
+import { RestartAltOutlined, SaveOutlined } from '@mui/icons-material'
 
 type IFormProps = {
     firstName: string
     lastName: string
     food: string
     tall: number | null
-    age: FormSelectSourceProps
+    age: FormSelectValue
 }
 
 const sources = [
@@ -28,42 +28,50 @@ const sources = [
     { id: 130, value: 130 },
 ]
 
+const initValue: IFormProps = {
+    firstName: 'sd',
+    lastName: 'sd',
+    food: 'Apple',
+    tall: 170,
+    age: 10,
+}
 export const ReactPage = observer(() => {
     // const [dependence] = useState({
     //     state: true,
     // })
     const [loading, setLoading] = useState(false)
-    const [details] = useState<IFormProps>({
-        firstName: 'sd',
-        lastName: 'sd',
-        food: 'apple',
-        tall: null,
-        age: { id: 10, value: 10 },
-    })
-    const form = useForm<IFormProps>({ defaultValues: { ...details } })
+    // const [details, setDetails] = useState<IFormProps>(initValue)
+    const form = useForm<IFormProps>({ defaultValues: initValue })
+    const formValue = form.watch()
 
-    const onSubmit: React.FormEventHandler<object> = (event) => {
-        event.preventDefault()
+    const onSubmit: SubmitHandler<IFormProps> = () => {
+        console.log(formValue)
         setLoading(true)
-        console.log(getValues())
-        console.log(form)
     }
 
-    const getValues = useCallback(() => {
-        const data: FieldValues = { ...details }
-        Object.keys(data).forEach((key) => {
-            const it = key as keyof IFormProps
-            data[it] = form.watch(it)
-        })
-        return data as IFormProps
-    }, [details, form])
-
-    useEffect(() => {
-        console.log(getValues())
-    }, [form.formState, getValues])
+    // const updateValues = useCallback(() => {
+    //     const data: FieldValues = { ...details }
+    //     Object.keys(data).forEach((key) => {
+    //         const it = key as keyof IFormProps
+    //         data[it] = form.getValues(it)
+    //     })
+    //     setDetails(data as IFormProps)
+    // }, [details, form])
 
     return (
-        <Form onSubmit={onSubmit} actions={<LoadingButton type="submit" label="Submit" loading={loading} icon={<SaveOutlined />} />}>
+        <Form
+            onSubmit={form.handleSubmit(onSubmit)}
+            onReset={() => {
+                form.reset(initValue)
+                setLoading(false)
+            }}
+            actions={
+                <ButtonWrapper>
+                    <LoadingButton type="submit" label="Submit" loading={loading} icon={<SaveOutlined />} />
+                    <LoadingButton type="reset" label="Rest" icon={<RestartAltOutlined />} />
+                </ButtonWrapper>
+            }
+        >
             <FormInput form={form} field={'firstName'} label={'First Name'} options={{ required: true, maxLength: 20 }} />
             <FormInput form={form} field={'lastName'} label={'Last Name'} options={{ required: true, maxLength: 20 }} />
             <FormNumeric form={form} field={'tall'} label={'Tall'} decimal={2} />

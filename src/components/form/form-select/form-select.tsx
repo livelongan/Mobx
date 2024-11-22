@@ -1,6 +1,6 @@
 import { FormControl, FormControlProps, FormHelperText, InputLabel, MenuItem, Select, SelectProps, styled, SelectChangeEvent } from '@mui/material'
 import { observer } from 'mobx-react-lite'
-import { useCallback, useId, useMemo, useState } from 'react'
+import { useCallback, useEffect, useId, useMemo, useState } from 'react'
 import { FieldValues, UseFormReturn } from 'react-hook-form'
 import { FIELD_MIN_WIDTH, GAP } from '../../../constants'
 import { FieldOptions, FormOptions } from '../type'
@@ -17,6 +17,7 @@ export type FormSelectSourceProps = {
     id: string | number
     value: string | number | null | undefined | boolean
 }
+export type FormSelectValue = FormSelectSourceProps | string | number
 
 export type FormSelectProps = React.FormHTMLAttributes<FieldValues> & {
     field: string
@@ -29,8 +30,23 @@ export type FormSelectProps = React.FormHTMLAttributes<FieldValues> & {
 
 export const FormSelect = observer<FormSelectProps>(({ form, field, label, sources, options = {}, control = {}, ...others }) => {
     const uniqueId = useId()
-    const [selected, setSelected] = useState<string | number>('')
     const { formState } = form
+
+    const initValue = useMemo(() => {
+        if (formState.defaultValues) {
+            const value = formState.defaultValues[field]
+            if (typeof value === 'object') {
+                return value.id
+            } else {
+                return value
+            }
+        }
+    }, [field, formState.defaultValues])
+
+    const [selected, setSelected] = useState<string | number>(initValue)
+
+    const change = form.watch()
+
     const register = form.register(field as never, { ...options } as FormOptions)
     const { errors = {} } = formState ?? {}
     const validate = errors[field]
@@ -53,6 +69,11 @@ export const FormSelect = observer<FormSelectProps>(({ form, field, label, sourc
         },
         [field, register, form],
     )
+    useEffect(() => {
+        if (selected !== change[field]) {
+            setSelected(change[field])
+        }
+    }, [change, field, selected])
 
     return (
         <FormControl {...control} error={!!validate} required={!!options?.required} sx={{ minWidth: FIELD_MIN_WIDTH }}>
@@ -61,7 +82,7 @@ export const FormSelect = observer<FormSelectProps>(({ form, field, label, sourc
                 labelId={uniqueId}
                 id={`select-${uniqueId}`}
                 label={label}
-                inputProps={{ ...register, value: selected }}
+                inputProps={{ ...register }}
                 {...others}
                 value={selected}
                 onChange={handleChange}

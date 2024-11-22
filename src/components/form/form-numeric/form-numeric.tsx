@@ -1,6 +1,6 @@
 import { Box, Button, FormControl, FormControlProps, FormHelperText, InputLabel, OutlinedInput, OutlinedInputProps, styled } from '@mui/material'
 import { observer } from 'mobx-react-lite'
-import { useCallback, useId, useMemo, useState } from 'react'
+import { useCallback, useEffect, useId, useMemo, useState } from 'react'
 import { FieldValues, UseFormReturn } from 'react-hook-form'
 import { FIELD_MIN_WIDTH, GAP, PATTERN, VALIDATION } from '../../../constants'
 import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material'
@@ -65,11 +65,13 @@ export const FormNumeric = observer<FormNumericProps>((props) => {
     const step = others.step ?? Number(Math.pow(0.1, decimal).toFixed(decimal))
 
     const { formState } = form
+    const change = form.watch(field)
     const [inputValue, setInputValue] = useState<number | string>(formState.defaultValues ? (formState.defaultValues[field] ?? '') : '')
     const register = form.register(
         field as never,
         {
             ...options,
+            type: 'number',
             pattern: {
                 value: reg,
                 message: 'Not a Number',
@@ -153,6 +155,10 @@ export const FormNumeric = observer<FormNumericProps>((props) => {
             }
         }
     }, [field, form, inputValue])
+
+    useEffect(() => {
+        setInputValue(change)
+    }, [change])
 
     return (
         <FormControl {...control} error={hasError()} required={!!options?.required} sx={{ minWidth: FIELD_MIN_WIDTH }}>
