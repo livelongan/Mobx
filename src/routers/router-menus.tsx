@@ -1,158 +1,38 @@
 import { RouteItemProps } from '../components'
-import { ReactPage, UserProfile, Settings } from '../pages'
+import { ReactPage, UserProfile, Settings, SheetPage, Copy } from '../pages'
 
 export const RouterMenu: RouteItemProps[] = [
     {
-        path: '/react',
-        text: 'Menu 1',
+        path: '/ReactPage',
+        text: 'ReactPage',
         component: <ReactPage />,
     },
     {
-        path: '/javascript',
-        text: 'Javascript',
-        component: <ReactPage />,
-    },
-    {
-        path: '/typescript',
-        text: 'Typescript',
-        component: <ReactPage />,
-    },
-    {
-        path: '/web',
-        text: 'Web',
-        component: <ReactPage />,
-        children: [
-            {
-                path: '/react',
-                text: 'Menu 1',
-                component: <ReactPage />,
-            },
-            {
-                path: '/javascript',
-                text: 'Javascript',
-                component: <ReactPage />,
-            },
-            {
-                path: '/typescript',
-                text: 'Typescript',
-                component: <ReactPage />,
-            },
-            {
-                path: '/react1',
-                text: 'Menu 1',
-                component: <ReactPage />,
-            },
-            {
-                path: '/javascript2',
-                text: 'Javascript',
-                component: <ReactPage />,
-            },
-            {
-                path: '/typescript3',
-                text: 'Typescript',
-                component: <ReactPage />,
-            },
-        ],
-    },
-    {
-        path: '/web2',
-        text: 'Web 2',
-        component: <ReactPage />,
-        children: [
-            {
-                path: '/react',
-                text: 'Menu 1',
-                component: <ReactPage />,
-            },
-            {
-                path: '/javascript',
-                text: 'Javascript',
-                component: <ReactPage />,
-            },
-            {
-                path: '/typescript',
-                text: 'Typescript',
-                component: <ReactPage />,
-            },
-            {
-                path: '/react1',
-                text: 'Menu 1',
-                component: <ReactPage />,
-            },
-            {
-                path: '/javascript2',
-                text: 'Javascript',
-                component: <ReactPage />,
-            },
-            {
-                path: '/typescript3',
-                text: 'Typescript',
-                component: <ReactPage />,
-            },
-        ],
-    },
-    {
-        path: '/web3',
-        text: 'Web 3',
-        component: <ReactPage />,
-        children: [
-            {
-                path: '/react',
-                text: 'Menu 1',
-                component: <ReactPage />,
-            },
-            {
-                path: '/javascript',
-                text: 'Javascript',
-                component: <ReactPage />,
-            },
-            {
-                path: '/typescript',
-                text: 'Typescript',
-                component: <ReactPage />,
-            },
-            {
-                path: '/react1',
-                text: 'Menu 1',
-                component: <ReactPage />,
-            },
-            {
-                path: '/javascript2',
-                text: 'Javascript',
-                component: <ReactPage />,
-            },
-            {
-                path: '/typescript3',
-                text: 'Typescript',
-                component: <ReactPage />,
-            },
-        ],
+        path: '/SheetPage',
+        text: 'Sheet Page',
+        component: <SheetPage />,
     },
     { separator: true },
     {
-        path: '/html',
-        text: 'HTML',
-        component: <ReactPage />,
+        path: '/UserProfile',
+        text: 'User Profile',
+        component: <UserProfile />,
+        hidden: true,
     },
-    {
-        path: '/css',
-        text: 'Css',
-        component: <ReactPage />,
-    },
-    {
-        path: '/vue',
-        text: 'Vue',
-        component: <ReactPage />,
-    },
-    { separator: true },
     {
         path: '/',
         text: 'User Profile',
         component: <UserProfile />,
     },
     {
-        path: '/settings',
+        path: '/Settings',
         text: 'Settings',
         component: <Settings />,
+    },
+    { separator: true },
+    {
+        path: '/Copy',
+        text: 'Copy',
+        component: <Copy />,
     },
 ]

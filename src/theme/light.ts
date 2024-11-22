@@ -49,10 +49,10 @@ export const LightCss = `
     --kendo-color-primary-subtle: #ffeceb;
     --kendo-color-primary-subtle-hover: #ffdedb;
     --kendo-color-primary-subtle-active: #ffc8c4;
-    --kendo-color-primary: #ff6358;
-    --kendo-color-primary-hover: #ea5a51;
-    --kendo-color-primary-active: #d45349;
-    --kendo-color-primary-emphasis: #ff9d97;
+    --kendo-color-primary: #002884;
+    --kendo-color-primary-hover: #33539C;
+    --kendo-color-primary-active: #001C5C;
+    --kendo-color-primary-emphasis: #2068FF;
     --kendo-color-primary-on-subtle: #5c201c;
     --kendo-color-on-primary: #ffffff;
     --kendo-color-primary-on-surface: #ff6358;

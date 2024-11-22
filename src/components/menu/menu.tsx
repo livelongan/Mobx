@@ -36,7 +36,7 @@ export const MenuRouter = observer<IProps>(({ children }) => {
     const { baseStore } = useStores()
 
     const onSelect = (e: DrawerSelectEvent) => {
-        navigate(e.itemTarget.props.route)
+        navigate(e.itemTarget.props.path)
     }
     return (
         <Root
