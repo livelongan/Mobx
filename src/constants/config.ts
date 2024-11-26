@@ -1,6 +1,6 @@
-export const MENU_WIDTH = 250
-export const MENU_ICON_WIDTH = 50
+export const MENU_WIDTH = 218
 export const MENU_ICON_HEIGHT = 46
+export const MENU_MIN_WIDTH = 50
 
 export const LOADING_SIZE = 50
 

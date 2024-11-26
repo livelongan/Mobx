@@ -1,4 +1,4 @@
-import { Elevation } from './others'
+import { Border, Elevation } from './others'
 import { PaletteMode, ThemeOptions } from './types'
 
 export const InitTheme: PaletteMode = 'light'
@@ -69,9 +69,11 @@ export const ThemeSettings: ThemeOptions = {
         snackbar: 1400,
         tooltip: 1500,
         fab: 1050,
+        handler: 999999,
     },
 }
 
 export const ThemeCss = `    
     ${Elevation}
+    ${Border}
 `

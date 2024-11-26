@@ -1,7 +1,7 @@
 import { AppBar, AppBarSection, AppBarSpacer } from '@progress/kendo-react-layout'
 import { observer } from 'mobx-react-lite'
 import { PropsWithChildren } from 'react'
-import { GAP, MENU_ICON_HEIGHT, MENU_ICON_WIDTH } from '../../constants'
+import { GAP, MENU_ICON_HEIGHT, MENU_MIN_WIDTH, MENU_WIDTH } from '../../constants'
 import { useStores } from '../../stores'
 import { HeaderIcon } from './header-icon'
 import { menuIcon } from '@progress/kendo-svg-icons'
@@ -19,15 +19,22 @@ type IProps = PropsWithChildren<object>
 
 export const Header = observer<IProps>(() => {
     const { baseStore } = useStores()
+
     const handleCollapseMenu = () => {
-        baseStore.setCollapse(!baseStore.collapse)
+        const collapse = !baseStore.collapse
+        baseStore.setCollapse(collapse)
+        if (collapse) {
+            baseStore.setMenuWidth(MENU_WIDTH)
+        } else {
+            baseStore.setMenuWidth(MENU_MIN_WIDTH)
+        }
     }
     return (
         <Root positionMode={'static'} style={{ height: MENU_ICON_HEIGHT }}>
             <AppBarSection>
                 <HeaderIcon
                     svgIcon={menuIcon}
-                    width={MENU_ICON_WIDTH}
+                    width={MENU_MIN_WIDTH}
                     height={MENU_ICON_HEIGHT}
                     onClick={handleCollapseMenu}
                 />

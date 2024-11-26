@@ -1,7 +1,12 @@
 import { RouteItemProps } from '../components'
-import { ReactPage, UserProfile, Settings, SheetPage, Copy } from '../pages'
+import { ReactPage, UserProfile, Settings, SheetPage, Copy, FormDemo } from '../pages'
 
 export const RouterMenu: RouteItemProps[] = [
+    {
+        path: '/Form',
+        text: 'Form',
+        component: <FormDemo />,
+    },
     {
         path: '/ReactPage',
         text: 'ReactPage',

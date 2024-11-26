@@ -8,10 +8,11 @@ export type LoadingButtonProps = {
     icon?: ReactNode
 } & Omit<ButtonProps, 'startIcon'>
 
-export const LoadingButton = observer<LoadingButtonProps>(
+export const BaseButton = observer<LoadingButtonProps>(
     ({ label, loading, svgIcon, icon, disabled, ...others }) => {
         return (
             <Button
+                themeColor={'base'}
                 {...others}
                 svgIcon={loading ? undefined : svgIcon}
                 icon={loading ? 'loading' : icon}

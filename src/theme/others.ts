@@ -12,15 +12,15 @@ export const Elevation = `
 export const Font = `
     --kendo-font-family: inherit;
     --kendo-font-size: 0.875rem;
-    --kendo-line-height: 1.4285714286;
-    --kendo-font-weight: 400;
-    --kendo-letter-spacing: ;
     --kendo-font-size-xxs: 0.5rem;
     --kendo-font-size-xs: 0.625rem;
     --kendo-font-size-sm: 0.75rem;
     --kendo-font-size-md: 0.875rem;
     --kendo-font-size-lg: 1rem;
     --kendo-font-size-xl: 1.25rem;
+    --kendo-line-height: 1.4285714286;
+    --kendo-font-weight: 400;
+    --kendo-letter-spacing: ;
     --kendo-line-height-xs: 1;
     --kendo-line-height-sm: 1.25;
     --kendo-line-height-md: 1.4285714286;
@@ -45,13 +45,13 @@ export const Font = `
     --kendo-font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, Roboto Mono, Ubuntu Mono, Lucida Console, Courier New, monospace;
 `
 export const Border = `
---kendo-border-radius-none: 0px;
---kendo-border-radius-xs: 1px;
---kendo-border-radius-sm: 0.125rem;
---kendo-border-radius-md: 0.25rem;
---kendo-border-radius-lg: 0.375rem;
---kendo-border-radius-xl: 0.5rem;
---kendo-border-radius-xxl: 0.75rem;
---kendo-border-radius-xxxl: 1rem;
---kendo-border-radius-full: 9999px;
+    --kendo-border-radius-none: 0px;
+    --kendo-border-radius-xs: 1px;
+    --kendo-border-radius-sm: 0.125rem;
+    --kendo-border-radius-md: 0.15rem;
+    --kendo-border-radius-lg: 0.25rem;
+    --kendo-border-radius-xl: 0.375rem;
+    --kendo-border-radius-xxl: 0.5rem;
+    --kendo-border-radius-xxxl: 0.75rem;
+    --kendo-border-radius-full: 9999px;
 `

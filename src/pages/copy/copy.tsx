@@ -13,19 +13,16 @@ const position = {
 export const Copy = observer(() => {
     const content = <span>Your data has been saved.</span>
     const notifications = [
-        <Notification key="success" type={{ style: 'success', icon: true }}>
+        <Notification key="success" type={{ style: 'success', icon: true }} closable>
             {content}
         </Notification>,
-        <Notification key="info" type={{ style: 'info' }}>
+        <Notification key="info" type={{ style: 'info', icon: true }} closable>
             {content}
         </Notification>,
-        <Notification key="error" type={{ style: 'success', icon: true }}>
+        <Notification key="error" type={{ style: 'error', icon: true }} closable>
             {content}
         </Notification>,
-        <Notification key="warning" type={{ style: 'warning' }}>
-            {content}
-        </Notification>,
-        <Notification key="none" type={{ style: 'none' }}>
+        <Notification key="warning" type={{ style: 'warning', icon: true }} closable>
             {content}
         </Notification>,
     ]

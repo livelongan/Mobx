@@ -54,6 +54,7 @@ export type ZIndex = {
     snackbar: number
     tooltip: number
     fab: number
+    handler: number
 }
 export type Easing = {
     easeInOut: string
@@ -73,12 +74,12 @@ export type Duration = {
 }
 
 export type ThemeOptions = {
-    palette?: PaletteOptions
+    palette: PaletteOptions
     // shadows?: Shadows
     spacing: number
-    transitions?: {
+    transitions: {
         easing: Easing
         duration: Duration
     }
-    zIndex?: ZIndex
+    zIndex: ZIndex
 }

@@ -7,9 +7,11 @@ export const BaseStoreModel = types
     .props({
         theme: types.frozen<PaletteMode>(),
         route: types.maybe(types.frozen<MenuItemProps>()),
+        notifications: types.array(types.frozen<NotificationDto>()),
         expandIds: types.array(types.string),
         collapse: types.boolean,
-        notifications: types.array(types.frozen<NotificationDto>()),
+        menuWidth: types.number,
+        menuDragging: types.boolean,
     })
     .views((self) => ({
         get expandedIds() {
@@ -22,6 +24,12 @@ export const BaseStoreModel = types
         },
         setCollapse(collapse: boolean) {
             self.collapse = collapse
+        },
+        setMenuWidth(width: number) {
+            self.menuWidth = width
+        },
+        setMenuDragging(dragging: boolean) {
+            self.menuDragging = dragging
         },
         setRoute(route: MenuItemProps | undefined) {
             self.route = route

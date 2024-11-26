@@ -1,2 +1,2 @@
-export * from './loading-button'
+export * from './base-button'
 export * from './button-wrapper'

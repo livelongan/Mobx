@@ -20,6 +20,10 @@ const Root = styled(Switch)(({ theme }) => ({
     ['& .k-switch-track']: {
         width: 48,
         height: 20,
+        color: 'var(--kendo-color-surface)',
+        background: 'currentcolor',
+        outlineColor: 'currentcolor',
+        borderColor: 'currentcolor',
     },
     [`& .k-switch-thumb`]: {
         backgroundColor: theme.palette.background.default,

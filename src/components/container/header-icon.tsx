@@ -7,10 +7,6 @@ const Root = styled('div')(
     display: flex;
     justify-content: center;
     align-items: center;
-    & .k-button {
-        padding: 8px;
-        border-radius: 50%;
-    }
 `,
 )
 
@@ -27,7 +23,7 @@ export const HeaderIcon = observer<IProps>(({ width = 40, height = 40, ...others
                 height,
             }}
         >
-            <Button {...others} fillMode="flat" />
+            <Button {...others} themeColor={'light'} fillMode="flat" rounded={'full'} />
         </Root>
     )
 })

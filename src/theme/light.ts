@@ -36,6 +36,7 @@ export const LightCss = `
     --kendo-color-surface-alt: #ffffff;
     --kendo-color-border: rgba(0, 0, 0, 0.08);
     --kendo-color-border-alt: rgba(0, 0, 0, 0.16);
+
     --kendo-color-base-subtle: #ebebeb;
     --kendo-color-base-subtle-hover: #e0e0e0;
     --kendo-color-base-subtle-active: #d6d6d6;
@@ -46,16 +47,18 @@ export const LightCss = `
     --kendo-color-base-on-subtle: #3d3d3d;
     --kendo-color-on-base: #3d3d3d;
     --kendo-color-base-on-surface: #3d3d3d;
+
     --kendo-color-primary-subtle: #ffeceb;
     --kendo-color-primary-subtle-hover: #ffdedb;
     --kendo-color-primary-subtle-active: #ffc8c4;
-    --kendo-color-primary: #002884;
-    --kendo-color-primary-hover: #33539C;
-    --kendo-color-primary-active: #001C5C;
-    --kendo-color-primary-emphasis: #2068FF;
-    --kendo-color-primary-on-subtle: #5c201c;
+    --kendo-color-primary: #f50057;
+    --kendo-color-primary-hover: #fe639a;
+    --kendo-color-primary-active: #be0244;
+    --kendo-color-primary-emphasis: #ff9d97;
+    --kendo-color-primary-on-subtle: #961342;
     --kendo-color-on-primary: #ffffff;
-    --kendo-color-primary-on-surface: #ff6358;
+    --kendo-color-primary-on-surface: #f50057;
+
     --kendo-color-secondary-subtle: #fafafa;
     --kendo-color-secondary-subtle-hover: #f5f5f5;
     --kendo-color-secondary-subtle-active: #ebebeb;
@@ -66,6 +69,7 @@ export const LightCss = `
     --kendo-color-secondary-on-subtle: #141414;
     --kendo-color-on-secondary: #ffffff;
     --kendo-color-secondary-on-surface: #292929;
+
     --kendo-color-tertiary-subtle: #d8f1fd;
     --kendo-color-tertiary-subtle-hover: #c5eafc;
     --kendo-color-tertiary-subtle-active: #a3dffb;
@@ -76,6 +80,7 @@ export const LightCss = `
     --kendo-color-tertiary-on-subtle: #023f5c;
     --kendo-color-on-tertiary: #ffffff;
     --kendo-color-tertiary-on-surface: #028ccb;
+
     --kendo-color-info-subtle: #d2e2fb;
     --kendo-color-info-subtle-hover: #bdd4f8;
     --kendo-color-info-subtle-active: #80acf4;
@@ -86,6 +91,7 @@ export const LightCss = `
     --kendo-color-info-on-subtle: #002259;
     --kendo-color-on-info: #ffffff;
     --kendo-color-info-on-surface: #004ac2;
+
     --kendo-color-success-subtle: #dcf0d3;
     --kendo-color-success-subtle-hover: #cbe9bf;
     --kendo-color-success-subtle-active: #b7e1a5;
@@ -96,6 +102,7 @@ export const LightCss = `
     --kendo-color-success-on-subtle: #1c5a00;
     --kendo-color-on-success: #ffffff;
     --kendo-color-success-on-surface: #2d9600;
+
     --kendo-color-warning-subtle: #fff4d3;
     --kendo-color-warning-subtle-hover: #ffeebd;
     --kendo-color-warning-subtle-active: #ffe79e;
@@ -106,6 +113,7 @@ export const LightCss = `
     --kendo-color-warning-on-subtle: #5e4700;
     --kendo-color-on-warning: #3d3d3d;
     --kendo-color-warning-on-surface: #ffc000;
+
     --kendo-color-error-subtle: #fcddda;
     --kendo-color-error-subtle-hover: #fbc8c3;
     --kendo-color-error-subtle-active: #f98b80;
@@ -116,16 +124,18 @@ export const LightCss = `
     --kendo-color-error-on-subtle: #7a0c00;
     --kendo-color-on-error: #ffffff;
     --kendo-color-error-on-surface: #ca1400;
+
     --kendo-color-light-subtle: #fafafa;
     --kendo-color-light-subtle-hover: #f5f5f5;
     --kendo-color-light-subtle-active: #ebebeb;
-    --kendo-color-light: #ebebeb;
+    --kendo-color-light: #002884;
     --kendo-color-light-hover: #e0e0e0;
     --kendo-color-light-active: #d6d6d6;
     --kendo-color-light-emphasis: #d6d6d6;
     --kendo-color-light-on-subtle: #141414;
-    --kendo-color-on-light: #000000;
+    --kendo-color-on-light: #fafafa;
     --kendo-color-light-on-surface: #e0e0e0;
+
     --kendo-color-dark-subtle: #c2c2c2;
     --kendo-color-dark-subtle-hover: #adadad;
     --kendo-color-dark-subtle-active: #999999;
@@ -136,6 +146,7 @@ export const LightCss = `
     --kendo-color-dark-on-subtle: #1f1f1f;
     --kendo-color-on-dark: #ffffff;
     --kendo-color-dark-on-surface: #141414;
+    
     --kendo-color-inverse-subtle: #c2c2c2;
     --kendo-color-inverse-subtle-hover: #adadad;
     --kendo-color-inverse-subtle-active: #999999;
@@ -146,6 +157,8 @@ export const LightCss = `
     --kendo-color-inverse-on-subtle: #1f1f1f;
     --kendo-color-on-inverse: #ffffff;
     --kendo-color-inverse-on-surface: #141414;
+`
+export const SeriesColor = `
     --kendo-color-series-a: #ff6358;
     --kendo-color-series-a-bold: #bf4a42;
     --kendo-color-series-a-bolder: #80322c;

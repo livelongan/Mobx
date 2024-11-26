@@ -18,8 +18,8 @@ export const App = observer(() => {
                 <style>
                     {`
                 :root{ 
-                    ${ThemeCss} 
                     ${baseStore.theme !== 'dark' ? LightCss : DarkCss} 
+                    ${ThemeCss}
                 }`}
                 </style>
                 <RootStoreProvider value={rootStore}>
