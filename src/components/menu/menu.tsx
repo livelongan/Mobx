@@ -64,14 +64,18 @@ export const MenuRouter = observer<IProps>(({ children }) => {
     const navigate = useNavigate()
     const { menus } = useRoutes()
     const { baseStore } = useStores()
-
     const handler = useRef<HTMLDivElement | null>(null)
 
     useDraggable(handler, {
         onDrag: (event: NormalizedDragEvent) => {
+            const width = document.body.clientWidth
+            const maxWidth = width - MENU_MIN_WIDTH
             if (event.pageX <= MENU_MIN_WIDTH + 20) {
                 baseStore.setCollapse(false)
                 baseStore.setMenuWidth(MENU_MIN_WIDTH)
+            } else if (event.pageX >= maxWidth) {
+                baseStore.setMenuWidth(maxWidth)
+                baseStore.setCollapse(true)
             } else {
                 baseStore.setMenuWidth(event.pageX)
                 baseStore.setCollapse(true)

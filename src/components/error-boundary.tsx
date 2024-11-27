@@ -17,17 +17,16 @@ export class ErrorBoundary extends React.Component<PropsWithChildren<object>, St
     }
 
     public async componentDidCatch(error: Error, info: React.ErrorInfo): Promise<void> {
-        console.warn(error, info)
         const stack: { [key: string]: string } = {}
         try {
-            const regexParan = /[^() ]*(\([^()]*\))/g // regular expression to find strings inside param
+            const regex = /[^() ]*(\([^()]*\))/g // regular expression to find strings inside param
             const source = info.componentStack ? info.componentStack.toString() : ''
 
-            let match = regexParan.exec(source)
+            let match = regex.exec(source)
             while (match) {
                 const [wholeMatch, key] = match
                 stack[key] = wholeMatch
-                match = regexParan.exec(source)
+                match = regex.exec(source)
             }
         } catch (err) {
             console.error('Error regex', (err as Error).toString())
@@ -40,9 +39,15 @@ export class ErrorBoundary extends React.Component<PropsWithChildren<object>, St
         const { children } = this.props
 
         if (errorThrown != null) {
-            console.warn(errorThrown)
-
-            return <div>error</div>
+            return (
+                <div>
+                    <p>{errorThrown.info.componentStack}</p>
+                    <p>{errorThrown.info.digest}</p>
+                    {Object.keys(errorThrown.stack).map((it, index) => (
+                        <p key={`stack${index}`}>{it}</p>
+                    ))}
+                </div>
+            )
         }
         return children
     }

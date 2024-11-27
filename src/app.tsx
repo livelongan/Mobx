@@ -11,7 +11,6 @@ export const App = observer(() => {
     const notificationRef = useRef<NotificationGroupHandle>(null)
     const rootStore = useStores()
     const { baseStore } = useStores()
-    console.log(baseStore)
     return (
         <ThemeProvider theme={ThemeSettings}>
             <ErrorBoundary>

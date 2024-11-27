@@ -5,3 +5,6 @@
 /node_modules
 /.eslintrc.js
 /.prettierrc.js
+/global.d.ts
+/src/overlay.js
+/config-overrides.js

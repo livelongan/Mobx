@@ -1,6 +1,13 @@
 import { FormProps } from '@progress/kendo-react-form'
 import { Button } from '@progress/kendo-react-buttons'
-import { FormActions, FormFieldLayout, FormLayout, FormText, useForm } from '../../components'
+import {
+    FormActions,
+    FieldLayout,
+    FormLayout,
+    FormText,
+    useForm,
+    FieldLayoutItem,
+} from '../../components'
 import { useEffect, useState } from 'react'
 type DtoProps = {
     id: string
@@ -23,9 +30,35 @@ export const FormDemo = () => {
             render={(prop) => {
                 return (
                     <FormLayout>
-                        <FormFieldLayout>
-                            <FormText name={'id'} label={'Label'} required />
-                        </FormFieldLayout>
+                        <FieldLayout cols={[{ width: '33%' }, { width: '33%' }, { width: '33%' }]}>
+                            <FieldLayoutItem>
+                                <FormText name={'id'} label={'Label'} required />
+                            </FieldLayoutItem>
+                            <FieldLayoutItem>
+                                <FormText name={'id'} label={'Label'} required />
+                            </FieldLayoutItem>
+                            <FieldLayoutItem>
+                                <FormText name={'id'} label={'Label'} required />
+                            </FieldLayoutItem>
+                            <FieldLayoutItem>
+                                <FormText name={'id'} label={'Label'} required />
+                            </FieldLayoutItem>
+                            <FieldLayoutItem>
+                                <FormText name={'id'} label={'Label'} required />
+                            </FieldLayoutItem>
+                            <FieldLayoutItem>
+                                <FormText name={'id'} label={'Label'} required />
+                            </FieldLayoutItem>
+                            <FieldLayoutItem>
+                                <FormText name={'id'} label={'Label'} required />
+                            </FieldLayoutItem>
+                            <FieldLayoutItem>
+                                <FormText name={'id'} label={'Label'} required />
+                            </FieldLayoutItem>
+                            <FieldLayoutItem>
+                                <FormText name={'id'} label={'Label'} required />
+                            </FieldLayoutItem>
+                        </FieldLayout>
 
                         <FormActions>
                             <Button disabled={!prop.allowSubmit} id={id + 'submit'}>

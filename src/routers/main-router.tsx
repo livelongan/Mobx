@@ -4,8 +4,7 @@ import { Authorization } from './401'
 import { useRoutes } from './use-routes'
 import { Suspense, useEffect } from 'react'
 import { useStores } from '../stores'
-import { RouterError } from './router-error'
-import { Loading } from '../components'
+import { ErrorBoundary, Loading } from '../components'
 import { NotFound } from './404'
 
 export const MainRouter = observer(() => {
@@ -38,7 +37,7 @@ export const MainRouter = observer(() => {
                                 key={it.id}
                                 path={it.path}
                                 element={it.component}
-                                ErrorBoundary={RouterError}
+                                ErrorBoundary={ErrorBoundary}
                             />
                         )
                     } else {
