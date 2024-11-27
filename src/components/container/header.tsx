@@ -8,12 +8,10 @@ import { menuIcon } from '@progress/kendo-svg-icons'
 import { ThemeSwitch } from './theme-switch'
 import { styled } from 'styled-components'
 
-const Root = styled(AppBar)(
-    () => `
+const Root = styled(AppBar)`
     padding: 0;
-    padding-right:${GAP.large}px;
-`,
-)
+    padding-right: ${GAP.large}px;
+`
 
 type IProps = PropsWithChildren<object>
 

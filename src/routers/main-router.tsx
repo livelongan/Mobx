@@ -1,11 +1,11 @@
 import { observer } from 'mobx-react-lite'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
-import { Authorization } from './401'
+import { Authorization, NotFound } from '../pages'
 import { useRoutes } from './use-routes'
 import { Suspense, useEffect } from 'react'
 import { useStores } from '../stores'
-import { ErrorBoundary, Loading } from '../components'
-import { NotFound } from './404'
+import { Loading } from '../components'
+import { RouteLoading } from './route-loading'
 
 export const MainRouter = observer(() => {
     const location = useLocation()
@@ -16,13 +16,11 @@ export const MainRouter = observer(() => {
     useEffect(() => {
         if (location && routers.length > 0) {
             const pathname = location?.pathname ?? '/'
-            if (pathname === '/401') {
-                navigate('/', { replace: true })
-                return
-            }
             const route = findRoute(pathname)
             if (route) {
                 baseStore.setRoute(route)
+            } else {
+                navigate('/404', { replace: true })
             }
         }
     }, [baseStore, findRoute, location, navigate, routers.length])
@@ -32,20 +30,14 @@ export const MainRouter = observer(() => {
             <Routes>
                 {routers.map((it) => {
                     if (it.component && it.path) {
-                        return (
-                            <Route
-                                key={it.id}
-                                path={it.path}
-                                element={it.component}
-                                ErrorBoundary={ErrorBoundary}
-                            />
-                        )
+                        return <Route key={it.id} path={it.path} element={it.component} />
                     } else {
                         return null
                     }
                 })}
                 <Route key="authorization" path="/401" element={<Authorization />} />
-                <Route key="notFound" path="*" element={<NotFound />} />
+                <Route key="notFound" path="/404" element={<NotFound />} />
+                <Route key="routeLoading" path="*" element={<RouteLoading />} />
             </Routes>
         </Suspense>
     )

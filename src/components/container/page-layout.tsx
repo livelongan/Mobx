@@ -3,12 +3,10 @@ import { PropsWithChildren } from 'react'
 import { styled } from 'styled-components'
 import { GridLayout } from '@progress/kendo-react-layout'
 
-const Root = styled(GridLayout)(
-    () => `
+const Root = styled(GridLayout)`
     height: 100%;
-    width: 100%; 
-`,
-)
+    width: 100%;
+`
 
 type IProps = PropsWithChildren<object>
 export const PageLayout = observer<IProps>(({ children }) => {

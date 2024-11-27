@@ -59,6 +59,6 @@
         "noErrorTruncation": true,
         "sourceRoot": "./"
     },
-    "include": ["src"], //"**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx",
+    "include": ["src", "global.d.ts"], //"**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx",
     "exclude": ["node_modules", "**/*.scss"]
 }

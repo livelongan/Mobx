@@ -13,6 +13,8 @@ export const SCROLL_OFFSET = 20
 export const DISABLED_SCROLL = 'disable-scroll'
 export const ENABLE_SCROLL = 'enable-scroll'
 
+export const PAGE_CONTAINER = 'page-container'
+
 export const MENU_LIST_HEIGHT = 360
 
 export const GAP = {

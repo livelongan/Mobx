@@ -7,22 +7,19 @@ import {
     useForm,
     FieldLayoutItem,
     BaseButton,
+    Modal,
 } from '../../components'
-import { useEffect, useState, useTransition } from 'react'
-import { FormModal } from './form-modal'
+import { useEffect, useState } from 'react'
 type DtoProps = {
     id: string
 }
-
-function addComment() {
-    // For demonstration purposes to show Error Boundary
-    throw new Error('Example Error: An error thrown to trigger error boundary')
+type IProps = {
+    open: boolean
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
-
-export const FormDemo = () => {
+export const FormModal = (props: IProps) => {
+    const { open, setOpen } = props
     const [details] = useState<DtoProps>({ id: 'id' })
-    const [open, setOpen] = useState(false)
-    const [pending, startTransition] = useTransition()
     const { id, form, FormWrapper } = useForm({ page: 'demo', defaultValue: details })
 
     const handleSubmit: FormProps['onSubmit'] = (data) => {
@@ -34,7 +31,12 @@ export const FormDemo = () => {
     }, [form])
 
     return (
-        <>
+        <Modal
+            open={open}
+            onClose={() => {
+                setOpen(!open)
+            }}
+        >
             <FormWrapper
                 onSubmit={handleSubmit}
                 render={(prop) => {
@@ -79,29 +81,11 @@ export const FormDemo = () => {
                                     id={id + 'submit'}
                                     type="submit"
                                 />
-                                <BaseButton
-                                    label="Open"
-                                    onClick={() => {
-                                        setOpen(true)
-                                    }}
-                                />
-                                <BaseButton
-                                    label="Transition"
-                                    disabled={pending}
-                                    onClick={() => {
-                                        startTransition(() => {
-                                            // Intentionally not passing a comment
-                                            // so error gets thrown
-                                            addComment()
-                                        })
-                                    }}
-                                />
                             </FormActions>
                         </FormLayout>
                     )
                 }}
             />
-            <FormModal open={open} setOpen={setOpen} />
-        </>
+        </Modal>
     )
 }

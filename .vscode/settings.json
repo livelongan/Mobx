@@ -1,7 +1,3 @@
 {
-    "cSpell.words": [
-        "agentkeepalive",
-        "camelcase",
-        "dateinputs"
-    ]
+    "cSpell.words": ["agentkeepalive", "camelcase", "dateinputs", "TTFB"]
 }

@@ -3,12 +3,10 @@ import { PropsWithChildren } from 'react'
 import { styled } from 'styled-components'
 import { GAP } from '../../constants'
 
-const Root = styled('div')(
-    () => `
+const Root = styled('div')`
     display: flex;
     gap: ${GAP.large}px;
-`,
-)
+`
 
 export type ButtonGroupProps = PropsWithChildren<object>
 

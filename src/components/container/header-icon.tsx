@@ -2,13 +2,11 @@ import { Button, ButtonProps } from '@progress/kendo-react-buttons'
 import { observer } from 'mobx-react-lite'
 import { styled } from 'styled-components'
 
-const Root = styled('div')(
-    () => ` 
+const Root = styled('div')` 
     display: flex;
     justify-content: center;
     align-items: center;
-`,
-)
+`
 
 type IProps = ButtonProps & {
     width?: number

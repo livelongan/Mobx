@@ -73,7 +73,7 @@ export type Duration = {
     leavingScreen: number
 }
 
-export type ThemeOptions = {
+export type Theme = {
     palette: PaletteOptions
     // shadows?: Shadows
     spacing: number

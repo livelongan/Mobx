@@ -1,11 +1,11 @@
 import { Border, Elevation } from './others'
-import { PaletteMode, ThemeOptions } from './types'
+import { PaletteMode, Theme } from './types'
 
 export const InitTheme: PaletteMode = 'light'
 
 export const InitBorderRadius = 0
 
-export const ThemeSettings: ThemeOptions = {
+export const ThemeSettings: Theme = {
     palette: {
         mode: 'light',
         primary: {

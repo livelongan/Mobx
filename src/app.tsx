@@ -1,19 +1,18 @@
 import { useRef } from 'react'
 import { observer } from 'mobx-react-lite'
-import { ErrorBoundary, Snackbar, NotificationGroupHandle } from './components'
+import { Snackbar, NotificationGroupHandle, ErrorBoundary } from './components'
 import { RootStoreProvider, useStores } from './stores'
 import { RootRouter } from './routers'
 import './app.css'
-import { LightCss, DarkCss, ThemeCss, ThemeSettings } from './theme'
-import { ThemeProvider } from 'styled-components'
+import { LightCss, DarkCss, ThemeCss, ThemeSettings, ThemeProvider } from './theme'
 
 export const App = observer(() => {
     const notificationRef = useRef<NotificationGroupHandle>(null)
     const rootStore = useStores()
     const { baseStore } = useStores()
     return (
-        <ThemeProvider theme={ThemeSettings}>
-            <ErrorBoundary>
+        <ErrorBoundary>
+            <ThemeProvider theme={ThemeSettings}>
                 <style>
                     {`
                 :root{ 
@@ -25,7 +24,7 @@ export const App = observer(() => {
                     <RootRouter />
                     <Snackbar ref={notificationRef} />
                 </RootStoreProvider>
-            </ErrorBoundary>
-        </ThemeProvider>
+            </ThemeProvider>
+        </ErrorBoundary>
     )
 })

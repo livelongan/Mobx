@@ -1,4 +1,5 @@
 export * from './types'
+export * from './theme-provider'
 export * from './theme'
 export * from './light'
 export * from './dark'

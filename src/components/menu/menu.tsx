@@ -11,14 +11,13 @@ import { useDraggable, NormalizedDragEvent } from '@progress/kendo-react-common'
 import { ThemeSettings } from '../../theme'
 
 const HANDLER_WIDTH = 5
-const Root = styled(Drawer)(
-    () => `
+const Root = styled(Drawer)`
     flex: 1;
     min-height: 0;
     min-width: 0;
     & .k-drawer-item {
         white-space: pre;
-    };
+    }
     &.dragging .k-drawer {
         transition: unset !important;
     }
@@ -28,24 +27,20 @@ const Root = styled(Drawer)(
     &.collapsed .k-drawer-item {
         user-select: none !important;
     }
-`,
-)
+`
 
-const Handler = styled('div')(
-    () => `
+const Handler = styled('div')`
     position: absolute;
     height: 100%;
     width: ${HANDLER_WIDTH}px;
     opacity: 0.8;
     &:hover {
         cursor: e-resize;
-        background: var(--kendo-color-base-emphasis); 
+        background: var(--kendo-color-base-emphasis);
     }
-    `,
-)
+`
 
-const PageContainer = styled(DrawerContent)(
-    () => `
+const PageContainer = styled(DrawerContent)`
     position: relative;
     height: 100%;
     flex: 1;
@@ -55,8 +50,7 @@ const PageContainer = styled(DrawerContent)(
     min-width: 0;
     overflow: hidden;
     background-color: var(--kendo-color-app-surface);
- `,
-)
+`
 
 type IProps = PropsWithChildren<object>
 

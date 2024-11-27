@@ -1,12 +1,6 @@
-declare module NodeJS {
-    interface NodeModule {
-        hot?: {
-            accept: (path?: string, callback?: () => void) => void;
-            dispose: (callback: (data: any) => void) => void;
-            addStatusHandler: (callback: (status: string) => void) => void;
-            status: () => { errors: string[] };
+export { }
 
-        }
+declare global {
+    interface Window {
     }
 }
-declare var module: NodeJS.NodeModule;

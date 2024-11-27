@@ -12,6 +12,7 @@ export const BaseButton = observer<LoadingButtonProps>(
     ({ label, loading, svgIcon, icon, disabled, ...others }) => {
         return (
             <Button
+                title={label}
                 themeColor={'base'}
                 {...others}
                 svgIcon={loading ? undefined : svgIcon}

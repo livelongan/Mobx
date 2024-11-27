@@ -1,8 +1,22 @@
+import { Card, CardBody, CardHeader } from '@progress/kendo-react-layout'
 import React, { ErrorInfo, PropsWithChildren } from 'react'
+import { styled } from 'styled-components'
 
 type State = {
     errorThrown: { error: Error; info: ErrorInfo; stack: { [key: string]: string } } | undefined
 }
+const Root = styled(Card)`
+    margin: 20px;
+    overflow: hidden;
+    max-height: 100vh;
+    width: calc(100vw - 40px);
+    .k-card-body {
+        overflow: auto;
+    }
+    .k-card-header {
+        font-weight: 500;
+    }
+`
 
 export class ErrorBoundary extends React.Component<PropsWithChildren<object>, State> {
     public constructor(props: object) {
@@ -37,16 +51,12 @@ export class ErrorBoundary extends React.Component<PropsWithChildren<object>, St
     public render(): React.ReactNode {
         const { errorThrown } = this.state
         const { children } = this.props
-
         if (errorThrown != null) {
             return (
-                <div>
-                    <p>{errorThrown.info.componentStack}</p>
-                    <p>{errorThrown.info.digest}</p>
-                    {Object.keys(errorThrown.stack).map((it, index) => (
-                        <p key={`stack${index}`}>{it}</p>
-                    ))}
-                </div>
+                <Root>
+                    <CardHeader>{errorThrown.error.message}</CardHeader>
+                    {<CardBody>{JSON.stringify(errorThrown.stack, null, '\t')}</CardBody>}
+                </Root>
             )
         }
         return children
