@@ -44,7 +44,7 @@ const PageContainer = styled(DrawerContent)`
     position: relative;
     height: 100%;
     flex: 1;
-    padding: ${GAP.middle}px ${GAP.large}px;
+    padding: ${GAP.middle}px ${GAP.large}px 0 ${GAP.middle}px;
     box-sizing: border-box;
     min-height: 0;
     min-width: 0;

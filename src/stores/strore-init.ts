@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { RootStoreModel, RootStoreType } from './root-store'
-import { InitRoot } from './init-root'
+import { InitRoot } from './root-init'
 
 type InitRoot = { rootStore: RootStoreType }
 

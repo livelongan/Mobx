@@ -2,11 +2,14 @@ import { types, getRoot, SnapshotOut, IAnyStateTreeNode, Instance } from 'mobx-s
 import { UserProfileStoreModel } from './user-profile'
 import { EntityStoreModel } from './entity'
 import { BaseStoreModel } from './base'
+import { ProjectStoreModel } from './project'
 
 export const RootStoreModel = types.model('RootStoreModel').props({
     baseStore: BaseStoreModel,
     entityStore: EntityStoreModel,
     userProfileStore: UserProfileStoreModel,
+
+    projectStore: ProjectStoreModel,
 })
 
 export type RootStore = Instance<typeof RootStoreModel>

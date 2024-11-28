@@ -3,40 +3,56 @@
     /* box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12); */
     box-shadow: unset;
 }
-.k-loading-image::before{
+
+.k-input-solid:focus,
+.k-input-solid.k-focus {
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--kendo-color-on-app-surface) 8%, transparent)
+}
+
+.k-loading-image::before {
     color: var(--kendo-color-primary)
 }
-.k-loading-image::after{
+
+.k-loading-image::after {
     color: var(--kendo-color-light)
 }
-.k-tabstrip-items-wrapper .k-item:focus, .k-tabstrip-items-wrapper .k-item.k-focus{
-     box-shadow: unset;
+
+.k-tabstrip-items-wrapper .k-item:focus,
+.k-tabstrip-items-wrapper .k-item.k-focus {
+    box-shadow: unset;
 }
-.k-tabstrip-top > .k-tabstrip-items-wrapper .k-item{
+
+.k-tabstrip-top>.k-tabstrip-items-wrapper .k-item {
     margin-right: 2px;
     margin-left: 2px;
 }
+
 .k-button-flat::after {
     box-shadow: inset 0 0 0 1px currentColor;
 }
 
-.k-notification{
+.k-notification {
     padding-block: var(--kendo-spacing-2\.5);
     padding-inline: var(--kendo-spacing-4);
-    font-size: var(--kendo-font-size );
+    font-size: var(--kendo-font-size);
     line-height: var(--kendo-line-height);
     gap: var(--kendo-spacing-2);
     margin-right: var(--kendo-spacing-4);
     margin-bottom: var(--kendo-spacing-2);
 }
 
-.k-spreadsheet-selection{
+.k-spreadsheet-selection {
     background-color: color-mix(in srgb, var(--kendo-color-primary) 10%, transparent);
 }
 
-.k-drawer-wrapper{
+.k-drawer-wrapper {
     scrollbar-width: initial;
 }
-.k-form-required{
+
+.k-form-required {
     color: var(--kendo-color-error);
+}
+
+.k-button-md {
+    padding-inline: var(--kendo-spacing-3);
 }

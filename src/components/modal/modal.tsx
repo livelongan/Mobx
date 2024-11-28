@@ -2,6 +2,7 @@ import { Window as KendoModal, WindowProps } from '@progress/kendo-react-dialogs
 import { observer } from 'mobx-react-lite'
 import { PropsWithChildren } from 'react'
 import { styled } from 'styled-components'
+import { GAP } from '../../constants'
 
 export type ModalProps = PropsWithChildren<
     Partial<WindowProps> & {
@@ -16,6 +17,7 @@ const ModalRoot = styled(KendoModal)`
         height: 36px;
         background: var(--kendo-color-light);
         color: var(--kendo-color-surface);
+        padding-left: ${GAP.middle}px;
     }
     .k-window-title {
         padding: 0;
@@ -56,6 +58,7 @@ const ModalRoot = styled(KendoModal)`
     }
     .k-window-content {
         overflow: hidden;
+        padding: 0;
     }
 `
 export const Modal = observer<ModalProps>(({ open = true, onClose, children, ...others }) => {

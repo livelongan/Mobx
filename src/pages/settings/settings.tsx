@@ -16,100 +16,100 @@ export const Settings = observer(() => {
         <div className="row example-wrapper">
             <StackLayout gap={8}>
                 <Button themeColor={'primary'} fillMode={'solid'} rounded={'small'}>
-                    primary Button
+                    primary solid
                 </Button>
                 <Button themeColor={'primary'} fillMode={'outline'} rounded={'small'}>
-                    Button
+                    primary primary
                 </Button>
                 <Button disabled themeColor={'primary'} fillMode={'outline'} rounded={'small'}>
-                    Button
+                    primary outline
                 </Button>
                 <Button disabled themeColor={'primary'} fillMode={'solid'} rounded={'small'}>
-                    primary Button
+                    primary solid
                 </Button>
             </StackLayout>
             <br />
             <StackLayout gap={8}>
                 <Button themeColor={'base'} fillMode={'solid'} rounded={'small'}>
-                    base Button
+                    base solid
                 </Button>
                 <Button themeColor={'base'} fillMode={'outline'} rounded={'small'}>
-                    Button
+                    base outline
                 </Button>
                 <Button themeColor={'base'} fillMode={'flat'} rounded={'small'}>
-                    Button
+                    base flat
                 </Button>
             </StackLayout>
             <br />
             <StackLayout gap={8}>
                 <Button themeColor={'secondary'} fillMode={'solid'} rounded={'small'}>
-                    secondary Button
+                    secondary solid
                 </Button>
                 <Button themeColor={'secondary'} fillMode={'outline'} rounded={'small'}>
-                    Button
+                    secondary outline
                 </Button>
                 <Button themeColor={'secondary'} fillMode={'flat'} rounded={'small'}>
-                    Button
+                    secondary flat
                 </Button>
             </StackLayout>
             <br />
             <StackLayout gap={8}>
                 <Button themeColor={'tertiary'} fillMode={'solid'} rounded={'small'}>
-                    tertiary Button
+                    tertiary solid
                 </Button>
                 <Button themeColor={'tertiary'} fillMode={'outline'} rounded={'small'}>
-                    Button
+                    tertiary outline
                 </Button>
                 <Button themeColor={'tertiary'} fillMode={'flat'} rounded={'small'}>
-                    Button
+                    tertiary flat
                 </Button>
             </StackLayout>
             <br />
             <StackLayout gap={8}>
                 <Button themeColor={'info'} fillMode={'solid'} rounded={'small'}>
-                    info Button
+                    info solid
                 </Button>
                 <Button themeColor={'info'} fillMode={'outline'} rounded={'small'}>
-                    Button
+                    info outline
                 </Button>
                 <Button themeColor={'info'} fillMode={'flat'} rounded={'small'}>
-                    Button
+                    info flat
                 </Button>
             </StackLayout>
             <br />
             <StackLayout gap={8}>
                 <Button themeColor={'success'} fillMode={'solid'} rounded={'small'}>
-                    success Button
+                    success solid
                 </Button>
                 <Button themeColor={'success'} fillMode={'outline'} rounded={'small'}>
-                    Button
+                    success outline
                 </Button>
                 <Button themeColor={'success'} fillMode={'flat'} rounded={'small'}>
-                    Button
+                    success flat
                 </Button>
             </StackLayout>
             <br />
             <StackLayout gap={8}>
                 <Button themeColor={'warning'} fillMode={'solid'} rounded={'small'}>
-                    warning Button
+                    warning solid
                 </Button>
                 <Button themeColor={'warning'} fillMode={'outline'} rounded={'small'}>
-                    Button
+                    warning outline
                 </Button>
                 <Button themeColor={'warning'} fillMode={'flat'} rounded={'small'}>
-                    Button
+                    warning flat
                 </Button>
             </StackLayout>
             <br />
             <StackLayout gap={8}>
                 <Button themeColor={'error'} fillMode={'solid'} rounded={'small'}>
-                    error Button
+                    error solid
                 </Button>
                 <Button themeColor={'error'} fillMode={'outline'} rounded={'small'}>
-                    Button
+                    error outline
                 </Button>
                 <Button themeColor={'error'} fillMode={'flat'} rounded={'small'}>
-                    Button
+                    error flat
                 </Button>
             </StackLayout>
             <br />

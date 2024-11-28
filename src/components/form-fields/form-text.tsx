@@ -3,15 +3,18 @@ import { Field, FieldWrapper } from '@progress/kendo-react-form'
 import { Error } from '@progress/kendo-react-labels'
 import { Input, InputProps } from '@progress/kendo-react-inputs'
 import { BaseFieldProps, BaseRenderProps } from './types'
+import { getId } from '../../utils'
 
 export type FormTextProps = BaseFieldProps & Partial<InputProps>
 export type TextRenderProps = BaseRenderProps & Partial<FormTextProps>
 
 export const TextField = (fieldProps: TextRenderProps) => {
-    const { validationMessage, visited, required, ...others } = fieldProps
+    const { page, mode = 'view', validationMessage, visited, required, ...others } = fieldProps
+
     return (
         <div className="k-form-field-wrap">
             <Input
+                id={getId(`${page}-${mode}-field-${others.name}`)}
                 {...others}
                 label={required ? `${others.label} *` : others.label}
                 labelClassName={`k-form-label ${required ? 'k-form-required' : ''}`.trim()}

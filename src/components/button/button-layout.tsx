@@ -10,6 +10,6 @@ const Root = styled('div')`
 
 export type ButtonGroupProps = PropsWithChildren<object>
 
-export const ButtonWrapper = observer<ButtonGroupProps>(({ children }) => {
+export const ButtonLayout = observer<ButtonGroupProps>(({ children }) => {
     return <Root>{children}</Root>
 })

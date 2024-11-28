@@ -1,19 +1,28 @@
 import { Button, ButtonProps } from '@progress/kendo-react-buttons'
 import { observer } from 'mobx-react-lite'
 import { ReactNode } from 'react'
+import { BUTTON_PREFIX } from '../../constants'
+import { getId } from '../../utils'
+
+export type ButtonMode = 'cancel' | 'add' | 'edit'
 
 export type LoadingButtonProps = {
+    page?: string
+    mode?: ButtonMode
     label: string
     loading?: boolean
     icon?: ReactNode
 } & Omit<ButtonProps, 'startIcon'>
 
 export const BaseButton = observer<LoadingButtonProps>(
-    ({ label, loading, svgIcon, icon, disabled, ...others }) => {
+    ({ page, mode = '', label, loading, svgIcon, icon, disabled, type, ...others }) => {
         return (
             <Button
                 title={label}
-                themeColor={'base'}
+                id={getId(`${mode}${BUTTON_PREFIX}${label}`, page)}
+                rounded={null}
+                themeColor={type === 'submit' || type === 'reset' ? 'primary' : 'base'}
+                fillMode={type === 'reset' ? 'outline' : 'solid'}
                 {...others}
                 svgIcon={loading ? undefined : svgIcon}
                 icon={loading ? 'loading' : icon}

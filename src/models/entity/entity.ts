@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree'
+import { SnapshotOut, types } from 'mobx-state-tree'
 
 export const LoadingModel = types.model('LoadingModel').props({
     query: types.maybe(types.boolean),
@@ -22,3 +22,7 @@ export const EntityModel = types
             self.load.query = true
         },
     }))
+
+export type LoadingType = SnapshotOut<typeof LoadingModel>
+
+export type EntityType = SnapshotOut<typeof EntityModel>
