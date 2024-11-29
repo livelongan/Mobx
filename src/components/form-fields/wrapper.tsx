@@ -10,8 +10,12 @@ export const Wrapper = ({
     wrapperProps,
     ...others
 }: FieldProps & { wrapperProps?: FieldWrapperProps }) => {
+    const { required, label } = others
     return (
         <Root {...wrapperProps}>
+            <div className={`k-form-label ${required ? 'k-form-required' : ''}`.trim()}>
+                {label}
+            </div>
             <Field {...others} />
         </Root>
     )

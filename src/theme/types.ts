@@ -43,6 +43,7 @@ export type PaletteOptions = {
     divider?: string
     action?: Partial<TypeAction>
     background?: Partial<TypeBackground>
+    var: { [key: string]: string }
 }
 
 export type ZIndex = {

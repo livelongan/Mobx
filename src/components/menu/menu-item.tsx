@@ -9,7 +9,7 @@ const Root = styled.div`
 export const MenuItem = (props: DrawerItemProps) => {
     const { text } = props
     return (
-        <DrawerItem {...props}>
+        <DrawerItem {...props} title={text}>
             <SvgIcon icon={fileIcon} />
             <Root>
                 <div>{text}</div>

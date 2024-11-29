@@ -1,3 +1,4 @@
+import { PATTERN } from '../constants'
 import { PaletteOptions } from './types'
 
 export const DarkPalette: PaletteOptions = {
@@ -26,9 +27,14 @@ export const DarkPalette: PaletteOptions = {
         main: '#229e27',
     },
     divider: 'rgba(255,255,255,0.12)',
+    var: {},
 }
 
-export const DarkCss = `
+export const DarkColor = `
+    --scroll-color: rgba(255,255,255,0.4);
+    --color-overlay: rgba(255,255,255,0.3);
+    --color-hover: rgba(0,0,0,0.1);
+
     --kendo-color-app-surface: #232a2f;
     --kendo-color-on-app-surface: #bdbdbd;
     --kendo-color-subtle: #666666;
@@ -57,29 +63,7 @@ export const DarkCss = `
     --kendo-color-primary-emphasis: #ff9d97;
     --kendo-color-primary-on-subtle: #5c201c;
     --kendo-color-on-primary: #ffffff;
-    --kendo-color-primary-on-surface: #ff6358;
-
-    --kendo-color-secondary-subtle: #fafafa;
-    --kendo-color-secondary-subtle-hover: #f5f5f5;
-    --kendo-color-secondary-subtle-active: #ebebeb;
-    --kendo-color-secondary: #666666;
-    --kendo-color-secondary-hover: #525252;
-    --kendo-color-secondary-active: #3d3d3d;
-    --kendo-color-secondary-emphasis: #e0e0e0;
-    --kendo-color-secondary-on-subtle: #141414;
-    --kendo-color-on-secondary: #ffffff;
-    --kendo-color-secondary-on-surface: #292929;
-
-    --kendo-color-tertiary-subtle: #d8f1fd;
-    --kendo-color-tertiary-subtle-hover: #c5eafc;
-    --kendo-color-tertiary-subtle-active: #a3dffb;
-    --kendo-color-tertiary: #03a9f4;
-    --kendo-color-tertiary-hover: #039ae0;
-    --kendo-color-tertiary-active: #028ccb;
-    --kendo-color-tertiary-emphasis: #61c9f9;
-    --kendo-color-tertiary-on-subtle: #023f5c;
-    --kendo-color-on-tertiary: #ffffff;
-    --kendo-color-tertiary-on-surface: #028ccb;
+    --kendo-color-primary-on-surface: #ff6358; 
 
     --kendo-color-info-subtle: #d2e2fb;
     --kendo-color-info-subtle-hover: #bdd4f8;
@@ -145,16 +129,13 @@ export const DarkCss = `
     --kendo-color-dark-emphasis: #666666;
     --kendo-color-dark-on-subtle: #1f1f1f;
     --kendo-color-on-dark: #ffffff;
-    --kendo-color-dark-on-surface: #141414;
-
-    --kendo-color-inverse-subtle: #c2c2c2;
-    --kendo-color-inverse-subtle-hover: #adadad;
-    --kendo-color-inverse-subtle-active: #999999;
-    --kendo-color-inverse: #3d3d3d;
-    --kendo-color-inverse-hover: #292929;
-    --kendo-color-inverse-active: #1f1f1f;
-    --kendo-color-inverse-emphasis: #666666;
-    --kendo-color-inverse-on-subtle: #1f1f1f;
-    --kendo-color-on-inverse: #ffffff;
-    --kendo-color-inverse-on-surface: #141414;
+    --kendo-color-dark-on-surface: #141414; 
 `
+
+DarkColor.replace(PATTERN.enter, '')
+    .replace(PATTERN.spaces, '')
+    .split(';')
+    .forEach((it) => {
+        const split = it.split(':')
+        DarkPalette.var[split[0]] = split[1]
+    })

@@ -4,7 +4,7 @@ import { Snackbar, NotificationGroupHandle, ErrorBoundary } from './components'
 import { RootStoreProvider, useStores } from './stores'
 import { RootRouter } from './routers'
 import './app.css'
-import { LightCss, DarkCss, ThemeCss, ThemeSettings, ThemeProvider } from './theme'
+import { LightColor, DarkColor, ThemeCss, ThemeSettings, ThemeProvider } from './theme'
 
 export const App = observer(() => {
     const notificationRef = useRef<NotificationGroupHandle>(null)
@@ -16,7 +16,7 @@ export const App = observer(() => {
                 <style>
                     {`
                 :root{ 
-                    ${baseStore.theme !== 'dark' ? LightCss : DarkCss} 
+                    ${baseStore.theme !== 'dark' ? LightColor : DarkColor} 
                     ${ThemeCss}
                 }`}
                 </style>

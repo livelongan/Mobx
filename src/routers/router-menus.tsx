@@ -1,5 +1,5 @@
 import { RouteItemProps } from '../components'
-import { ReactPage, UserProfile, Settings, SheetPage, Copy, FormDemo } from '../pages'
+import { ReactPage, UserProfile, Buttons, SheetPage, Copy, FormDemo } from '../pages'
 
 export const RouterMenu: RouteItemProps[] = [
     {
@@ -30,9 +30,9 @@ export const RouterMenu: RouteItemProps[] = [
         component: <UserProfile />,
     },
     {
-        path: '/Settings',
-        text: 'Settings',
-        component: <Settings />,
+        path: '/Buttons',
+        text: 'Buttons',
+        component: <Buttons />,
     },
     { separator: true },
     {

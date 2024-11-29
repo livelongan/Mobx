@@ -1,5 +1,6 @@
 import { cast, SnapshotOut, types } from 'mobx-state-tree'
 import { MenuItemProps, NotificationDto, StoreModalProps } from '../../components'
+import { NOTIFICATION_COUNT } from '../../constants'
 import { PaletteMode } from '../../theme'
 
 export const BaseStoreModel = types
@@ -9,7 +10,8 @@ export const BaseStoreModel = types
         route: types.maybe(types.frozen<MenuItemProps>()),
         notifications: types.array(types.frozen<NotificationDto>()),
         modals: types.array(types.frozen<StoreModalProps>()),
-        modalChanged: types.maybe(types.frozen<boolean>()),
+        modalResized: types.maybe(types.frozen<boolean>()),
+        modalStaged: types.maybe(types.frozen<boolean>()),
         expandIds: types.array(types.string),
         collapse: types.boolean,
         menuWidth: types.number,
@@ -40,12 +42,15 @@ export const BaseStoreModel = types
             self.expandIds = cast(ids)
         },
         addModal(id: string, modal: StoreModalProps['modal']) {
-            self.modalChanged = !self.modalChanged
+            self.modalResized = !self.modalResized
             const has = self.modals.findIndex((it) => it.id === id)
             if (has >= 0) {
                 self.modals.splice(has, 1)
             }
             self.modals.push({ id, modal })
+        },
+        changeModalStage() {
+            self.modalStaged = !self.modalStaged
         },
         findModal(id: string | null): StoreModalProps['modal'] | null {
             if (!id) {
@@ -61,10 +66,15 @@ export const BaseStoreModel = types
             }
         },
         addNotifications(dto: NotificationDto) {
-            self.notifications.push(dto)
+            const data = [...self.notifications]
+            if (data.length > NOTIFICATION_COUNT - 1) {
+                data.splice(0, 1)
+            }
+            data.push({ ...dto })
+            self.notifications = cast(data)
         },
-        removeNotifications(dto: NotificationDto) {
-            const index = self.notifications.findIndex((it) => it.id === dto.id)
+        delNotifications(id: string) {
+            const index = self.notifications.findIndex((it) => it.id === id)
             if (index >= 0) {
                 self.notifications.splice(index, 1)
             }

@@ -1,6 +1,6 @@
 import { FormProps } from '@progress/kendo-react-form'
 import {
-    FormActions,
+    ModalActionBar,
     useFieldLayout,
     FormLayout,
     FormText,
@@ -9,7 +9,7 @@ import {
     BaseButton,
     FormMode,
 } from '../../components'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 type FormDetailProps = {
     id: string
@@ -27,12 +27,9 @@ export const FormDetails = ({ page, mode, data }: IProps) => {
     const { form, FormWrapper } = useForm({ page, defaultValue: details })
 
     const handleSubmit: FormProps['onSubmit'] = (data) => {
+        console.log(form)
         console.log('submit', data as FormDetailProps, maxSpan)
     }
-
-    useEffect(() => {
-        console.log(form)
-    }, [form])
 
     return (
         <FormWrapper
@@ -85,9 +82,10 @@ export const FormDetails = ({ page, mode, data }: IProps) => {
                             </FieldLayoutItem>
                         </FieldLayout>
 
-                        <FormActions>
+                        <ModalActionBar>
                             <BaseButton label="Submit" disabled={!prop.allowSubmit} type="submit" />
-                        </FormActions>
+                            <BaseButton label="Cancel" />
+                        </ModalActionBar>
                     </FormLayout>
                 )
             }}

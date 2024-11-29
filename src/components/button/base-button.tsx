@@ -16,13 +16,14 @@ export type LoadingButtonProps = {
 
 export const BaseButton = observer<LoadingButtonProps>(
     ({ page, mode = '', label, loading, svgIcon, icon, disabled, type, ...others }) => {
+        const isCancel = label.toLocaleLowerCase() === 'cancel'
         return (
             <Button
                 title={label}
                 id={getId(`${mode}${BUTTON_PREFIX}${label}`, page)}
                 rounded={null}
-                themeColor={type === 'submit' || type === 'reset' ? 'primary' : 'base'}
-                fillMode={type === 'reset' ? 'outline' : 'solid'}
+                themeColor={type === 'submit' || type === 'reset' || isCancel ? 'primary' : 'base'}
+                fillMode={type === 'reset' || isCancel ? 'outline' : 'solid'}
                 {...others}
                 svgIcon={loading ? undefined : svgIcon}
                 icon={loading ? 'loading' : icon}

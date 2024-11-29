@@ -1,34 +1,4 @@
-import { PaletteOptions } from './types'
-
-export const LightPalette: PaletteOptions = {
-    mode: 'light',
-    primary: {
-        main: '#002884',
-        contrastText: '#fafafa',
-    },
-    secondary: {
-        main: '#f50057',
-    },
-    background: {
-        default: '#ffffff',
-        paper: '#fafafa',
-    },
-    error: {
-        main: '#c30f0f',
-    },
-    warning: {
-        main: '#de6b09',
-    },
-    info: {
-        main: '#2da4e2',
-    },
-    success: {
-        main: '#229e27',
-    },
-    divider: 'rgba(0,0,0,0.12)',
-}
-
-export const LightCss = `
+export const DefaultColor = `
     --kendo-color-app-surface: #ffffff;
     --kendo-color-on-app-surface: #3d3d3d;
     --kendo-color-subtle: #666666;
@@ -146,6 +116,38 @@ export const LightCss = `
     --kendo-color-inverse-on-subtle: #1f1f1f;
     --kendo-color-on-inverse: #ffffff;
     --kendo-color-inverse-on-surface: #141414;
+    --kendo-color-series-a: #ff6358;
+    --kendo-color-series-a-bold: #bf4a42;
+    --kendo-color-series-a-bolder: #80322c;
+    --kendo-color-series-a-subtle: #ffb1ac;
+    --kendo-color-series-a-subtler: #ff8a82;
+    --kendo-color-series-b: #ffe162;
+    --kendo-color-series-b-bold: #bfa94a;
+    --kendo-color-series-b-bolder: #807131;
+    --kendo-color-series-b-subtle: #fff0b1;
+    --kendo-color-series-b-subtler: #ffe989;
+    --kendo-color-series-c: #4cd180;
+    --kendo-color-series-c-bold: #399d60;
+    --kendo-color-series-c-bolder: #266940;
+    --kendo-color-series-c-subtle: #a6e8c0;
+    --kendo-color-series-c-subtler: #79dda0;
+    --kendo-color-series-d: #4b5ffa;
+    --kendo-color-series-d-bold: #3847bc;
+    --kendo-color-series-d-bolder: #26307d;
+    --kendo-color-series-d-subtle: #a5affd;
+    --kendo-color-series-d-subtler: #7887fb;
+    --kendo-color-series-e: #ac58ff;
+    --kendo-color-series-e-bold: #8142bf;
+    --kendo-color-series-e-bolder: #562c80;
+    --kendo-color-series-e-subtle: #d6acff;
+    --kendo-color-series-e-subtler: #c182ff;
+    --kendo-color-series-f: #ff5892;
+    --kendo-color-series-f-bold: #bf426e;
+    --kendo-color-series-f-bolder: #802c49;
+    --kendo-color-series-f-subtle: #ffacc9;
+    --kendo-color-series-f-subtler: #ff82ae;
+`
+export const SeriesColor = `
     --kendo-color-series-a: #ff6358;
     --kendo-color-series-a-bold: #bf4a42;
     --kendo-color-series-a-bolder: #80322c;

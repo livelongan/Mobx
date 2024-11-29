@@ -1,3 +1,4 @@
+import { LightPalette } from './light'
 import { Border, Elevation } from './others'
 import { PaletteMode, Theme } from './types'
 
@@ -6,33 +7,7 @@ export const InitTheme: PaletteMode = 'light'
 export const InitBorderRadius = 0
 
 export const ThemeSettings: Theme = {
-    palette: {
-        mode: 'light',
-        primary: {
-            main: '#002884',
-            contrastText: '#fafafa',
-        },
-        secondary: {
-            main: '#f50057',
-        },
-        background: {
-            default: '#ffffff',
-            paper: '#fafafa',
-        },
-        error: {
-            main: '#c30f0f',
-        },
-        warning: {
-            main: '#de6b09',
-        },
-        info: {
-            main: '#2da4e2',
-        },
-        success: {
-            main: '#229e27',
-        },
-        divider: 'rgba(0,0,0,0.12)',
-    },
+    palette: LightPalette,
     spacing: 8,
     transitions: {
         easing: {
@@ -73,7 +48,7 @@ export const ThemeSettings: Theme = {
     },
 }
 
-export const ThemeCss = `    
+export const ThemeCss = `
     ${Elevation}
     ${Border}
 `

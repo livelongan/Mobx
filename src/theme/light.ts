@@ -1,3 +1,4 @@
+import { PATTERN } from '../constants'
 import { PaletteOptions } from './types'
 
 export const LightPalette: PaletteOptions = {
@@ -26,9 +27,12 @@ export const LightPalette: PaletteOptions = {
         main: '#229e27',
     },
     divider: 'rgba(0,0,0,0.12)',
+    var: {},
 }
-
-export const LightCss = `
+export const LightColor = `
+    --scroll-color: rgba(0,0,0,0.4);
+    --color-overlay: rgba(255,255,255,0.5);
+    --color-hover: rgba(255,255,255,0.1);    
     --kendo-color-app-surface: #ffffff;
     --kendo-color-on-app-surface: #3d3d3d;
     --kendo-color-subtle: #666666;
@@ -36,7 +40,6 @@ export const LightCss = `
     --kendo-color-surface-alt: #ffffff;
     --kendo-color-border: rgba(0, 0, 0, 0.08);
     --kendo-color-border-alt: rgba(0, 0, 0, 0.16);
-
     --kendo-color-base-subtle: #ebebeb;
     --kendo-color-base-subtle-hover: #e0e0e0;
     --kendo-color-base-subtle-active: #d6d6d6;
@@ -47,7 +50,6 @@ export const LightCss = `
     --kendo-color-base-on-subtle: #3d3d3d;
     --kendo-color-on-base: #3d3d3d;
     --kendo-color-base-on-surface: #3d3d3d;
-
     --kendo-color-primary-subtle: #ffeceb;
     --kendo-color-primary-subtle-hover: #ffdedb;
     --kendo-color-primary-subtle-active: #ffc8c4;
@@ -57,30 +59,7 @@ export const LightCss = `
     --kendo-color-primary-emphasis: #ff9d97;
     --kendo-color-primary-on-subtle: #961342;
     --kendo-color-on-primary: #ffffff;
-    --kendo-color-primary-on-surface: #f50057;
-
-    --kendo-color-secondary-subtle: #fafafa;
-    --kendo-color-secondary-subtle-hover: #f5f5f5;
-    --kendo-color-secondary-subtle-active: #ebebeb;
-    --kendo-color-secondary: #666666;
-    --kendo-color-secondary-hover: #525252;
-    --kendo-color-secondary-active: #3d3d3d;
-    --kendo-color-secondary-emphasis: #e0e0e0;
-    --kendo-color-secondary-on-subtle: #141414;
-    --kendo-color-on-secondary: #ffffff;
-    --kendo-color-secondary-on-surface: #292929;
-
-    --kendo-color-tertiary-subtle: #d8f1fd;
-    --kendo-color-tertiary-subtle-hover: #c5eafc;
-    --kendo-color-tertiary-subtle-active: #a3dffb;
-    --kendo-color-tertiary: #03a9f4;
-    --kendo-color-tertiary-hover: #039ae0;
-    --kendo-color-tertiary-active: #028ccb;
-    --kendo-color-tertiary-emphasis: #61c9f9;
-    --kendo-color-tertiary-on-subtle: #023f5c;
-    --kendo-color-on-tertiary: #ffffff;
-    --kendo-color-tertiary-on-surface: #028ccb;
-
+    --kendo-color-primary-on-surface: #f50057; 
     --kendo-color-info-subtle: #d2e2fb;
     --kendo-color-info-subtle-hover: #bdd4f8;
     --kendo-color-info-subtle-active: #80acf4;
@@ -91,7 +70,6 @@ export const LightCss = `
     --kendo-color-info-on-subtle: #002259;
     --kendo-color-on-info: #ffffff;
     --kendo-color-info-on-surface: #004ac2;
-
     --kendo-color-success-subtle: #dcf0d3;
     --kendo-color-success-subtle-hover: #cbe9bf;
     --kendo-color-success-subtle-active: #b7e1a5;
@@ -102,7 +80,6 @@ export const LightCss = `
     --kendo-color-success-on-subtle: #1c5a00;
     --kendo-color-on-success: #ffffff;
     --kendo-color-success-on-surface: #2d9600;
-
     --kendo-color-warning-subtle: #fff4d3;
     --kendo-color-warning-subtle-hover: #ffeebd;
     --kendo-color-warning-subtle-active: #ffe79e;
@@ -113,7 +90,6 @@ export const LightCss = `
     --kendo-color-warning-on-subtle: #5e4700;
     --kendo-color-on-warning: #3d3d3d;
     --kendo-color-warning-on-surface: #ffc000;
-
     --kendo-color-error-subtle: #fcddda;
     --kendo-color-error-subtle-hover: #fbc8c3;
     --kendo-color-error-subtle-active: #f98b80;
@@ -124,7 +100,6 @@ export const LightCss = `
     --kendo-color-error-on-subtle: #7a0c00;
     --kendo-color-on-error: #ffffff;
     --kendo-color-error-on-surface: #ca1400;
-
     --kendo-color-light-subtle: #fafafa;
     --kendo-color-light-subtle-hover: #f5f5f5;
     --kendo-color-light-subtle-active: #ebebeb;
@@ -135,7 +110,6 @@ export const LightCss = `
     --kendo-color-light-on-subtle: #141414;
     --kendo-color-on-light: #fafafa;
     --kendo-color-light-on-surface: #e0e0e0;
-
     --kendo-color-dark-subtle: #c2c2c2;
     --kendo-color-dark-subtle-hover: #adadad;
     --kendo-color-dark-subtle-active: #999999;
@@ -145,48 +119,13 @@ export const LightCss = `
     --kendo-color-dark-emphasis: #666666;
     --kendo-color-dark-on-subtle: #1f1f1f;
     --kendo-color-on-dark: #ffffff;
-    --kendo-color-dark-on-surface: #141414;
-    
-    --kendo-color-inverse-subtle: #c2c2c2;
-    --kendo-color-inverse-subtle-hover: #adadad;
-    --kendo-color-inverse-subtle-active: #999999;
-    --kendo-color-inverse: #3d3d3d;
-    --kendo-color-inverse-hover: #292929;
-    --kendo-color-inverse-active: #1f1f1f;
-    --kendo-color-inverse-emphasis: #666666;
-    --kendo-color-inverse-on-subtle: #1f1f1f;
-    --kendo-color-on-inverse: #ffffff;
-    --kendo-color-inverse-on-surface: #141414;
+    --kendo-color-dark-on-surface: #141414; 
 `
-export const SeriesColor = `
-    --kendo-color-series-a: #ff6358;
-    --kendo-color-series-a-bold: #bf4a42;
-    --kendo-color-series-a-bolder: #80322c;
-    --kendo-color-series-a-subtle: #ffb1ac;
-    --kendo-color-series-a-subtler: #ff8a82;
-    --kendo-color-series-b: #ffe162;
-    --kendo-color-series-b-bold: #bfa94a;
-    --kendo-color-series-b-bolder: #807131;
-    --kendo-color-series-b-subtle: #fff0b1;
-    --kendo-color-series-b-subtler: #ffe989;
-    --kendo-color-series-c: #4cd180;
-    --kendo-color-series-c-bold: #399d60;
-    --kendo-color-series-c-bolder: #266940;
-    --kendo-color-series-c-subtle: #a6e8c0;
-    --kendo-color-series-c-subtler: #79dda0;
-    --kendo-color-series-d: #4b5ffa;
-    --kendo-color-series-d-bold: #3847bc;
-    --kendo-color-series-d-bolder: #26307d;
-    --kendo-color-series-d-subtle: #a5affd;
-    --kendo-color-series-d-subtler: #7887fb;
-    --kendo-color-series-e: #ac58ff;
-    --kendo-color-series-e-bold: #8142bf;
-    --kendo-color-series-e-bolder: #562c80;
-    --kendo-color-series-e-subtle: #d6acff;
-    --kendo-color-series-e-subtler: #c182ff;
-    --kendo-color-series-f: #ff5892;
-    --kendo-color-series-f-bold: #bf426e;
-    --kendo-color-series-f-bolder: #802c49;
-    --kendo-color-series-f-subtle: #ffacc9;
-    --kendo-color-series-f-subtler: #ff82ae;
-`
+
+LightColor.replace(PATTERN.enter, '')
+    .replace(PATTERN.spaces, '')
+    .split(';')
+    .forEach((it) => {
+        const split = it.split(':')
+        LightPalette.var[split[0]] = split[1]
+    })

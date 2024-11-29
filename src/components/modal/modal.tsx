@@ -7,8 +7,9 @@ import {
 import { observer } from 'mobx-react-lite'
 import { PropsWithChildren, useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import { styled } from 'styled-components'
-import { GAP, MODAL_SUFFIX } from '../../constants'
+import { MODAL_SUFFIX, MODAL_WIDTH } from '../../constants'
 import { useStores } from '../../stores'
+import { DialogModalCss } from '../../theme'
 import { getId } from '../../utils'
 
 export type ModalState = {
@@ -45,56 +46,18 @@ export type ModalProps = PropsWithChildren<
 >
 
 const ModalRoot = styled(KendoModal)`
-    .k-window-titlebar {
-        position: relative;
-        padding: 0;
-        height: 36px;
-        background: var(--kendo-color-light);
-        color: var(--kendo-color-surface);
-        padding-left: ${GAP.middle}px;
-    }
-    .k-window-title {
-        padding: 0;
-    }
-    .k-window-titlebar-actions {
-        position: absolute;
-        right: 0;
-        top: 0;
-        margin: 0;
-        margin-right: 1px;
-        margin-top: 1px;
-    }
-    .k-window-titlebar-actions .k-button {
-        border-radius: 0;
-        border: none !important;
-        box-shadow: none !important;
-        height: 35px;
-        width: 40px;
-        box-sizing: border-box;
-    }
-    .k-window-titlebar-actions .k-button:hover::before,
-    .k-window-titlebar-actions .k-button.k-hover::before {
-        opacity: 1;
-        background-color: var(--kendo-color-light-hover);
-    }
-    .k-window-titlebar-actions .k-button:hover,
-    .k-window-titlebar-actions .k-button.k-hover {
-        color: var(--kendo-color-light);
-    }
-    .k-window-titlebar-actions .k-button:hover::after {
-        box-shadow: none !important;
-    }
-    .k-window-titlebar-actions .k-button:after {
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-    }
+    ${DialogModalCss}
     .k-window-content {
         overflow: hidden;
         padding: 0;
     }
 `
+const TOP_RATIO = 18
+const OFFSET = {
+    top: 50,
+    left: 150,
+}
+
 export const Modal = observer<ModalProps>(
     ({ page, open = true, widthRatio = 60, heightRatio = 68, onClose, children, ...others }) => {
         const uniqueId = useId()
@@ -102,12 +65,23 @@ export const Modal = observer<ModalProps>(
         const id = getId(MODAL_SUFFIX, page ?? uniqueId)
         const { baseStore } = useStores()
         const modalRef = useRef<WindowWithoutContext>(null)
+        const [left, setLeft] = useState<number>(
+            (document.body.clientWidth - (widthRatio * document.body.clientWidth) / 100) / 2,
+        )
+        const [top, setTop] = useState<number>()
         const initial = useMemo(() => {
             const width = document.body.clientWidth
             const height = document.body.clientHeight
+            const ratioWidth = (widthRatio * width) / 100
+            const ratioHeight = (heightRatio * height) / 100
+            const yHeight = (height - ratioHeight) / 2
+            const maxTop = (TOP_RATIO / 100) * height
+
             return {
-                width: (widthRatio * width) / 100,
-                height: (heightRatio * height) / 100,
+                width: ratioWidth,
+                height: ratioHeight,
+                top: yHeight > maxTop ? maxTop : yHeight,
+                left: (width - ratioWidth) / 2,
             }
         }, [heightRatio, widthRatio])
 
@@ -122,6 +96,8 @@ export const Modal = observer<ModalProps>(
             if (onClose) {
                 onClose()
             }
+            setLeft(initial.left)
+            setTop(initial.top)
         }
 
         const handleResize = (event: WindowMoveEvent) => {
@@ -135,6 +111,24 @@ export const Modal = observer<ModalProps>(
                     left: event.left,
                 })
             }
+        }
+
+        const handleMove = (event: WindowMoveEvent) => {
+            if (event.left > document.body.clientWidth - OFFSET.left) {
+                setLeft(document.body.clientWidth - OFFSET.left)
+            } else {
+                setLeft(event.left)
+            }
+
+            if (event.top > document.body.clientHeight - OFFSET.top) {
+                setTop(document.body.clientHeight - OFFSET.top)
+            } else {
+                setTop(event.top)
+            }
+        }
+
+        const handleStage = () => {
+            baseStore.changeModalStage()
         }
 
         useEffect(() => {
@@ -169,11 +163,17 @@ export const Modal = observer<ModalProps>(
                 id={id}
                 initialWidth={initial.width}
                 initialHeight={initial.height}
-                minWidth={300}
+                initialTop={initial.top}
+                initialLeft={initial.left}
+                minWidth={MODAL_WIDTH}
+                top={top}
+                left={left}
                 {...others}
                 ref={modalRef}
                 onClose={handleClose}
                 onResize={handleResize}
+                onMove={handleMove}
+                onStageChange={handleStage}
             >
                 {children}
             </ModalRoot>

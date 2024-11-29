@@ -2,7 +2,7 @@ import { Button, ButtonProps } from '@progress/kendo-react-buttons'
 import { observer } from 'mobx-react-lite'
 import { styled } from 'styled-components'
 
-const Root = styled('div')` 
+const Root = styled('div')`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,7 +21,7 @@ export const HeaderIcon = observer<IProps>(({ width = 40, height = 40, ...others
                 height,
             }}
         >
-            <Button {...others} themeColor={'light'} fillMode="flat" rounded={'full'} />
+            <Button {...others} themeColor={'light'} fillMode={'clear'} rounded={'full'} />
         </Root>
     )
 })

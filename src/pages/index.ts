@@ -1,6 +1,6 @@
 export * from './status'
 export * from './react-page'
-export * from './settings'
+export * from './buttons'
 export * from './sheet'
 export * from './copy'
 export * from './user-profile'

@@ -32,7 +32,7 @@
 }
 
 .k-notification {
-    padding-block: var(--kendo-spacing-2\.5);
+    padding-block: var(--kendo-spacing-2);
     padding-inline: var(--kendo-spacing-4);
     font-size: var(--kendo-font-size);
     line-height: var(--kendo-line-height);
@@ -55,4 +55,9 @@
 
 .k-button-md {
     padding-inline: var(--kendo-spacing-3);
+}
+
+*,
+.k-drawer-wrapper {
+    scrollbar-color: var(--scroll-color) var(--kendo-color-surface-alt)
 }

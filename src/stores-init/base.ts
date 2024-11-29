@@ -11,5 +11,6 @@ export const InitBaseStore: BaseStoreType = {
     route: undefined,
     theme: InitTheme,
     modals: [],
-    modalChanged: false,
+    modalResized: undefined,
+    modalStaged: undefined,
 }
