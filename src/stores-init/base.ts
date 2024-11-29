@@ -10,4 +10,6 @@ export const InitBaseStore: BaseStoreType = {
     expandIds: [],
     route: undefined,
     theme: InitTheme,
+    modals: [],
+    modalChanged: false,
 }

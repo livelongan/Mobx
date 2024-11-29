@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react'
 import { styled } from 'styled-components'
-import { GAP } from '../../constants'
+import { FORM_ACTIONS_FLAG, GAP } from '../../constants'
 
 const Root = styled.div`
     padding: ${GAP.middle}px ${GAP.large}px;
@@ -10,5 +10,5 @@ const Root = styled.div`
 `
 
 export const FormActions = ({ children }: PropsWithChildren) => {
-    return <Root className="form-actions">{children}</Root>
+    return <Root className={FORM_ACTIONS_FLAG}>{children}</Root>
 }

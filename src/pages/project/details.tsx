@@ -1,7 +1,7 @@
 import { FormProps } from '@progress/kendo-react-form'
 import {
     FormActions,
-    FieldLayout,
+    useFieldLayout,
     FormLayout,
     FormText,
     useForm,
@@ -22,11 +22,12 @@ type IProps = {
 }
 
 export const FormDetails = ({ page, mode, data }: IProps) => {
+    const { FieldLayout, maxSpan } = useFieldLayout()
     const [details] = useState<FormDetailProps>(data)
     const { form, FormWrapper } = useForm({ page, defaultValue: details })
 
     const handleSubmit: FormProps['onSubmit'] = (data) => {
-        console.log('submit', data as FormDetailProps)
+        console.log('submit', data as FormDetailProps, maxSpan)
     }
 
     useEffect(() => {
@@ -39,7 +40,7 @@ export const FormDetails = ({ page, mode, data }: IProps) => {
             render={(prop) => {
                 return (
                     <FormLayout>
-                        <FieldLayout cols={[{ width: '30%' }, { width: '30%' }, { width: '30%' }]}>
+                        <FieldLayout>
                             <FieldLayoutItem>
                                 <FormText name={'id'} label={'ID'} page={page} mode={mode} />
                             </FieldLayoutItem>

@@ -2,6 +2,7 @@ import { FormElement } from '@progress/kendo-react-form'
 import { PropsWithChildren } from 'react'
 import { styled } from 'styled-components'
 import { StackLayoutProps } from '@progress/kendo-react-layout'
+import { FORM_LAYOUT_FLAG } from '../../constants'
 
 const Root = styled(FormElement)`
     height: 100%;
@@ -24,7 +25,7 @@ export const FormLayout = ({
     className,
     ...others
 }: PropsWithChildren<StackLayoutProps>) => {
-    const cls = `form-layout ${className ?? ''}`.trim()
+    const cls = `${FORM_LAYOUT_FLAG} ${className ?? ''}`.trim()
     return (
         <Root>
             <Layout {...others} className={cls}>

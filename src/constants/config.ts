@@ -17,6 +17,8 @@ export const PAGE_CONTAINER = 'page-container'
 
 export const MENU_LIST_HEIGHT = 360
 
+export const MAX_GRID_COLUMN = 6
+
 export const GAP = {
     small: 4,
     normal: 8,

@@ -3,7 +3,7 @@ import { useState, useTransition } from 'react'
 import { FormDetails } from './details'
 import { ProjectType } from '../../models'
 
-const pageName = 'form'
+const pageName = 'project'
 
 export const FormDemo = () => {
     const [open, setOpen] = useState(false)
@@ -16,6 +16,7 @@ export const FormDemo = () => {
         <PageLayout id={pageName}>
             <ButtonLayout>
                 <BaseButton
+                    page={pageName}
                     label="Error"
                     disabled={pending}
                     onClick={() => {
@@ -27,6 +28,7 @@ export const FormDemo = () => {
                     }}
                 />
                 <BaseButton
+                    page={pageName}
                     label="Open"
                     onClick={() => {
                         setOpen(true)
@@ -34,13 +36,13 @@ export const FormDemo = () => {
                 />
             </ButtonLayout>
             <Modal
-                title={'Demo'}
+                title={'Project'}
                 open={open}
                 onClose={() => {
                     setOpen(!open)
                 }}
             >
-                <FormDetails page={`${pageName}`} mode={'edit'} data={details} />
+                <FormDetails page={pageName} mode={'edit'} data={details} />
             </Modal>
         </PageLayout>
     )
