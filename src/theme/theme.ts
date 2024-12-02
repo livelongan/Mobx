@@ -22,17 +22,17 @@ export const ThemeSettings: Theme = {
             sharp: 'cubic-bezier(0.4, 0, 0.6, 1)',
         },
         duration: {
-            shortest: 150,
-            shorter: 200,
-            short: 250,
+            shortest: '150ms',
+            shorter: '200ms',
+            short: '250ms',
             // most basic recommended timing
-            standard: 300,
+            standard: '300ms',
             // this is to be used in complex animations
-            complex: 375,
+            complex: '375ms',
             // recommended when something is entering screen
-            enteringScreen: 225,
+            enteringScreen: '225ms',
             // recommended when something is leaving screen
-            leavingScreen: 195,
+            leavingScreen: '195ms',
         },
     },
     zIndex: {

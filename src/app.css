@@ -1,20 +1,39 @@
 .k-drawer-item:focus,
 .k-drawer-item.k-focus {
-    /* box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12); */
     box-shadow: unset;
+    background-color: rgba(0, 40, 132, 0.1);
 }
+
+
+/* .k-drawer-item {
+    position: relative;
+}
+
+.k-drawer-item:after {
+    content: "";
+    bottom: 0;
+    top: 0;
+    right: 1px;
+    left: 0;
+    position: absolute;
+}
+
+.k-drawer-item:focus:after,
+.k-drawer-item.k-focus:after {
+    box-shadow: inset 0 0 0 1px rgba(0, 40, 132, 0.5);
+} */
 
 .k-input-solid:focus,
 .k-input-solid.k-focus {
-    box-shadow: 0 0 0 1px color-mix(in srgb, var(--kendo-color-on-app-surface) 8%, transparent)
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--kendo-color-on-app-surface) 8%, transparent);
 }
 
 .k-loading-image::before {
-    color: var(--kendo-color-primary)
+    color: var(--kendo-color-primary);
 }
 
 .k-loading-image::after {
-    color: var(--kendo-color-light)
+    color: var(--kendo-color-light);
 }
 
 .k-tabstrip-items-wrapper .k-item:focus,
@@ -59,5 +78,5 @@
 
 *,
 .k-drawer-wrapper {
-    scrollbar-color: var(--scroll-color) var(--kendo-color-surface-alt)
+    scrollbar-color: var(--scroll-color) var(--kendo-color-surface-alt);
 }

@@ -3,16 +3,18 @@ import { ReactNode } from 'react'
 
 export type RouteItemProps = DrawerItemProps & {
     path?: string
-    role?: boolean
+    access?: boolean
     hidden?: boolean
     separator?: boolean
     component?: ReactNode
     expanded?: boolean
+    items?: RouteItemProps[]
 }
 
-export type MenuItemProps = Omit<RouteItemProps, 'children'> & {
+export type MenuItemProps = Omit<RouteItemProps, 'items'> & {
     id: string
     path: string
     text: string
-    children?: MenuItemProps[]
+    parentId?: string
+    items?: MenuItemProps[]
 }

@@ -38,6 +38,14 @@ export const BaseStoreModel = types
         setRoute(route: MenuItemProps | undefined) {
             self.route = route
         },
+        toggleExpandedId(id: string) {
+            const index = self.expandIds.findIndex((it) => it === id)
+            if (index >= 0) {
+                self.expandIds.splice(index, 1)
+            } else {
+                self.expandIds.push(id)
+            }
+        },
         setExpandedId(ids: string[]) {
             self.expandIds = cast(ids)
         },

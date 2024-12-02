@@ -18,8 +18,7 @@ export const TextField = (fieldProps: TextRenderProps) => {
         </>
     )
 }
-// label={required ? `${others.label} *` : others.label}
-// labelClassName={`k-form-label ${required ? 'k-form-required' : ''}`.trim()}
+
 export const FormText = observer((props: FormTextProps) => {
     const { name, label } = props
     return (

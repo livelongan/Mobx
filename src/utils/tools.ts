@@ -13,10 +13,10 @@ export const getGridLayout = (width: number, column = MAX_GRID_COLUMN, min = FIE
     const OFFSET = 32
     const gap = 12
     if (width > OFFSET + gap) {
-        const all = width - OFFSET
         const cols: GridLayoutColumnProps[] = []
+        const all = width - OFFSET
 
-        const limited = Math.floor((all - gap) / (min + gap))
+        const limited = Math.floor((all - gap) / (min + gap)) ?? 1
         const col = limited > column ? column : limited
         const field = (all - gap * (col - 1)) / col
 
@@ -25,7 +25,6 @@ export const getGridLayout = (width: number, column = MAX_GRID_COLUMN, min = FIE
                 width: col === 1 ? '100%' : `${(field / all) * 100}%`,
             })
         }
-
         return {
             max: col,
             cols,

@@ -2,16 +2,21 @@ import { BaseButton, ButtonLayout, Modal, openDialog, PageLayout } from '../../c
 import { useState, useTransition } from 'react'
 import { FormDetails } from './details'
 import { ProjectType } from '../../models'
+import { InitDetails } from './constant'
 
 const pageName = 'project'
 
 export const FormDemo = () => {
     const [open, setOpen] = useState(false)
-    const [details] = useState<ProjectType>({
-        id: 'id',
-    })
+    const [details] = useState<ProjectType>(InitDetails)
     const [pending, startTransition] = useTransition()
 
+    const handleSubmit = (data: ProjectType) => {
+        console.log(data)
+    }
+    const handleCancel = () => {
+        setOpen(false)
+    }
     return (
         <PageLayout id={pageName}>
             <ButtonLayout>
@@ -49,12 +54,18 @@ export const FormDemo = () => {
                 title={'Project'}
                 open={open}
                 widthRatio={50}
-                heightRatio={40}
+                heightRatio={50}
                 onClose={() => {
                     setOpen(!open)
                 }}
             >
-                <FormDetails page={pageName} mode={'edit'} data={details} />
+                <FormDetails
+                    page={pageName}
+                    mode={'edit'}
+                    data={details}
+                    onSubmit={handleSubmit}
+                    onCancel={handleCancel}
+                />
             </Modal>
         </PageLayout>
     )

@@ -65,13 +65,13 @@ export type Easing = {
 }
 
 export type Duration = {
-    shortest: number
-    shorter: number
-    short: number
-    standard: number
-    complex: number
-    enteringScreen: number
-    leavingScreen: number
+    shortest: string
+    shorter: string
+    short: string
+    standard: string
+    complex: string
+    enteringScreen: string
+    leavingScreen: string
 }
 
 export type Theme = {

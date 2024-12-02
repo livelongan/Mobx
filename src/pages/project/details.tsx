@@ -10,25 +10,24 @@ import {
     FormMode,
 } from '../../components'
 import { useState } from 'react'
-
-type FormDetailProps = {
-    id: string
-}
+import { ProjectType } from '../../models'
 
 type IProps = {
     page: string
     mode: FormMode
-    data: FormDetailProps
+    data: ProjectType
+    onSubmit: (data: ProjectType) => void
+    onCancel: () => void
 }
 
-export const FormDetails = ({ page, mode, data }: IProps) => {
+export const FormDetails = ({ page, mode, data, onSubmit, onCancel }: IProps) => {
     const { FieldLayout, maxSpan } = useFieldLayout()
-    const [details] = useState<FormDetailProps>(data)
+    const [details] = useState<ProjectType>(data)
     const { form, FormWrapper } = useForm({ page, defaultValue: details })
 
     const handleSubmit: FormProps['onSubmit'] = (data) => {
+        onSubmit(data as ProjectType)
         console.log(form)
-        console.log('submit', data as FormDetailProps, maxSpan)
     }
 
     return (
@@ -38,7 +37,7 @@ export const FormDetails = ({ page, mode, data }: IProps) => {
                 return (
                     <FormLayout>
                         <FieldLayout>
-                            <FieldLayoutItem>
+                            <FieldLayoutItem colSpan={maxSpan}>
                                 <FormText name={'id'} label={'ID'} page={page} mode={mode} />
                             </FieldLayoutItem>
                             <FieldLayoutItem>
@@ -84,7 +83,7 @@ export const FormDetails = ({ page, mode, data }: IProps) => {
 
                         <ModalActionBar>
                             <BaseButton label="Submit" disabled={!prop.allowSubmit} type="submit" />
-                            <BaseButton label="Cancel" />
+                            <BaseButton label="Cancel" onClick={onCancel} />
                         </ModalActionBar>
                     </FormLayout>
                 )

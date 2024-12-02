@@ -17,6 +17,45 @@ export const RouterMenu: RouteItemProps[] = [
         text: 'Sheet Page',
         component: <SheetPage />,
     },
+    {
+        path: '/demo',
+        text: 'Demo',
+        items: [
+            {
+                path: '/Form',
+                text: 'Form',
+                component: <FormDemo />,
+
+                items: [
+                    {
+                        path: '/Form',
+                        text: 'Form',
+                        component: <FormDemo />,
+                    },
+                    {
+                        path: '/ReactPage',
+                        text: 'ReactPage',
+                        component: <ReactPage />,
+                    },
+                    {
+                        path: '/SheetPage',
+                        text: 'Sheet Page',
+                        component: <SheetPage />,
+                    },
+                ],
+            },
+            {
+                path: '/ReactPage',
+                text: 'ReactPage',
+                component: <ReactPage />,
+            },
+            {
+                path: '/SheetPage',
+                text: 'Sheet Page',
+                component: <SheetPage />,
+            },
+        ],
+    },
     { separator: true },
     {
         path: '/UserProfile',

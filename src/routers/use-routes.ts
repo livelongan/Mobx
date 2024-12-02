@@ -6,43 +6,75 @@ type UseRoutesProps = {
     menus: MenuItemProps[]
     routers: MenuItemProps[]
     findRoute: (path: string) => MenuItemProps | undefined
+    groupIds: string[]
 }
+
+type MenuTreeReturn = {
+    menus: MenuItemProps[]
+    routers: MenuItemProps[]
+    groupIds: string[]
+}
+
+type MenuTreeParam = {
+    routeMenus: MenuItemProps[] | RouteItemProps[]
+    routers?: MenuItemProps[]
+    parent?: { id: string; path: string }
+    groupIds?: string[]
+}
+
 export const useRoutes = (): UseRoutesProps => {
     const [routersSources, setRoutersSources] = useState<MenuItemProps[]>([])
     const [menusSources, setMenusSources] = useState<MenuItemProps[]>([])
+    const [groupIds, setGroupIds] = useState<string[]>([])
 
     const generateMenuTree = useCallback(
-        (
-            menus: MenuItemProps[] | RouteItemProps[] = [],
-            routers: MenuItemProps[] = [],
-            parent: MenuItemProps | null = null,
-        ): { menus: MenuItemProps[]; routers: MenuItemProps[] } => {
-            const menusList: MenuItemProps[] = []
-            menus.map((it, index) => {
-                const parentId = parent ? `${parent.id}-` : ''
+        ({
+            routeMenus = [],
+            routers = [],
+            parent,
+            groupIds = [],
+        }: MenuTreeParam): MenuTreeReturn => {
+            const menus: MenuItemProps[] = []
+            routeMenus.map((it, index) => {
+                const parentId = parent ? `${parent.id}` : ''
                 const id = `${parentId}${!parent ? 'menu' : ''}-${index + 1}`
-                const config: MenuItemProps = {
+                const data = {
                     ...it,
                     id,
                     path: `${parent ? parent.path : ''}${it.path ?? ''}`,
                     text: it.text ?? '',
-                    children: undefined,
-                }
+                    parentId: parent ? parentId : undefined,
+                    expanded: true,
+                } as MenuItemProps
                 if (!it.separator) {
-                    const children = it.children ?? []
-                    if (children.length === 0) {
-                        menusList.push(config)
-                        routers.push(config)
+                    if (!it.items || it.items.length === 0) {
+                        routers.push(data)
+                        if (!it.hidden) {
+                            menus.push({
+                                ...data,
+                            })
+                        }
                     } else {
-                        const submenus = generateMenuTree(it.children, routers, config)
-                        config.children = submenus.menus
-                        menusList.push(config)
+                        const submenus = generateMenuTree({
+                            routeMenus: it.items,
+                            routers,
+                            parent: {
+                                id,
+                                path: data.path,
+                            },
+                            groupIds,
+                        })
+                        menus.push({
+                            ...data,
+                            items: submenus.menus,
+                        })
+                        groupIds?.push(data.id)
                     }
                 } else {
-                    menusList.push(config)
+                    menus.push({ ...data })
                 }
             })
-            return { menus: menusList, routers }
+            return { menus, routers, groupIds }
         },
         [],
     )
@@ -55,12 +87,16 @@ export const useRoutes = (): UseRoutesProps => {
     )
 
     useEffect(() => {
-        const { menus, routers } = generateMenuTree(RouterMenu)
+        const { menus, routers, groupIds } = generateMenuTree({
+            routeMenus: RouterMenu,
+        })
+        setGroupIds(groupIds)
         setMenusSources(menus)
         setRoutersSources(routers)
     }, [generateMenuTree])
 
     return {
+        groupIds,
         findRoute,
         menus: menusSources,
         routers: routersSources,

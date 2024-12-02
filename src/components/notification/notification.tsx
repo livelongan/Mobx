@@ -20,7 +20,7 @@ import {
     NOTIFICATION_MAX_WIDTH,
     NOTIFICATION_TIME,
 } from '../../constants'
-import { DialogModalCss } from '../../theme'
+import { DialogModalCss, ThemeSettings } from '../../theme'
 
 const Notify = styled(Notification)`
     /* align-items: unset; */
@@ -35,7 +35,8 @@ const Notify = styled(Notification)`
     .k-notification-close-action {
         border-radius: 50%;
         padding: ${GAP.normal}px;
-        transition: background 0.2s ease-in-out;
+        transition: background ${ThemeSettings.transitions.duration.shorter}
+            ${ThemeSettings.transitions.easing.easeInOut};
     }
     .k-notification-close-action:hover {
         background: var(--color-hover);

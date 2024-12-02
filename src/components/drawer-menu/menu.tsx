@@ -1,16 +1,16 @@
 import { observer } from 'mobx-react-lite'
-import { Drawer, DrawerContent, DrawerSelectEvent } from '@progress/kendo-react-layout'
-import { useNavigate } from 'react-router-dom'
-import { PropsWithChildren, useRef } from 'react'
+import { Drawer, DrawerContent } from '@progress/kendo-react-layout'
+
+import { PropsWithChildren, useEffect, useRef } from 'react'
 import { useRoutes } from '../../routers'
-import { MenuItem } from './menu-item'
 import { useStores } from '../../stores'
 import { GAP, MENU_MIN_WIDTH } from '../../constants'
 import { styled } from 'styled-components'
 import { useDraggable, NormalizedDragEvent } from '@progress/kendo-react-common'
 import { ThemeSettings } from '../../theme'
+import { MenuItem } from './menu-item'
 
-const HANDLER_WIDTH = 5
+const HANDLER_WIDTH = 4
 const Root = styled(Drawer)`
     flex: 1;
     min-height: 0;
@@ -33,7 +33,7 @@ const Handler = styled('div')`
     position: absolute;
     height: 100%;
     width: ${HANDLER_WIDTH}px;
-    opacity: 0.8;
+    opacity: 0.6;
     &:hover {
         cursor: e-resize;
         background: var(--kendo-color-base-emphasis);
@@ -55,8 +55,7 @@ const PageContainer = styled(DrawerContent)`
 type IProps = PropsWithChildren<object>
 
 export const MenuRouter = observer<IProps>(({ children }) => {
-    const navigate = useNavigate()
-    const { menus } = useRoutes()
+    const { menus, groupIds } = useRoutes()
     const { baseStore } = useStores()
     const handler = useRef<HTMLDivElement | null>(null)
 
@@ -83,9 +82,9 @@ export const MenuRouter = observer<IProps>(({ children }) => {
         },
     })
 
-    const onSelect = (e: DrawerSelectEvent) => {
-        navigate(e.itemTarget.props.path)
-    }
+    useEffect(() => {
+        baseStore.setExpandedId(groupIds)
+    }, [baseStore, groupIds])
 
     return (
         <Root
@@ -95,7 +94,6 @@ export const MenuRouter = observer<IProps>(({ children }) => {
             width={baseStore.menuWidth}
             items={menus}
             item={MenuItem}
-            onSelect={onSelect}
             miniWidth={MENU_MIN_WIDTH}
             animation={!baseStore.menuDragging ? true : false}
             className={`${baseStore.menuDragging ? 'dragging' : ''} ${!baseStore.collapse ? 'collapsed' : ''}`.trim()}

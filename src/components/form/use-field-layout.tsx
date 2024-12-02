@@ -16,6 +16,8 @@ const Layout = styled(GridLayout)`
     flex: 1;
     padding: ${PADDING}px;
     padding-top: 0;
+    padding-right: ${PADDING / 2}px;
+    margin-right: ${PADDING / 2}px;
     grid-auto-rows: min-content;
     grid-template-columns: repeat(auto-fill, ${FIELD_MIN_WIDTH}px);
 `

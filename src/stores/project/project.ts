@@ -1,9 +1,10 @@
 import { SnapshotOut, types } from 'mobx-state-tree'
+import { ProjectModel } from '../../models'
 
 export const ProjectStoreModel = types
     .model('ProjectStoreModel')
     .props({
-        // notifications: types.null,
+        sources: types.array(ProjectModel),
     })
     .views(() => ({}))
     .actions(() => ({}))

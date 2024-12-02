@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import { PropsWithChildren } from 'react'
 import { Header } from './header'
-import { MenuRouter } from '../menu'
+import { MenuRouter } from '../drawer-menu'
 import { styled } from 'styled-components'
 import { PAGE_CONTAINER } from '../../constants'
 

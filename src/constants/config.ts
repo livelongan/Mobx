@@ -1,6 +1,7 @@
 export const MENU_WIDTH = 218
 export const MENU_ICON_HEIGHT = 46
 export const MENU_MIN_WIDTH = 50
+export const MENU_ITEM_HEIGHT = 40
 
 export const LOADING_SIZE = 50
 
@@ -9,7 +10,7 @@ export const NOTIFICATION_COUNT = 5
 export const NOTIFICATION_MAX_WIDTH = '60%'
 export const NOTIFICATION_MAX_HEIGHT = '40%'
 
-export const FIELD_MIN_WIDTH = 200
+export const FIELD_MIN_WIDTH = 180
 export const MODAL_WIDTH = 260
 export const FIELD_HEIGHT = 48
 

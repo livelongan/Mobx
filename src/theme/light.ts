@@ -38,8 +38,8 @@ export const LightColor = `
     --kendo-color-subtle: #666666;
     --kendo-color-surface: #fafafa;
     --kendo-color-surface-alt: #ffffff;
-    --kendo-color-border: rgba(0, 0, 0, 0.08);
-    --kendo-color-border-alt: rgba(0, 0, 0, 0.16);
+    --kendo-color-border: rgba(0, 0, 0, 0.2);
+    --kendo-color-border-alt: rgba(0, 0, 0, 0.3);
     --kendo-color-base-subtle: #ebebeb;
     --kendo-color-base-subtle-hover: #e0e0e0;
     --kendo-color-base-subtle-active: #d6d6d6;
