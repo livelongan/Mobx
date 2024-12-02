@@ -1,6 +1,12 @@
 import { DrawerItem, DrawerItemProps } from '@progress/kendo-react-layout'
 import { SvgIcon } from '@progress/kendo-react-common'
-import { chevronDownIcon, chevronUpIcon, fileTxtIcon, folderIcon } from '@progress/kendo-svg-icons'
+import {
+    chevronDownIcon,
+    chevronUpIcon,
+    fileTxtIcon,
+    folderIcon,
+    folderOpenIcon,
+} from '@progress/kendo-svg-icons'
 import { styled } from 'styled-components'
 import { MenuItemProps } from './types'
 import { observer } from 'mobx-react-lite'
@@ -23,6 +29,23 @@ const GroupMenu = styled.ul`
     transition: height ${ThemeSettings.transitions.duration.shorter}
         ${ThemeSettings.transitions.easing.easeInOut};
     overflow: hidden;
+    box-sizing: border-box;
+    position: relative;
+    &::before {
+        content: '';
+        bottom: 1px;
+        top: 1px;
+        right: 2px;
+        left: 2px;
+        position: absolute;
+        outline-width: 1px;
+        outline-style: dashed;
+        outline-color: transparent;
+        pointer-events: none;
+    }
+    & .k-drawer-item:hover + .k-drawer-items::before {
+        outline-color: var(--kendo-color-primary);
+    }
 `
 const MenuDrawerItem = styled(DrawerItem)`
     height: ${MENU_ITEM_HEIGHT}px;
@@ -32,6 +55,10 @@ const MenuDrawerItem = styled(DrawerItem)`
     align-items: center;
     padding-left: ${PADDING}px;
     padding-right: ${PADDING}px;
+
+    &:hover + .k-drawer-items::before {
+        outline-color: var(--kendo-color-primary);
+    }
 `
 
 export const SubMenuItem = observer((props: DrawerItemProps) => {
@@ -41,6 +68,12 @@ export const SubMenuItem = observer((props: DrawerItemProps) => {
     const { text, path, items = [], expanded, component, parentId, ...others } = menuItem
 
     const isGroup = useMemo(() => items.length > 0, [items.length])
+    const menuIcon = useMemo(() => {
+        if (!isGroup) {
+            return fileTxtIcon
+        }
+        return expanded ? folderOpenIcon : folderIcon
+    }, [expanded, isGroup])
 
     const handleSelect = (data: MenuItemProps) => {
         const { path } = data ?? {}
@@ -60,15 +93,10 @@ export const SubMenuItem = observer((props: DrawerItemProps) => {
                 handleSelect(props as MenuItemProps)
             }}
         >
-            <SvgIcon icon={isGroup ? folderIcon : fileTxtIcon} />
+            <SvgIcon icon={menuIcon} />
             <TextRoot>{text}</TextRoot>
             {isGroup && (
-                <Chip
-                    size={'small'}
-                    themeColor={'warning'}
-                    fillMode={expanded ? 'outline' : 'solid'}
-                    rounded={'full'}
-                >
+                <Chip size={'small'} themeColor={'warning'} fillMode={'outline'} rounded={'full'}>
                     {items.length}
                 </Chip>
             )}
@@ -106,6 +134,7 @@ export const MenuItem = observer((props: DrawerItemProps) => {
                 className={'k-drawer-items group'}
                 style={{
                     height: expanded ? `${getHeight(menuItem)}px` : 0,
+                    // outlineColor: !expanded ? 'transparent' : 'var(--kendo-color-primary)',
                 }}
             >
                 {items.map((it) => (
