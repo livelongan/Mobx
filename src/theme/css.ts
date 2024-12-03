@@ -55,7 +55,7 @@ export const DialogModalCss = `
     }
     .k-actions {
         gap: ${GAP.large}px;
-        padding: ${GAP.middle}px ${GAP.XL}px;
+        padding: ${GAP.XL / 2}px ${GAP.large}px;
         margin-top: ${GAP.normal}px;
         box-shadow: 0 1px inset var(--kendo-color-border);
         border-color:transparent;

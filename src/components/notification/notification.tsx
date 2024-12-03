@@ -21,6 +21,7 @@ import {
     NOTIFICATION_TIME,
 } from '../../constants'
 import { DialogModalCss, ThemeSettings } from '../../theme'
+import { checkIcon, xIcon } from '@progress/kendo-svg-icons'
 
 const Notify = styled(Notification)`
     /* align-items: unset; */
@@ -154,6 +155,7 @@ export const Snackbar = observer(
                         <DialogContent>{it.content}</DialogContent>
                         <DialogActionsBar layout="end">
                             <BaseButton
+                                svgIcon={checkIcon}
                                 label={'Confirm'}
                                 themeColor={'primary'}
                                 onClick={() => {
@@ -161,6 +163,7 @@ export const Snackbar = observer(
                                 }}
                             />
                             <BaseButton
+                                svgIcon={xIcon}
                                 label={'Cancel'}
                                 themeColor={'primary'}
                                 fillMode={'outline'}
