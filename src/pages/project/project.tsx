@@ -54,7 +54,7 @@ export const FormDemo = () => {
                 title={'Project'}
                 open={open}
                 widthRatio={50}
-                heightRatio={50}
+                heightRatio={56}
                 onClose={() => {
                     setOpen(!open)
                 }}

@@ -1,18 +1,28 @@
-import { TextBoxProps } from '@progress/kendo-react-inputs'
-import { FieldProps } from '@progress/kendo-react-form'
-
-import { BaseFieldProps, BaseRenderProps } from './types'
 import { styled } from 'styled-components'
-export type FormTextProps = BaseFieldProps & Partial<TextBoxProps>
-export type TextRenderProps = BaseRenderProps & Partial<FormTextProps>
+import { Label, LabelProps } from '@progress/kendo-react-labels'
 
-const Label = styled.div``
-export const FieldLabel = (fieldProps: FieldProps) => {
-    const { label, required } = fieldProps
+export type FieldLabelProps = LabelProps & {
+    label?: string
+    required?: boolean
+}
 
+const Root = styled(Label)`
+    overflow: hidden;
+`
+const RootText = styled.span`
+    text-overflow: ellipsis;
+    margin: 0 2px;
+`
+const Required = styled.span`
+    font-weight: normal;
+    margin-left: 4px;
+`
+export const FieldLabel = (props: FieldLabelProps) => {
+    const { label, required, className = '', ...others } = props
     return (
-        <Label className={`k-form-label ${required ? 'k-form-required' : ''}`.trim()}>
-            {label}
-        </Label>
+        <Root className={`${className}`.trim()} {...others}>
+            <RootText title={label}>{label}</RootText>
+            <Required>{required ? '*' : ''}</Required>
+        </Root>
     )
 }

@@ -3,7 +3,7 @@ import { Error } from '@progress/kendo-react-labels'
 import { ComboBox, ComboBoxProps } from '@progress/kendo-react-dropdowns'
 import { BaseFieldProps, BaseRenderProps } from './types'
 import { getId } from '../../utils'
-import { Wrapper } from './wrapper'
+import { BaseFormField } from './base-form-field'
 
 export type FormDropdownProps = BaseFieldProps & Partial<ComboBoxProps>
 export type DropdownRenderProps = BaseRenderProps & Partial<FormDropdownProps>
@@ -26,7 +26,7 @@ export const DropdownField = (fieldProps: DropdownRenderProps) => {
 export const FormDropdown = observer((props: FormDropdownProps) => {
     const { name, label } = props
     return (
-        <Wrapper
+        <BaseFormField
             name={name}
             component={(renderProps) => <DropdownField {...props} {...renderProps} />}
             label={label}

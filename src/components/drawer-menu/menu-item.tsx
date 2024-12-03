@@ -19,9 +19,10 @@ import { Chip } from '@progress/kendo-react-buttons'
 
 const PADDING = 16
 
-const TextRoot = styled.div`
-    display: flex;
+const TextRoot = styled.span`
     flex: 1;
+    text-overflow: ellipsis;
+    overflow: hidden;
 `
 const GroupMenu = styled.ul`
     width: 100%;
@@ -44,7 +45,7 @@ const GroupMenu = styled.ul`
         pointer-events: none;
     }
     & .k-drawer-item:hover + .k-drawer-items::before {
-        outline-color: var(--kendo-color-primary);
+        outline-color: var(--kendo-color-warning-active);
     }
 `
 const MenuDrawerItem = styled(DrawerItem)`
@@ -55,9 +56,10 @@ const MenuDrawerItem = styled(DrawerItem)`
     align-items: center;
     padding-left: ${PADDING}px;
     padding-right: ${PADDING}px;
+    min-width: 0;
 
     &:hover + .k-drawer-items::before {
-        outline-color: var(--kendo-color-primary);
+        outline-color: var(--kendo-color-warning-active);
     }
 `
 
@@ -95,7 +97,7 @@ export const SubMenuItem = observer((props: DrawerItemProps) => {
         >
             <SvgIcon icon={menuIcon} />
             <TextRoot>{text}</TextRoot>
-            {isGroup && (
+            {isGroup && baseStore.menuWidth > 140 && (
                 <Chip size={'small'} themeColor={'warning'} fillMode={'outline'} rounded={'full'}>
                     {items.length}
                 </Chip>
@@ -134,7 +136,6 @@ export const MenuItem = observer((props: DrawerItemProps) => {
                 className={'k-drawer-items group'}
                 style={{
                     height: expanded ? `${getHeight(menuItem)}px` : 0,
-                    // outlineColor: !expanded ? 'transparent' : 'var(--kendo-color-primary)',
                 }}
             >
                 {items.map((it) => (

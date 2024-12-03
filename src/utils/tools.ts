@@ -1,17 +1,17 @@
 import { GridLayoutColumnProps } from '@progress/kendo-react-layout'
-import { FIELD_MIN_WIDTH, MAX_GRID_COLUMN } from '../constants'
+import { FIELD_GAP, FIELD_MIN_WIDTH, FIELD_MAX_COLUMN } from '../constants'
 
 export const closest = (element: HTMLElement, selector: string) => {
     return element.closest(selector)
 }
 
-export const getId = (id: string, page = '') => {
-    return `${page}${id}`.replace(/\s/g, '').toLocaleLowerCase()
+export const getId = (id: string, page = 'page') => {
+    return `${page}-${id}`.replace(/\s/g, '').toLocaleLowerCase()
 }
 
-export const getGridLayout = (width: number, column = MAX_GRID_COLUMN, min = FIELD_MIN_WIDTH) => {
+export const getGridLayout = (width: number, column = FIELD_MAX_COLUMN, min = FIELD_MIN_WIDTH) => {
     const OFFSET = 32
-    const gap = 12
+    const gap = FIELD_GAP
     if (width > OFFSET + gap) {
         const cols: GridLayoutColumnProps[] = []
         const all = width - OFFSET

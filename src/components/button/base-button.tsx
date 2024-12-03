@@ -28,6 +28,7 @@ export const BaseButton = observer<LoadingButtonProps>(
                 svgIcon={loading ? undefined : svgIcon}
                 icon={loading ? 'loading' : icon}
                 disabled={loading ? true : disabled}
+                formNoValidate
             >
                 {label}
             </Button>

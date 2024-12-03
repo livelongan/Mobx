@@ -13,6 +13,12 @@ export const DialogModalCss = `
         padding: 0;
         font-weight: 500;
     }
+    .k-window-title:hover {
+        cursor: move;
+    }
+    .k-dialog .k-window-title:hover {
+        cursor: default;
+    }
     .k-window-titlebar-actions {
         position: absolute;
         right: 0;

@@ -1,15 +1,72 @@
-import { Form, FormClassComponent, FormProps } from '@progress/kendo-react-form'
+import { Form, FormClassComponent, FormProps, KeyValue } from '@progress/kendo-react-form'
 import { PropsWithChildren, useId, useMemo, useRef } from 'react'
 import { FORM_SUFFIX } from '../../constants'
 import { getId } from '../../utils'
+import { FormMode, FormRule } from './types'
 
 type IProps = PropsWithChildren & {
     page?: string
     defaultValue: FormProps['initialValues']
 }
+
 type FormWrapperProps = PropsWithChildren & {
     render: FormProps['render']
+    rules?: FormRule
     onSubmit?: FormProps['onSubmit']
+}
+
+export const getFieldId = (mode: FormMode, name: string, page?: string) => {
+    return getId(`${mode}-field-${name}`, page)
+}
+
+const validator = (rules: FormRule | undefined, values: KeyValue<any>) => {
+    if (!rules) {
+        return undefined
+    }
+    const valid: KeyValue<string> = {}
+    Object.keys(values).map((field) => {
+        const rule = rules[field]
+        if (rule) {
+            const value = values[field]
+            const type = typeof value
+            switch (type) {
+                case 'string':
+                    if (rule.required && !value) {
+                        valid[field] = 'Required field'
+                    } else if (rule.pattern && !rule.pattern.test(value)) {
+                        valid[field] = rule.message ?? `Validation failed in ${rule.pattern}`
+                    } else if (rule.max !== undefined && rule.min !== undefined) {
+                        if (value.length > rule.max || value.length < rule.min) {
+                            valid[field] = `Max length must >= ${rule.min}, and <= ${rule.max}`
+                        }
+                    } else if (rule.max && value.length < rule.max) {
+                        valid[field] = `Max length must <= ${rule.max}`
+                    } else if (rule.min && value.length < rule.min) {
+                        valid[field] = `Min length must >= ${rule.min}`
+                    }
+                    break
+                case 'number':
+                    if (rule.required && value !== 0 && !value) {
+                        valid[field] = 'Required field'
+                    } else if (rule.max !== undefined && rule.min !== undefined) {
+                        if (value > rule.max || value < rule.min) {
+                            valid[field] = `Max value must >= ${rule.min}, and <= ${rule.max}`
+                        }
+                    } else if (rule.max && value < rule.max) {
+                        valid[field] = `Max value must <= ${rule.max}`
+                    } else if (rule.min && value < rule.min) {
+                        valid[field] = `Min value must >= ${rule.min}`
+                    }
+                    break
+                case 'object':
+                    if (rule.required && !value) {
+                        valid[field] = 'Required field'
+                    }
+                    break
+            }
+        }
+    })
+    return Object.keys(valid).length > 0 ? valid : undefined
 }
 
 export const useForm = ({ page, defaultValue }: IProps) => {
@@ -17,11 +74,12 @@ export const useForm = ({ page, defaultValue }: IProps) => {
     const uniqueId = useMemo(() => (page ? getId(FORM_SUFFIX, page) : id), [id, page])
     const formRef = useRef<FormClassComponent>()
 
-    const FormWrapper = ({ render, onSubmit }: FormWrapperProps) => {
+    const FormWrapper = ({ render, rules, onSubmit }: FormWrapperProps) => {
         return (
             <Form
                 id={uniqueId}
                 ref={formRef}
+                validator={validator.bind(null, rules)}
                 onSubmit={(data) => {
                     if (onSubmit) {
                         onSubmit(data)
@@ -36,6 +94,7 @@ export const useForm = ({ page, defaultValue }: IProps) => {
     return {
         id: uniqueId,
         form: formRef.current,
+        validator,
         FormWrapper,
     }
 }

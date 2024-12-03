@@ -1,3 +1,6 @@
+export * from './field-label'
+export * from './field-error'
+export * from './base-form-field'
 export * from './form-text'
 export * from './form-numeric'
 export * from './form-checkbox'

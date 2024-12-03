@@ -21,7 +21,8 @@
 .k-drawer-item:focus:after,
 .k-drawer-item.k-focus:after {
     box-shadow: inset 0 0 0 1px rgba(0, 40, 132, 0.5);
-} */
+} 
+*/
 
 .k-input-solid:focus,
 .k-input-solid.k-focus {
@@ -61,7 +62,7 @@
 }
 
 .k-spreadsheet-selection {
-    background-color: color-mix(in srgb, var(--kendo-color-primary) 10%, transparent);
+    background-color: color-mix(in srgb, var(--kendo-color-primary) 8%, transparent);
 }
 
 .k-drawer-wrapper {
@@ -79,4 +80,39 @@
 *,
 .k-drawer-wrapper {
     scrollbar-color: var(--scroll-color) var(--kendo-color-surface-alt);
+}
+
+.k-input-solid:focus-within {
+    border-color: var(--kendo-color-light);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--kendo-color-light) 8%, transparent);
+}
+
+.k-invalid.k-input-solid {
+    border-style: dashed;
+}
+
+.k-invalid.k-input-solid:focus-within {
+    border-color: var(--kendo-color-error);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--kendo-color-error) 8%, transparent);
+}
+
+.k-label {
+    font-weight: 500;
+    color: color-mix(in srgb, var(--kendo-color-on-app-surface) 50%, transparent);
+}
+
+.k-label.k-text-error {
+    color: color-mix(in srgb, var(--kendo-color-error) 90%, transparent);
+}
+
+.k-input-solid:focus-within+.k-label {
+    color: color-mix(in srgb, var(--kendo-color-light) 90%, transparent);
+}
+
+.k-input-solid:focus-within+.k-label.k-text-error {
+    color: color-mix(in srgb, var(--kendo-color-error) 90%, transparent);
+}
+
+.k-window {
+    border: 1px solid var(--kendo-color-light);
 }

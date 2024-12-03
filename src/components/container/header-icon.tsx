@@ -21,7 +21,13 @@ export const HeaderIcon = observer<IProps>(({ width = 40, height = 40, ...others
                 height,
             }}
         >
-            <Button {...others} themeColor={'light'} fillMode={'clear'} rounded={'full'} />
+            <Button
+                {...others}
+                themeColor={'light'}
+                fillMode={'clear'}
+                rounded={'full'}
+                title={'Toggle collapse menu'}
+            />
         </Root>
     )
 })

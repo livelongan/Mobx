@@ -6,17 +6,23 @@ import {
     GridLayoutHandle,
     GridLayoutProps,
 } from '@progress/kendo-react-layout'
-import { FIELD_LAYOUT_FLAG, FIELD_MIN_WIDTH, GAP, MAX_GRID_COLUMN } from '../../constants'
+import {
+    FIELD_GAP,
+    FIELD_LAYOUT_FLAG,
+    FIELD_MIN_WIDTH,
+    GAP,
+    FIELD_MAX_COLUMN,
+} from '../../constants'
 import { useStores } from '../../stores'
 import { getGridLayout } from '../../utils'
 import { autorun } from 'mobx'
+
 const PADDING = GAP.large
 
-const Layout = styled(GridLayout)`
+const FieldLayout = styled(GridLayout)`
     flex: 1;
-    padding: ${PADDING}px;
-    padding-top: 0;
-    padding-right: ${PADDING / 2}px;
+    padding: ${PADDING / 2}px;
+    padding-left: ${PADDING}px;
     margin-right: ${PADDING / 2}px;
     grid-auto-rows: min-content;
     grid-template-columns: repeat(auto-fill, ${FIELD_MIN_WIDTH}px);
@@ -26,7 +32,7 @@ export const useFieldLayout = () => {
     const { baseStore } = useStores()
     const [width, setWidth] = useState<number>()
     const [cols, setCols] = useState<GridLayoutColumnProps[]>()
-    const [maxSpan, setMaxSpan] = useState<number>(MAX_GRID_COLUMN)
+    const [maxSpan, setMaxSpan] = useState<number>(FIELD_MAX_COLUMN)
     const ref: React.RefObject<GridLayoutHandle> = useRef(null)
 
     const resize = useCallback(() => {
@@ -91,15 +97,15 @@ export const useFieldLayout = () => {
         ({ children, className, ...others }: PropsWithChildren<GridLayoutProps>) => {
             const cls = `${FIELD_LAYOUT_FLAG} ${className ?? ''}`.trim()
             return (
-                <Layout
+                <FieldLayout
                     {...others}
                     cols={cols}
                     className={cls}
-                    gap={{ cols: GAP.middle, rows: 0 }}
+                    gap={{ cols: FIELD_GAP, rows: 0 }}
                     ref={ref}
                 >
                     {children}
-                </Layout>
+                </FieldLayout>
             )
         },
     )

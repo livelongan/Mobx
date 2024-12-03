@@ -2,7 +2,7 @@ import { FormElement } from '@progress/kendo-react-form'
 import { PropsWithChildren } from 'react'
 import { styled } from 'styled-components'
 import { StackLayoutProps } from '@progress/kendo-react-layout'
-import { FORM_LAYOUT_FLAG } from '../../constants'
+import { FIELD_LAYOUT_FLAG, FORM_LAYOUT_FLAG } from '../../constants'
 
 const Root = styled(FormElement)`
     height: 100%;
@@ -14,9 +14,14 @@ const Layout = styled.div`
     height: 100%;
     min-height: 0;
     min-width: 0;
-    & .field-layout:first-child {
+
+    .${FIELD_LAYOUT_FLAG}:first-child {
         overflow: hidden;
         overflow-y: overlay;
+    }
+
+    .k-form-field {
+        margin-top: 0;
     }
 `
 

@@ -1,30 +1,35 @@
-import { observer } from 'mobx-react-lite'
-import { Error } from '@progress/kendo-react-labels'
 import { TextBox, TextBoxProps } from '@progress/kendo-react-inputs'
 import { BaseFieldProps, BaseRenderProps } from './types'
-import { getId } from '../../utils'
-import { Wrapper } from './wrapper'
+import { memo } from 'react'
+import { BaseFormField } from './base-form-field'
+import { BaseField, useBaseField } from './base-field'
 
 export type FormTextProps = BaseFieldProps & Partial<TextBoxProps>
-export type TextRenderProps = BaseRenderProps & Partial<FormTextProps>
+export type TextRenderProps = BaseRenderProps & FormTextProps
 
-export const TextField = (fieldProps: TextRenderProps) => {
-    const { page, mode = 'view', validationMessage, visited, ...others } = fieldProps
-
+export const TextField = memo((props: TextRenderProps) => {
+    const { page, mode = 'view', label, validationMessage, ...others } = props
+    const { error, id } = useBaseField(props)
     return (
-        <>
-            <TextBox id={getId(`${page}-${mode}-field-${others.name}`)} {...others} />
-            {visited && validationMessage && <Error>{validationMessage}</Error>}
-        </>
+        <BaseField {...props}>
+            <TextBox title={props.value} rounded={null} id={id} {...others} valid={!error} />
+        </BaseField>
     )
-}
+})
 
-export const FormText = observer((props: FormTextProps) => {
-    const { name, label } = props
+export const FormText = memo((props: FormTextProps) => {
+    const { name, label, rule } = props
     return (
-        <Wrapper
+        <BaseFormField
             name={name}
-            component={(renderProps) => <TextField {...props} {...renderProps} />}
+            component={(renderProps) => (
+                <TextField
+                    required={rule?.required}
+                    minLength={rule?.min}
+                    {...props}
+                    {...renderProps}
+                />
+            )}
             label={label}
         />
     )

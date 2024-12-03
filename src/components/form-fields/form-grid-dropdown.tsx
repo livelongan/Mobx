@@ -3,7 +3,7 @@ import { Error } from '@progress/kendo-react-labels'
 import { MultiColumnComboBox, MultiColumnComboBoxProps } from '@progress/kendo-react-dropdowns'
 import { BaseFieldProps, BaseRenderProps } from './types'
 import { getId } from '../../utils'
-import { Wrapper } from './wrapper'
+import { BaseFormField } from './base-form-field'
 
 export type FormGridDropdownProps = BaseFieldProps & Partial<MultiColumnComboBoxProps>
 export type GridDropdownRenderProps = BaseRenderProps & Partial<FormGridDropdownProps>
@@ -26,7 +26,7 @@ export const GridDropdownField = (fieldProps: GridDropdownRenderProps) => {
 export const FormGridDropdown = observer((props: FormGridDropdownProps) => {
     const { name, label } = props
     return (
-        <Wrapper
+        <BaseFormField
             name={name}
             component={(renderProps) => <GridDropdownField {...props} {...renderProps} />}
             label={label}

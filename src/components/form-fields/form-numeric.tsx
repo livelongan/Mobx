@@ -3,7 +3,7 @@ import { Error } from '@progress/kendo-react-labels'
 import { NumericTextBox, NumericTextBoxProps } from '@progress/kendo-react-inputs'
 import { BaseFieldProps, BaseRenderProps } from './types'
 import { getId } from '../../utils'
-import { Wrapper } from './wrapper'
+import { BaseFormField } from './base-form-field'
 
 export type FormNumericProps = BaseFieldProps &
     Partial<NumericTextBoxProps> & {
@@ -30,7 +30,7 @@ export const NumericField = (fieldProps: NumericRenderProps) => {
 export const FormNumeric = observer((props: FormNumericProps) => {
     const { name, label } = props
     return (
-        <Wrapper
+        <BaseFormField
             name={name}
             component={(renderProps) => <NumericField {...props} {...renderProps} />}
             label={label}

@@ -8,9 +8,11 @@ import {
     FieldLayoutItem,
     BaseButton,
     FormMode,
+    FormRule,
 } from '../../components'
 import { useState } from 'react'
 import { ProjectType } from '../../models'
+import { PATTERN } from '../../constants'
 
 type IProps = {
     page: string
@@ -19,7 +21,14 @@ type IProps = {
     onSubmit: (data: ProjectType) => void
     onCancel: () => void
 }
-
+const RULES: FormRule = {
+    id: {
+        required: true,
+        max: 10,
+        min: 3,
+        pattern: PATTERN.integer,
+    },
+}
 export const FormDetails = ({ page, mode, data, onSubmit, onCancel }: IProps) => {
     const { FieldLayout, maxSpan } = useFieldLayout()
     const [details] = useState<ProjectType>(data)
@@ -32,16 +41,30 @@ export const FormDetails = ({ page, mode, data, onSubmit, onCancel }: IProps) =>
 
     return (
         <FormWrapper
+            rules={RULES}
             onSubmit={handleSubmit}
             render={(prop) => {
                 return (
                     <FormLayout>
                         <FieldLayout>
                             <FieldLayoutItem colSpan={maxSpan}>
-                                <FormText name={'id'} label={'ID'} page={page} mode={mode} />
+                                <FormText
+                                    name={'id'}
+                                    label={'ID'}
+                                    page={page}
+                                    mode={mode}
+                                    rule={RULES['id']}
+                                />
                             </FieldLayoutItem>
                             <FieldLayoutItem>
-                                <FormText name={'name'} label={'Name'} page={page} mode={mode} />
+                                <FormText
+                                    name={'name'}
+                                    label={'Name'}
+                                    page={page}
+                                    mode={mode}
+                                    readOnly
+                                    hint="FormText"
+                                />
                             </FieldLayoutItem>
                             <FieldLayoutItem>
                                 <FormText name={'age'} label={'age'} page={page} mode={mode} />
@@ -57,7 +80,7 @@ export const FormDetails = ({ page, mode, data, onSubmit, onCancel }: IProps) =>
                             <FieldLayoutItem>
                                 <FormText
                                     name={'handle'}
-                                    label={'handle'}
+                                    label={'Handle'}
                                     page={page}
                                     mode={mode}
                                 />
@@ -66,7 +89,7 @@ export const FormDetails = ({ page, mode, data, onSubmit, onCancel }: IProps) =>
                                 <FormText name={'work'} label={'Work'} page={page} mode={mode} />
                             </FieldLayoutItem>
                             <FieldLayoutItem>
-                                <FormText name={'togo'} label={'ToGo'} page={page} mode={mode} />
+                                <FormText name={'togo'} label={'Togo'} page={page} mode={mode} />
                             </FieldLayoutItem>
                             <FieldLayoutItem>
                                 <FormText

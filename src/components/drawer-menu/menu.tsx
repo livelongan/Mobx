@@ -33,7 +33,7 @@ const Handler = styled('div')`
     position: absolute;
     height: 100%;
     width: ${HANDLER_WIDTH}px;
-    opacity: 0.6;
+    opacity: 1;
     &:hover {
         cursor: e-resize;
         background: var(--kendo-color-base-emphasis);
